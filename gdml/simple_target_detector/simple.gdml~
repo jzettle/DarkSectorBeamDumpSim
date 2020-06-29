@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<gdml xmlns:gdml="http://cern.ch/2001/Schemas/GDML" 
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+      xsi:noNamespaceSchemaLocation="../schema/gdml.xsd" >
+
+  <define>
+    <!-- Constants --> 
+    <constant name="twopi" value="2*pi" />
+    <!-- Quantities -->
+    <quantity name="world_x" unit="m" value="100" />
+    <quantity name="world_y" unit="m" value="100" />
+    <quantity name="world_z" unit="m" value="100" />
+    <quantity name="target_x" unit="m" value="3.6" />
+    <quantity name="target_y" unit="cm" value="27.0" />
+    <quantity name="target_z" unit="cm" value="27.0" />
+    <quantity name="dumpShift" unit="m" value="1.8" />
+    <quantity name="det_face_distance" unit="m" value="18.0" />
+    <quantity name="det_x" unit="m" value="6.0" />
+    <quantity name="det_y" unit="m" value="6.0" />
+    <quantity name="det_z" unit="m" value="6.0" />
+    <quantity name="LArCyl_rmin" unit="m" value="0.0" />
+    <quantity name="LArCyl_rmax" unit="m" value="2.5" />
+    <quantity name="LArCyl_z" unit="m" value="5.0" />
+    <!-- Positions -->
+    <position name="targetPos" unit="m" x="-dumpShift" y="0.0" z="0.0" />
+    <position name="detPos" unit="m" x="det_face_distance+det_x" y="0.0" z="0.0" />
+    <position name="LArCylPos" unit="m" x="0.0" y="0.0" z="0.0" />
+  </define>
+
+  <materials>
+    <element name="Hydrogen" formula="H" Z="1."> <atom value="1.01"/>
+    </element>
+    <element name="Oxygen" formula="O" Z="8."> <atom value="16.0"/>
+    </element>
+    <element name="Carbon" formula="C" Z="6."> <atom value="12.01"/>
+    </element>
+    <element name="Argon" formula="Ar" Z="18."> <atom value="39.95"/>
+    </element>
+    <material name="Air">
+      <D value="1.290" unit="mg/cm3"/>
+      <fraction n="0.7" ref="Nitrogen"/>
+      <fraction n="0.3" ref="Oxygen"/>
+    </material>
+    <material name="Graphite">
+      <D value="1.78" unit="g/cm3"/>
+      <composite n="1" ref="Carbon"/>
+    </material>
+    <material name="liquidArgon" formula="LAr">
+      <D value="1.4" unit="g/cm3"/>
+      <composite n="1" ref="Argon"/>
+    </material>
+  </materials>
+
+  <solids>
+    <box name="WorldSolid" x="world_x" y="world_y" z="world_z" />
+    <box name="TargetSolid" x="target_x" y="target_y" z="target_z" />
+    <box name="FullDetectorSolid" x="det_x" y="det_y" z="det_z" />
+    <tube name="LArCylSolid z="LArCyl_z" rmax="LArCyl_rmax deltaphi="twopi" />
+  </solids>
+
+  <structure>
+    <volume name="LArCylVol>
+      <materialref ref="liquidArgon" />
+      <solidref ref="LArCylVolSolid" />
+    </volume>
+    <volume name="FullDetectorVol">
+      <materialref ref="liquidArgon" />
+      <solidref ref="FullDetectorSolid" />
+      
+      <physvol name="LArCylVol">
+        <volumeref ref="LArCylVol" />
+	<positionref ref="LArCylPos" /> 
+      </physvol>
+    </volume>
+    <volume name="TargetVol">
+      <materialref ref="Graphite" />
+      <solidref ref="TargetSolid" />
+    </volume>
+
+    <volume name="World" >
+      <materialref ref="Air" />
+      <solidref ref="WorldSolid" />
+      
+      <physvol name="FullDetectorVol">
+        <volumeref ref="FullDetectorVol" />
+	<positionref ref="detPos" />
+      </physvol>
+      
+      <physvol name="TargetVol" >
+        <volumeref ref="TargetVol" />
+	<positionref ref="targetPos" />
+      </physvol>
+    </volume>
+  </structure>
+
+  <setup name="Simple" version="1.0">
+    <world ref="World"/>
+  </setup>
+</gdml>
+   
+		          

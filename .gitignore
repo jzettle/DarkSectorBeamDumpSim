@@ -1,0 +1,9 @@
+*.o
+*~
+DarkSectorSim
+*.gif
+*.png
+*.root
+*.pdf
+*.heprep
+/build

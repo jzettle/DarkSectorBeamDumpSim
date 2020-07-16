@@ -96,11 +96,6 @@ DarkSectorSimPhysicsList::~DarkSectorSimPhysicsList(){
   //delete fPhysicsListMessenger;
 }
 
-void DarkSectorSimPhysicsList::SetScint(G4bool scint)
-{
-  fScint = scint;
-}
-
 void DarkSectorSimPhysicsList::ConstructParticle()
 {
   G4VModularPhysicsList::ConstructParticle();
@@ -177,12 +172,12 @@ void DarkSectorSimPhysicsList::ConstructProcess()
   //G4OpticalSurfaceModel Model = unified;
   //theBoundaryProcess->SetModel(Model);
   //auto particleIterator = GetParticleIterator();
-  /*
-  GetParticleIterator->reset();
+
+  GetParticleIterator()->reset();
   //Add scintillation and cherenkov processes to particles
   while((*GetParticleIterator())()) 
   {
-    G4ParticleDefinition* particle = GetParticleIterator->value();
+    G4ParticleDefinition* particle = GetParticleIterator()->value();
     G4ProcessManager* manager = particle->GetProcessManager();
     G4String partName = particle->GetParticleName();
     
@@ -194,7 +189,7 @@ void DarkSectorSimPhysicsList::ConstructProcess()
     
     if(partName == "neutron")
     {
-      manager->AddDiscreteProcess(theNeutronElasticProcess);
+      //manager->AddDiscreteProcess(theNeutronElasticProcess);
       //if(fScint)
       manager->AddProcess(theScintillationProcessNeutron);
       manager->SetProcessOrderingToLast(theScintillationProcessNeutron, idxPostStep);
@@ -257,5 +252,5 @@ void DarkSectorSimPhysicsList::ConstructProcess()
     }
     
   }
-  */
+ 
 }

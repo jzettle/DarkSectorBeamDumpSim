@@ -108,6 +108,7 @@
 /vis/geometry/set/visibility TargetVol              0 true
 /vis/geometry/set/visibility FullDetectorVol        0 true
 /vis/geometry/set/visibility LArCylVol		    0 true  
+/vis/geometry/set/visibility PMTVol		    0 true
 
 /vis/geometry/set/forceSolid TargetVol              0 true
 /vis/geometry/set/forceSolid FullDetectorVol        0 true
@@ -116,6 +117,7 @@
 /vis/geometry/set/colour TargetVol                  0 0.  1.  1.            # cyan
 /vis/geometry/set/colour FullDetectorVol            0 1.  0.  0.            # red
 /vis/geometry/set/colour LArCylVol                  0 1.  0.  0.            # green
+/vis/geometry/set/colour PMTVol			    0 1.  1.  1.	    # white
 
 
 

@@ -224,8 +224,8 @@ void DarkSectorSimAnalysis::PostUserTrackingAction(const G4Track* g4Track, G4Tra
   G4String name = g4Track->GetDefinition()->GetParticleName();
   G4double finalkineticenergy = g4Track->GetKineticEnergy();
   G4double time = g4Track->GetGlobalTime();
-  //if(name=="pi0" || name=="pi+" || name=="pi-" || name=="mu+" || name=="mu-") {
-  if(name == "pi+" || name == "mu+") {
+  if(name=="pi0" || name=="pi+" || name=="pi-" || name=="mu+" || name=="mu-") {
+  //if(name == "pi+" || name == "mu+") {
     G4TrackVector *children = fpTrackingManager->GimmeSecondaries();
     for(size_t i = 0; i<children->size(); i++) {
       G4Track *child = children->at(i);
@@ -304,9 +304,9 @@ void DarkSectorSimAnalysis::ClearVariables(void)
   fGenYPiPlus = 0;
   fGenZPiPlus = 0;
   fGenPiZero = 0;
-  fGenXPiZero =0;
-  fGenYPiZero =0;
-  fGenZPiZero =0;
+  fGenXPiZero = 0;
+  fGenYPiZero = 0;
+  fGenZPiZero = 0;
   fGenPiMinus = 0;
   fNuInDetector = 0;
   fPiDecayTime = 0;

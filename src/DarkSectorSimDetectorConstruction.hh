@@ -31,6 +31,9 @@ private:
   G4String fGDML_geom = "";
   void ConstructMaterials();
   G4LogicalVolume* GetWorldLogical() const;
+  void SetWLSProperties();
+  void SetReflProperties();
+  void SetArgonProperties();
 };
 
 #endif /* DARKSECTORSIM_DETECTOR_CONSTRUCTION_H */

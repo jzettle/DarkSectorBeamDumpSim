@@ -6,7 +6,6 @@
 
 #include "G4Cerenkov.hh" 
 #include "G4Scintillation.hh"
-#include "G4Scintillation.hh"
 #include "G4OpWLS.hh"
 #include "G4OpAbsorption.hh"
 #include "G4OpRayleigh.hh"
@@ -14,12 +13,10 @@
 #include "G4OpWLS.hh"
 
 class G4Scintillation;
-class G4Scintillation;
 class G4Cerenkov;
 class G4OpAbsorption;
 class G4OpRayleigh;
 class G4OpBoundaryProcess;
-class G4OpWLS;
 class G4OpWLS;
 class G4VPhysicsConstructor;
 

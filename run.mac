@@ -1,6 +1,6 @@
 /run/verbose 1
 #/tracking/verbose 1
-/analysis/setOutputFileName testRunWOpt.root
+/analysis/setOutputFileName GraphiteTargetBERTModel.root
 /run/initialize
 /generator/setGenerator gps
 /gps/particle proton

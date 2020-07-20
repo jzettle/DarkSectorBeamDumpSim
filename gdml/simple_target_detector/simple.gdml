@@ -19,6 +19,7 @@
     <quantity name="world_y" unit="m" value="500.0" />
     <quantity name="world_z" unit="m" value="500.0" />
     <quantity name="target_x" unit="m" value="3.6" />
+    <!-- <quantity name="target_x" unit="cm" value="0.5" /> -->
     <quantity name="target_y" unit="cm" value="27.0" />
     <quantity name="target_z" unit="cm" value="27.0" />
     <quantity name="dumpShift" unit="m" value="1.8" />
@@ -34,14 +35,19 @@
     <quantity name="reflector_rmin" unit="cm" value="224.6825" />
     <quantity name="reflector_rmax" unit="cm" value="225.0" />
     <quantity name="reflector_z" unit="cm" value="450.0" />
+    <quantity name="wls_rmin" unit="cm" value="224.6823" />
+    <quantity name="wls_rmax" unit="cm" value="224.6825" />
+    <quantity name="wls_z" unit="cm" value="450.0" />
     <quantity name="endcap_rmin" unit="cm" value="0.0" />
     <quantity name="endcap_rmax" unit="cm" value="225" />
     <quantity name="endcap_z" unit="cm" value="0.3175" />
     <!-- Positions -->
     <position name="targetPos" unit="m" x="-1.8" y="0.0" z="0.0" />
+    <!-- <position name="targetPos" unit="m" x="-3.5975" y="0.0" z="0.0" /> -->
     <position name="detPos" unit="m" x="24.0" y="0.0" z="0.0" />
     <position name="LArCylPos" unit="cm" x="0.0" y="0.0" z="0.0" />
     <position name="ReflectorPos" unit="cm" x="0.0" y="0.0" z="0.0" />
+    <position name="WLSPos" unit="cm" x="0.0" y="0.0" z="0.0" />
     <position name="TopEndCapPos" unit="cm" x="0.0" y="0.0" z="230.0" />
     <position name="BotEndCapPos" unit="cm" x="0.0" y="0.0" z="-230.0" />
     &pmt_positions;
@@ -59,6 +65,8 @@
     </element>
     <element name="Fluorine" formula="F" Z="9"> <atom value="18.00"/>
     </element>
+    <element name="W_tungsten" formula="W" Z="74"> <atom value="183.84"/>
+    </element>
     <element name="Argon" formula="Ar" Z="18."> <atom value="39.95"/>
     </element>
     <material name="Air">
@@ -69,6 +77,10 @@
     <material name="Graphite">
       <D value="1.78" unit="g/cm3"/>
       <composite n="1" ref="Carbon"/>
+    </material>
+    <material name="Tungsten">
+      <D value="19.3" unit="g/cm3"/>
+      <composite n="1" ref="W_tungsten"/>
     </material>
     <material name="liquidArgon" formula="LAr">
       <D value="1.4" unit="g/cm3"/>
@@ -94,6 +106,7 @@
     <sphere name="PMTSolid" rmin="PMT_rmin" rmax="PMT_rmax" deltaphi="TWOPI" deltatheta="PI" />
     <tube name="PMTHole" z="endcap_z" rmin="PMT_rmin" rmax="PMT_rmax" deltaphi="TWOPI" />
     <tube name="ReflectorSolid" z="reflector_z" rmin="reflector_rmin" rmax="reflector_rmax" deltaphi="TWOPI" />
+    <tube name="WLSSolid" z="wls_z" rmin="wls_rmin" rmax="wls_rmax" deltaphi="TWOPI" />
     <tube name="CapWithPMTHole0" z="endcap_z" rmin="endcap_rmin" rmax="endcap_rmax" deltaphi="TWOPI" />
     &endcap_sub;
   </solids>
@@ -105,8 +118,13 @@
     </volume>
 
     <volume name="ReflectorLog">
-      <materialref ref="TPB" />
+      <materialref ref="PTFE" />
       <solidref ref="ReflectorSolid" />
+    </volume>
+    
+    <volume name="WLSLog">
+      <materialref ref="TPB" />
+      <solidref ref="WLSSolid" />
     </volume>
 
     <volume name="EndCapLog">
@@ -123,6 +141,11 @@
       <physvol name="ReflectorVol">
 	<volumeref ref="ReflectorLog" />
 	<positionref ref="ReflectorPos" />
+      </physvol>
+      
+      <physvol name="WLSVol">
+	<volumeref ref="WLSLog" />
+	<positionref ref="WLSPos" />
       </physvol>
 
       <physvol name="TopEndCapVol">

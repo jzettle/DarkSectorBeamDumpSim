@@ -66,7 +66,8 @@ DarkSectorSimPhysicsList::DarkSectorSimPhysicsList(G4String name): G4VModularPhy
   construct->push_back("G4EmExtraPhysics"); //gamma-nuc and muon-nuc
   construct->push_back("G4DecayPhysics");  //decays (for cal source simulations)
   construct->push_back("G4HadronElasticPhysicsHP"); //self-explanatory
-  construct->push_back("G4HadronPhysicsQGSP_BERT_HP"); 
+  construct->push_back("G4HadronPhysicsQGSP_BERT_HP"); //Bertini Cascade Model
+  //construct->push_back("G4HadronPhysicsQGSP_BIC_HP");
   construct->push_back("G4StoppingPhysics");
   construct->push_back("G4IonPhysics");
   //construct->push_back("G4NeutronTrackingCut");
@@ -172,7 +173,7 @@ void DarkSectorSimPhysicsList::ConstructProcess()
   //G4OpticalSurfaceModel Model = unified;
   //theBoundaryProcess->SetModel(Model);
   //auto particleIterator = GetParticleIterator();
-
+  /*
   GetParticleIterator()->reset();
   //Add scintillation and cherenkov processes to particles
   while((*GetParticleIterator())()) 
@@ -252,5 +253,5 @@ void DarkSectorSimPhysicsList::ConstructProcess()
     }
     
   }
- 
+  */
 }

@@ -6,4 +6,4 @@ DarkSectorSim
 *.root
 *.pdf
 *.heprep
-/build
+build/

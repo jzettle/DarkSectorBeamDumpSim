@@ -1,5 +1,5 @@
 /run/verbose 1
-/tracking/verbose 1
+/tracking/verbose 2
 /analysis/setOutputFileName testPhot.root
 /run/initialize
 /generator/setGenerator gps

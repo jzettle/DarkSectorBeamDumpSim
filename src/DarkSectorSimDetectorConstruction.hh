@@ -34,6 +34,7 @@ private:
   void SetWLSProperties();
   void SetReflProperties();
   void SetArgonProperties();
+  void SetReflSurface(G4VPhysicalVolume* exitVol, G4VPhysicalVolume* enterVol, G4double refl, G4double sigmaAlpha);
 };
 
 #endif /* DARKSECTORSIM_DETECTOR_CONSTRUCTION_H */

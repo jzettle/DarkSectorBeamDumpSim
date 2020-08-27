@@ -6,11 +6,11 @@
 /gps/particle proton
 /gps/ene/type Mono
 /gps/ene/mono 800. MeV
-/gps/pos/type Plane
-/gps/pos/shape Rectangle
+/gps/pos/type Beam
+#/gps/pos/shape Rectangle
 /gps/pos/centre -3.61 0. 0. m
-/gps/pos/halfx 1.0 cm
-/gps/pos/halfy 1.0 cm
+/gps/pos/halfx 20.0 cm
+/gps/pos/halfy 20.0 cm
 /gps/pos/sigma_x 4.5 cm
 /gps/pos/sigma_y 4.5 cm
 #/gps/ang/type focused

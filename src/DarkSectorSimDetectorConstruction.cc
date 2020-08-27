@@ -21,6 +21,7 @@
 
 #include "G4VPhysicalVolume.hh"
 #include "G4PVPlacement.hh"
+#include "G4PhysicalVolumeStore.hh"
 
 #include "G4Isotope.hh"
 #include "G4Element.hh"
@@ -36,6 +37,8 @@
 #include "G4VisAttributes.hh"
 
 #include "G4GDMLParser.hh"
+
+#include "TString.h"
 
 #include "DarkSectorSimDetectorConstruction.hh"
 
@@ -88,6 +91,12 @@ G4VPhysicalVolume* DarkSectorSimDetectorConstruction::Construct()
   SetReflProperties();
   G4cout << "Setting up Argon Properties!" << G4endl;
   SetArgonProperties();
+  
+  G4PhysicalVolumeStore *physvolstore = G4PhysicalVolumeStore::GetInstance();
+  G4VPhysicalVolume *reflVol = physvolstore->GetVolume("ReflectorVol");
+  G4VPhysicalVolume *wlsVol = physvolstore->GetVolume("WLSVol");
+  G4double reflectivity = 0.99;
+  SetReflSurface(wlsVol, reflVol, reflectivity, 0.05);
 
   return worldPhys;
 }
@@ -204,6 +213,29 @@ void DarkSectorSimDetectorConstruction::SetReflProperties()
   ReflProp->AddProperty("RINDEX", ReflEnergy, ReflRefIndex, numReflBins);
   ReflProp->AddProperty("REFLECTIVITY", ReflEnergy, ReflReflectivity, numReflBins);
   Reflector->SetMaterialPropertiesTable(ReflProp);
+}
+
+void DarkSectorSimDetectorConstruction::SetReflSurface(G4VPhysicalVolume *exitVol, G4VPhysicalVolume *enterVol, G4double reflectivity, G4double sigmaAlpha)
+{
+  G4OpticalSurface *SurfRefl = new G4OpticalSurface("Reflector");
+  SurfRefl->SetType(dielectric_dielectric);
+  SurfRefl->SetModel(unified);
+  if(sigmaAlpha <= 0.0)
+     SurfRefl->SetFinish(polished);
+  else
+  {
+    SurfRefl->SetFinish(ground);
+    SurfRefl->SetSigmaAlpha(sigmaAlpha);
+  }
+  const G4int numReflBins = 2;
+  G4double ReflEnergy[numReflBins] = {0.1*eV, 1600*eV};
+  G4double ReflReflectivity[numReflBins] = {0.99, 0.99};
+  G4MaterialPropertiesTable *ReflSurfProp = new G4MaterialPropertiesTable();
+  ReflSurfProp->AddProperty("REFLECTIVITY", ReflEnergy, ReflReflectivity, numReflBins); 
+  SurfRefl->SetMaterialPropertiesTable(ReflSurfProp);
+  G4String surfName(Form("surf_%s_%s", exitVol->GetName().data(), enterVol->GetName().data()));
+  new G4LogicalBorderSurface(surfName, exitVol, enterVol, SurfRefl);
+
 }
 
 void DarkSectorSimDetectorConstruction::SetArgonProperties()

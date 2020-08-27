@@ -83,10 +83,10 @@ print("Total PMTs / endcap ", len(pmt_circles))
 
 #create gdml backends for endcap with holes and pmt positions
 
-pos_out = open('../pmt_endcap_positions.xml', 'w')
-place_out = open('../pmt_placement.xml', 'w')
-endcap_out = open('../endcap_subsolid.xml', 'w')
-hole_out = open('../endcap_pmthole_positions.xml', 'w')
+pos_out = open('../simple_target_detector/pmt_endcap_positions.xml', 'w')
+place_out = open('../simple_target_detector/pmt_placement.xml', 'w')
+endcap_out = open('../simple_target_detector/endcap_subsolid.xml', 'w')
+hole_out = open('../simple_target_detector/endcap_pmthole_positions.xml', 'w')
 
 for i,pmt in enumerate(pmt_circles):
     print("<position name=\"PMT_pos%d\" unit=\"cm\" x=\"%.3f\" y=\"%.3f\" z=\"%.3f\" />"%(i,pmt.GetX1(), pmt.GetY1(), pmt_height), file=pos_out)

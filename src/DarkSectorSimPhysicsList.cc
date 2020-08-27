@@ -173,7 +173,7 @@ void DarkSectorSimPhysicsList::ConstructProcess()
   //G4OpticalSurfaceModel Model = unified;
   //theBoundaryProcess->SetModel(Model);
   //auto particleIterator = GetParticleIterator();
-  /*
+  
   GetParticleIterator()->reset();
   //Add scintillation and cherenkov processes to particles
   while((*GetParticleIterator())()) 
@@ -253,5 +253,5 @@ void DarkSectorSimPhysicsList::ConstructProcess()
     }
     
   }
-  */
+ 
 }

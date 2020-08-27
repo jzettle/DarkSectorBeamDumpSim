@@ -2,6 +2,9 @@
 <!DOCTYPE gdml [
 <!ENTITY pmt_positions SYSTEM "pmt_endcap_positions.xml">
 <!ENTITY pmt_placements SYSTEM "pmt_placement.xml">
+<!ENTITY sidewall_pmt_positions SYSTEM "pmt_sidewall_positions.xml">
+<!ENTITY sidewall_pmt_rotations SYSTEM "pmt_sidewall_rotations.xml">
+<!ENTITY sidewall_pmt_placements SYSTEM "pmt_sidewall_placements.xml">
 <!ENTITY endcap_holes SYSTEM "endcap_pmthole_positions.xml">
 <!ENTITY endcap_sub SYSTEM "endcap_subsolid.xml">
 ]>
@@ -15,32 +18,32 @@
     <constant name="pmtrad" value="4.0*2.54" />
     <constant name="PI" value="1.0*pi" />
     <!-- Quantities -->
-    <quantity name="world_x" unit="m" value="500.0" />
-    <quantity name="world_y" unit="m" value="500.0" />
-    <quantity name="world_z" unit="m" value="500.0" />
-    <quantity name="target_x" unit="m" value="3.6" />
+    <quantity name="world_x" value="500000.0" unit="mm" />
+    <quantity name="world_y" unit="mm" value="500000.0" />
+    <quantity name="world_z" unit="mm" value="500000.0" />
+    <quantity name="target_x" value="3600.0" unit="mm" />
     <!-- <quantity name="target_x" unit="cm" value="0.5" /> -->
-    <quantity name="target_y" unit="cm" value="27.0" />
-    <quantity name="target_z" unit="cm" value="27.0" />
-    <quantity name="dumpShift" unit="m" value="1.8" />
-    <quantity name="det_face_distance" unit="m" value="18.0" />
-    <quantity name="det_x" unit="cm" value="600.0" />
-    <quantity name="det_y" unit="cm" value="600.0" />
-    <quantity name="det_z" unit="cm" value="600.0" />
-    <quantity name="LArCyl_rmin" unit="cm" value="0.0" />
-    <quantity name="LArCyl_rmax" unit="cm" value="250.0" />
-    <quantity name="LArCyl_z" unit="cm" value="500.0" />
-    <quantity name="PMT_rmin" unit="cm" value="0.0" />
-    <quantity name="PMT_rmax" unit="cm" value="10.16" />
-    <quantity name="reflector_rmin" unit="cm" value="224.6825" />
-    <quantity name="reflector_rmax" unit="cm" value="225.0" />
-    <quantity name="reflector_z" unit="cm" value="450.0" />
-    <quantity name="wls_rmin" unit="cm" value="224.6823" />
-    <quantity name="wls_rmax" unit="cm" value="224.6825" />
-    <quantity name="wls_z" unit="cm" value="450.0" />
-    <quantity name="endcap_rmin" unit="cm" value="0.0" />
-    <quantity name="endcap_rmax" unit="cm" value="225" />
-    <quantity name="endcap_z" unit="cm" value="0.3175" />
+    <quantity name="target_y" value="270.0" unit="mm" />
+    <quantity name="target_z" value="270.0" unit="mm" />
+    <quantity name="dumpShift" unit="mm" value="18000.0" />
+    <quantity name="det_face_distance" unit="mm" value="18000.0" />
+    <quantity name="det_x" value="6000.0" unit="mm" />
+    <quantity name="det_y" value="6000.0" unit="mm" />
+    <quantity name="det_z" value="6000.0" unit="mm" />
+    <quantity name="LArCyl_rmin" value="0.0" unit="mm" />
+    <quantity name="LArCyl_rmax" value="2500.0" unit="mm" />
+    <quantity name="LArCyl_z" unit="mm" value="5000.0" />
+    <quantity name="PMT_rmin" unit="mm" value="0.0" />
+    <quantity name="PMT_rmax" unit="mm" value="101.6" />
+    <quantity name="reflector_rmin" unit="mm" value="2246.825" />
+    <quantity name="reflector_rmax" unit="mm" value="2250.0" />
+    <quantity name="reflector_z" unit="mm" value="4500.0" />
+    <quantity name="wls_rmin" unit="mm" value="2246.823" />
+    <quantity name="wls_rmax" unit="mm" value="2246.825" />
+    <quantity name="wls_z" unit="mm" value="4500.0" />
+    <quantity name="endcap_rmin" unit="mm" value="0.0" />
+    <quantity name="endcap_rmax" unit="mm" value="2250.0" />
+    <quantity name="endcap_z" unit="mm" value="3.175" />
     <!-- Positions -->
     <position name="targetPos" unit="m" x="-1.8" y="0.0" z="0.0" />
     <!-- <position name="targetPos" unit="m" x="-3.5975" y="0.0" z="0.0" /> -->
@@ -48,9 +51,11 @@
     <position name="LArCylPos" unit="cm" x="0.0" y="0.0" z="0.0" />
     <position name="ReflectorPos" unit="cm" x="0.0" y="0.0" z="0.0" />
     <position name="WLSPos" unit="cm" x="0.0" y="0.0" z="0.0" />
-    <position name="TopEndCapPos" unit="cm" x="0.0" y="0.0" z="230.0" />
-    <position name="BotEndCapPos" unit="cm" x="0.0" y="0.0" z="-230.0" />
+    <position name="TopEndCapPos" unit="mm" x="0.0" y="0.0" z="230.0" />
+    <position name="BotEndCapPos" unit="mm" x="0.0" y="0.0" z="-230.0" />
     &pmt_positions;
+    &sidewall_pmt_positions;
+    &sidewall_pmt_rotations;
     &endcap_holes;
   </define>
 
@@ -99,15 +104,17 @@
   </materials>
   
   <solids>
-    <box name="WorldSolid" x="world_x" y="world_y" z="world_z" />
-    <box name="TargetSolid" x="target_x" y="target_y" z="target_z" />
-    <box name="FullDetectorSolid" x="det_x" y="det_y" z="det_z" />
-    <tube name="LArCylSolid" z="LArCyl_z" rmin="LArCyl_rmin" rmax="LArCyl_rmax" deltaphi="TWOPI" />
-    <sphere name="PMTSolid" rmin="PMT_rmin" rmax="PMT_rmax" deltaphi="TWOPI" deltatheta="PI" />
-    <tube name="PMTHole" z="endcap_z" rmin="PMT_rmin" rmax="PMT_rmax" deltaphi="TWOPI" />
-    <tube name="ReflectorSolid" z="reflector_z" rmin="reflector_rmin" rmax="reflector_rmax" deltaphi="TWOPI" />
-    <tube name="WLSSolid" z="wls_z" rmin="wls_rmin" rmax="wls_rmax" deltaphi="TWOPI" />
-    <tube name="CapWithPMTHole0" z="endcap_z" rmin="endcap_rmin" rmax="endcap_rmax" deltaphi="TWOPI" />
+    <box name="WorldSolid" lunit="mm" x="500000.0" y="500000.0" z="500000.0" />
+    <box name="TargetSolid" lunit="mm" x="3600.0" y="270.0" z="270.0" />
+    <!--<box name="FullDetectorSolid" x="det_x" y="det_y" z="det_z" lunit="mm" /> -->
+    <box name="FullDetectorSolid" lunit="mm" x="6000.0" y="6000.0" z="6000.0" />
+    <!-- <tube name="LArCylSolid" z="LArCyl_z" rmin="LArCyl_rmin" rmax="LArCyl_rmax" deltaphi="TWOPI" lunit="mm" /> -->
+    <tube name="LArCylSolid" lunit="mm" z="5000.0" rmin="0.0" rmax="2500.0" deltaphi="TWOPI"  />
+    <sphere name="PMTSolid" lunit="mm" rmin="0.0" rmax="101.6" deltaphi="TWOPI" deltatheta="PI" />
+    <tube name="PMTHole" z="endcap_z" rmin="PMT_rmin" rmax="PMT_rmax" deltaphi="TWOPI" lunit="mm" />
+    <tube name="ReflectorSolid" lunit="mm" z="4500.0" rmin="2246.825" rmax="2250.0" deltaphi="TWOPI" />
+    <tube name="WLSSolid" lunit="mm" z="4500" rmin="2246.823" rmax="2246.825" deltaphi="TWOPI" />
+    <tube name="CapWithPMTHole0" z="endcap_z" rmin="endcap_rmin" rmax="endcap_rmax" deltaphi="TWOPI" lunit="mm" />
     &endcap_sub;
   </solids>
 
@@ -126,18 +133,19 @@
       <materialref ref="TPB" />
       <solidref ref="WLSSolid" />
     </volume>
-
+    
     <volume name="EndCapLog">
       <materialref ref="TPB" />
       <solidref ref="EndCap" />
     </volume>
-
+    
     <volume name="LArCylLog">
       <materialref ref="liquidArgon" />
       <solidref ref="LArCylSolid" />
 
       &pmt_placements;
-      
+      <!--&sidewall_pmt_placements; -->
+
       <physvol name="ReflectorVol">
 	<volumeref ref="ReflectorLog" />
 	<positionref ref="ReflectorPos" />
@@ -147,12 +155,12 @@
 	<volumeref ref="WLSLog" />
 	<positionref ref="WLSPos" />
       </physvol>
-
+     <!--
       <physvol name="TopEndCapVol">
 	<volumeref ref="EndCapLog" />
 	<positionref ref="TopEndCapPos" />
       </physvol>
-
+      -->
     </volume>
 
     <volume name="FullDetectorLog">

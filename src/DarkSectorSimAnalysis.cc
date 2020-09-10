@@ -10,6 +10,10 @@
 #include "TRandom3.h"
 #include "Randomize.hh"
 #include "DarkSectorSimTrackingAction.hh"
+#include <string>
+#include <sstream>
+#include <stdlib.h>
+#include <algorithm>
 #include <limits>
 
 DarkSectorSimAnalysisMessenger::DarkSectorSimAnalysisMessenger(DarkSectorSimAnalysis* analysis)
@@ -107,7 +111,7 @@ void DarkSectorSimAnalysis::PrepareNewEvent(const G4Event* event)
   //After beginning of run, when a new event is created 
   ClearVariables();
   fEventNumber = event->GetEventID();
-  if(fEventNumber % 1000 == 0) {
+  if(fEventNumber % 10 == 0) {
     G4cout << "Event # "<<fEventNumber<<G4endl;
   }
 }
@@ -149,6 +153,7 @@ G4ClassificationOfNewTrack DarkSectorSimAnalysis::ClassifyNewTrack(const G4Track
   }
   if(g4Track->GetParentID() == 1 && g4Track->GetDefinition()->GetParticleName() == "pi-")
     ++fGenPiMinus;
+
   //if(g4Track->GetParentID() != 0)
   //{ 
       //Reset time for rad decay (e.g. Cs137 decay gives 1e10 yrs)
@@ -186,33 +191,84 @@ void DarkSectorSimAnalysis::SteppingAction(const G4Step* step)
     if(postStepVolume->GetName() == "LArCylVol")
       if(partname == "nu_mu" || partname == "nu_e" || partname == "anti_nu_mu" || partname == "anti_nu_e")
 	++fNuInDetector;
-    
-    
-    //G4OpBoundaryProcessStatus boundaryStatus = Undefined;
-    //G4OpBoundaryProcess* boundary = NULL;
-    //if(!boundary) {
-    //G4ProcessManager* pm = step->GetTrack()->GetDefinition()->GetProcessManager();
-    //G4int nprocesses = pm->GetProcessListLength();
-    //G4ProcessVector *pv = pm->GetProcessList();
-    //G4int i;
-    //for(i=0;i<nprocesses;i++)
-    //	if((*pv)[i]->GetProcessName()=="OpBoundary")
-    //{
-    //	  boundary = (G4OpBoundaryProcess*)(*pv)[i];
-    //	  break;
-    //	}
-    //}
-    //boundaryStatus=boundary->GetStatus();
-    //if(postStepPoint->GetStepStatus()==fGeomBoundary)
-    //  switch(boundaryStatus){
-    //case LambertianReflection:
-    //	break;
-    //default:
-    //	break;
-    //}
-	//if(preStepPoint->GetProcessDefinedStep()->GetProcessName() == "LambertianReflection")
-	//fReflectTeflon++;
-	//
+    if(stepTrack->GetDefinition() == G4OpticalPhoton::OpticalPhotonDefinition())
+    {
+      G4int numPMTendcap = 305;
+      G4int numPMTside = 610;
+      G4int pmtnum;
+      //G4cout << "Here" << G4endl;
+      G4bool cont = postVolName.contains("topcapPMT");
+      G4bool cont2 = postVolName.contains("bottomcapPMT");
+      G4bool cont3 = postVolName.contains("sidePMT");
+      if(step->GetTrack()->GetKineticEnergy()/eV < 6.0)
+      {
+	if(cont)
+	{
+	  const char* numstring = postVolName.remove(0,9).c_str();
+	  std::istringstream iss(numstring);
+	  iss >> pmtnum;        
+	  ++fPMTHitWLS[pmtnum];
+	  ++fTotalPMTHitWLS;
+	  ++fTotalPMTHit;
+	  fTrackLengthWLS.push_back(stepTrack->GetTrackLength());
+	  fPMTHitPosXWLS.push_back(postStepPoint->GetPosition().getX()/mm);
+	  fPMTHitPosYWLS.push_back(postStepPoint->GetPosition().getY()/mm);
+	  fPMTHitPosZWLS.push_back(postStepPoint->GetPosition().getZ()/mm);
+	}
+	if(cont2)
+	{
+	  const char* numstring = postVolName.remove(0,12).c_str();
+	  std::istringstream iss(numstring);
+	  iss >> pmtnum;
+	  pmtnum += numPMTendcap;
+	  ++fPMTHitWLS[pmtnum];
+	  ++fTotalPMTHitWLS;
+	  ++fTotalPMTHit;
+	  fTrackLengthWLS.push_back(stepTrack->GetTrackLength());
+	  fPMTHitPosXWLS.push_back(postStepPoint->GetPosition().getX()/mm);
+	  fPMTHitPosYWLS.push_back(postStepPoint->GetPosition().getY()/mm);
+	  fPMTHitPosZWLS.push_back(postStepPoint->GetPosition().getZ()/mm);
+	}
+	if(cont3)
+	{
+	  const char* numstring = postVolName.remove(0,7).c_str();
+	  std::istringstream iss(numstring);
+	  iss >> pmtnum; 
+	  pmtnum += numPMTendcap;
+	  ++fPMTHitWLS[pmtnum];
+	  ++fTotalPMTHitWLS;
+	  ++fTotalPMTHit;
+	  fTrackLengthWLS.push_back(stepTrack->GetTrackLength());
+	  fPMTHitPosXWLS.push_back(postStepPoint->GetPosition().getX()/mm);
+	  fPMTHitPosYWLS.push_back(postStepPoint->GetPosition().getY()/mm);
+	  fPMTHitPosZWLS.push_back(postStepPoint->GetPosition().getZ()/mm);
+	}
+      } 
+      
+      G4OpBoundaryProcessStatus boundaryStatus = Undefined;
+      G4OpBoundaryProcess* boundary = NULL;
+      if(!boundary) {
+	G4ProcessManager* pm = step->GetTrack()->GetDefinition()->GetProcessManager();
+	G4int nprocesses = pm->GetProcessListLength();
+	G4ProcessVector *pv = pm->GetProcessList();
+	G4int i;
+	for(i=0;i<nprocesses;i++)
+	  if((*pv)[i]->GetProcessName()=="OpBoundary")
+	    {
+	      boundary = (G4OpBoundaryProcess*)(*pv)[i];
+	      break;
+	    }
+      }
+      boundaryStatus=boundary->GetStatus();
+      if(postStepPoint->GetStepStatus()==fGeomBoundary)
+	switch(boundaryStatus){
+	case LambertianReflection:
+	  fReflectTeflon++;
+	  break;
+	default:
+	  break;
+	}
+    }
   }
 }
 
@@ -224,6 +280,12 @@ void DarkSectorSimAnalysis::PostUserTrackingAction(const G4Track* g4Track, G4Tra
   G4String name = g4Track->GetDefinition()->GetParticleName();
   G4double finalkineticenergy = g4Track->GetKineticEnergy();
   G4double time = g4Track->GetGlobalTime();
+
+  if(g4Track->GetDefinition() == G4OpticalPhoton::OpticalPhotonDefinition())
+  {
+    fNumReflections.push_back(fReflectTeflon);
+  }
+
   if(name=="pi0" || name=="pi+" || name=="pi-" || name=="mu+" || name=="mu-") {
   //if(name == "pi+" || name == "mu+") {
     G4TrackVector *children = fpTrackingManager->GimmeSecondaries();
@@ -252,11 +314,17 @@ void DarkSectorSimAnalysis::PostUserTrackingAction(const G4Track* g4Track, G4Tra
 	  {
 	    ++fNum_numu;
 	    fnumu_energy = ccreationkineticenergy;
+	    fnumu_gen_posx = child->GetPosition().getX()/mm;
+	    fnumu_gen_posy = child->GetPosition().getY()/mm;
+	    fnumu_gen_posz = child->GetPosition().getZ()/mm;
 	  }
 	if(cname == "nu_e")
 	  {
 	    ++fNum_nue;
 	    fnue_energy = ccreationkineticenergy;
+	    fnue_gen_posx = child->GetPosition().getX()/mm;
+            fnue_gen_posy = child->GetPosition().getY()/mm;
+            fnue_gen_posz = child->GetPosition().getZ()/mm;
 	  }
 	if(cname == "anti_nu_e")
 	  {
@@ -267,6 +335,9 @@ void DarkSectorSimAnalysis::PostUserTrackingAction(const G4Track* g4Track, G4Tra
 	  {
 	    ++fNum_antinumu;
 	    fantinumu_energy = ccreationkineticenergy;
+            fantinumu_gen_posx = child->GetPosition().getX()/mm;
+            fantinumu_gen_posy = child->GetPosition().getY()/mm;
+            fantinumu_gen_posz = child->GetPosition().getZ()/mm;
 	  }
 	G4int ctid = child->GetTrackID();
 	G4int cpid = child->GetParentID();
@@ -316,8 +387,17 @@ void DarkSectorSimAnalysis::ClearVariables(void)
   fantinumu_energy = 0;
   fantinue_energy = 0;
   fNum_numu = 0;
+  fnumu_gen_posx = 0;
+  fnumu_gen_posy = 0;
+  fnumu_gen_posz = 0;
   fNum_nue = 0;
+  fnue_gen_posx = 0;
+  fnue_gen_posy = 0;
+  fnue_gen_posz = 0;
   fNum_antinumu = 0;
+  fantinumu_gen_posx = 0;
+  fantinumu_gen_posy = 0;
+  fantinumu_gen_posz = 0;
   fNum_antinue = 0;
   fNumDAR = 0;
   fnumu_darE = 0;
@@ -327,7 +407,27 @@ void DarkSectorSimAnalysis::ClearVariables(void)
   fnue_difE = 0;
   fantinumu_difE = 0;
   fNumDIF = 0;
-  
+  G4int nChans = 610+455;
+  fTotalPMTHit = 0;
+  fTotalPMTHitWLS = 0;
+  fTotalPMTHitVUV = 0;
+  fNumReflections.clear();
+  fReflectTeflon = 0;
+  fTrackLength.clear();
+  fPMTHitPosX.clear();
+  fPMTHitPosY.clear();
+  fPMTHitPosZ.clear();
+  for (int i=0; i<nChans; ++i) {
+    fPMTHit.push_back(0.0);
+  }
+  fTrackLengthWLS.clear();
+  fPMTHitPosXWLS.clear();
+  fPMTHitPosYWLS.clear();
+  fPMTHitPosZWLS.clear();
+  for (int i=0; i<nChans; ++i) {
+    fPMTHitWLS.push_back(0.0);
+  }
+
 }
 
 void DarkSectorSimAnalysis::SetBranches(void)
@@ -347,9 +447,18 @@ void DarkSectorSimAnalysis::SetBranches(void)
   fRootTree->Branch("NumDAR", &fNumDAR);
   fRootTree->Branch("NumDIF", &fNumDIF);
   fRootTree->Branch("nu_mu_gen", &fNum_numu);
+  fRootTree->Branch("nu_mu_genposx", &fnumu_gen_posx);
+  fRootTree->Branch("nu_mu_genposy", &fnumu_gen_posy);
+  fRootTree->Branch("nu_mu_genposz", &fnumu_gen_posz);
   fRootTree->Branch("nu_e_gen", &fNum_nue);
+  fRootTree->Branch("nu_e_genposx", &fnue_gen_posx);
+  fRootTree->Branch("nu_e_genposy", &fnue_gen_posy);
+  fRootTree->Branch("nu_e_genposz", &fnue_gen_posz);
   fRootTree->Branch("antinu_e_gen", &fNum_antinue);
   fRootTree->Branch("antinu_mu_gen", &fNum_antinumu);
+  fRootTree->Branch("antinu_mu_genposx", &fantinumu_gen_posx);
+  fRootTree->Branch("antinu_mu_genposy", &fantinumu_gen_posy);
+  fRootTree->Branch("antinu_mu_genposz", &fantinumu_gen_posz);
   fRootTree->Branch("nu_mu_energy", &fnumu_energy);
   fRootTree->Branch("nu_e_energy", &fnue_energy);
   fRootTree->Branch("antinu_e_energy", &fantinue_energy);
@@ -363,4 +472,18 @@ void DarkSectorSimAnalysis::SetBranches(void)
   fRootTree->Branch("pi_decay", &fPiDecayTime);
   fRootTree->Branch("mu_decay", &fMuDecayTime);
   fRootTree->Branch("nu_in_detector", &fNuInDetector);
+  fRootTree->Branch("num_reflections",&fNumReflections);
+  fRootTree->Branch("PMThit_track_length_vuv", &fTrackLength);
+  fRootTree->Branch("total_pmt_hits_vuv", &fTotalPMTHitVUV);
+  fRootTree->Branch("total_pmt_hits", &fTotalPMTHit);
+  fRootTree->Branch("pmt_hit_vuv", &fPMTHit);
+  fRootTree->Branch("pmt_hit_posX_vuv", &fPMTHitPosX);
+  fRootTree->Branch("pmt_hit_posY_vuv", &fPMTHitPosY);
+  fRootTree->Branch("pmt_hit_posZ_vuv", &fPMTHitPosZ);
+  fRootTree->Branch("PMThit_track_length_wls", &fTrackLengthWLS);
+  fRootTree->Branch("total_pmt_hits_wls", &fTotalPMTHitWLS);
+  fRootTree->Branch("pmt_hit_wls", &fPMTHitWLS);
+  fRootTree->Branch("pmt_hit_posX_wls", &fPMTHitPosXWLS);
+  fRootTree->Branch("pmt_hit_posY_wls", &fPMTHitPosYWLS);
+  fRootTree->Branch("pmt_hit_posZ_wls", &fPMTHitPosZWLS);
 }

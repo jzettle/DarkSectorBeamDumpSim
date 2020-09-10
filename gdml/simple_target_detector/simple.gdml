@@ -5,8 +5,19 @@
 <!ENTITY sidewall_pmt_positions SYSTEM "pmt_sidewall_positions.xml">
 <!ENTITY sidewall_pmt_rotations SYSTEM "pmt_sidewall_rotations.xml">
 <!ENTITY sidewall_pmt_placements SYSTEM "pmt_sidewall_placements.xml">
+<!ENTITY sidewall_tpb_positions SYSTEM "tpb_sidewall_positions.xml">
+<!ENTITY sidewall_tpb_rotations SYSTEM "tpb_sidewall_rotations.xml">
+<!ENTITY sidewall_tpb_placements SYSTEM "tpb_sidewall_placements.xml">
 <!ENTITY endcap_holes SYSTEM "endcap_pmthole_positions.xml">
 <!ENTITY endcap_sub SYSTEM "endcap_subsolid.xml">
+<!ENTITY tpb_positions SYSTEM "tpb_endcap_positions.xml">
+<!ENTITY tpb_placements SYSTEM "tpb_placement.xml">
+<!ENTITY tpb_rotations SYSTEM "tpb_endcap_rotations.xml">
+<!ENTITY endcap_tpb_sub SYSTEM "endcap_tpb_subsolid.xml">
+<!ENTITY sidewall_holes SYSTEM "pmthole_sidewall_positions.xml">
+<!ENTITY sidewall_holes_rot SYSTEM "pmthole_sidewall_rotations.xml">
+<!ENTITY sidewall_refl SYSTEM "refl_sidewall_subtractions.xml">
+<!ENTITY sidewall_tpb SYSTEM "tpb_sidewall_subtractions.xml">
 ]>
 <gdml xmlns:gdml="http://cern.ch/2001/Schemas/GDML" 
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
@@ -17,6 +28,7 @@
     <constant name="TWOPI" value="2.0*pi" />
     <constant name="pmtrad" value="4.0*2.54" />
     <constant name="PI" value="1.0*pi" />
+    <constant name="HALFPI" value="0.5*pi" />
     <!-- Quantities -->
     <quantity name="world_x" value="500000.0" unit="mm" />
     <quantity name="world_y" unit="mm" value="500000.0" />
@@ -47,16 +59,24 @@
     <!-- Positions -->
     <position name="targetPos" unit="m" x="-1.8" y="0.0" z="0.0" />
     <!-- <position name="targetPos" unit="m" x="-3.5975" y="0.0" z="0.0" /> -->
-    <position name="detPos" unit="m" x="24.0" y="0.0" z="0.0" />
+    <position name="detPos" unit="m" x="21.0" y="0.0" z="0.0" />
     <position name="LArCylPos" unit="cm" x="0.0" y="0.0" z="0.0" />
     <position name="ReflectorPos" unit="cm" x="0.0" y="0.0" z="0.0" />
     <position name="WLSPos" unit="cm" x="0.0" y="0.0" z="0.0" />
-    <position name="TopEndCapPos" unit="mm" x="0.0" y="0.0" z="230.0" />
-    <position name="BotEndCapPos" unit="mm" x="0.0" y="0.0" z="-230.0" />
+    <position name="TopEndCapPos" unit="mm" x="0.0" y="0.0" z="2200.0" />
+    <position name="BotEndCapPos" unit="mm" x="0.0" y="0.0" z="-2200.0" />
+    <position name="TopEndCapTPBPos" unit="mm" x="0.0" y="0.0" z="2198.4115" />
+    <position name="BotEndCapTPBPos" unit="mm" x="0.0" y="0.0" z="-2198.4115" />
     &pmt_positions;
     &sidewall_pmt_positions;
     &sidewall_pmt_rotations;
+    &sidewall_tpb_positions;
+    &sidewall_tpb_rotations;
+    &sidewall_holes;
+    &sidewall_holes_rot;
     &endcap_holes;
+    &tpb_positions;
+    &tpb_rotations;
   </define>
 
   <materials>
@@ -111,11 +131,21 @@
     <!-- <tube name="LArCylSolid" z="LArCyl_z" rmin="LArCyl_rmin" rmax="LArCyl_rmax" deltaphi="TWOPI" lunit="mm" /> -->
     <tube name="LArCylSolid" lunit="mm" z="5000.0" rmin="0.0" rmax="2500.0" deltaphi="TWOPI"  />
     <sphere name="PMTSolid" lunit="mm" rmin="0.0" rmax="101.6" deltaphi="TWOPI" deltatheta="PI" />
-    <tube name="PMTHole" z="endcap_z" rmin="PMT_rmin" rmax="PMT_rmax" deltaphi="TWOPI" lunit="mm" />
+    <sphere name="TPBTopSolid" lunit="mm" rmin="101.6" rmax="101.602" deltaphi="TWOPI" starttheta="HALFPI" deltatheta="HALFPI" />
+    <sphere name="TPBSideSolid" lunit="mm" rmin="101.6" rmax="101.602" deltaphi="TWOPI" deltatheta="PI" />
+    <sphere name="TPBBotSolid" lunit="mm" rmin="101.6" rmax="101.602" deltaphi="TWOPI" deltatheta="HALFPI" />
+    <tube name="PMTHole" z="0.001" rmin="0.0" rmax="101.602" deltaphi="TWOPI" lunit="mm" />
+    <sphere name="SidePMTHole" rmin="0.0" rmax="101.602" deltaphi="TWOPI" deltatheta="PI" /> 
     <tube name="ReflectorSolid" lunit="mm" z="4500.0" rmin="2246.825" rmax="2250.0" deltaphi="TWOPI" />
     <tube name="WLSSolid" lunit="mm" z="4500" rmin="2246.823" rmax="2246.825" deltaphi="TWOPI" />
-    <tube name="CapWithPMTHole0" z="endcap_z" rmin="endcap_rmin" rmax="endcap_rmax" deltaphi="TWOPI" lunit="mm" />
+    <tube name="CapWithPMTHole0" lunit="mm" z="3.175" rmin="0.0" rmax="2250.0" deltaphi="TWOPI" />
     &endcap_sub;
+    <tube name="TPBCapWithPMTHole0" lunit="mm" z="0.002" rmin="0.0" rmax="2250.0" deltaphi="TWOPI" />
+    &endcap_tpb_sub;
+    <tube name="SideReflWithPMTHole0" lunit="mm" z="4500.0" rmin="2246.825" rmax="2250.0" deltaphi="TWOPI" />
+    &sidewall_refl;
+    <tube name="SideTPBWithPMTHole0" lunit="mm" z="4500.0" rmin="2246.823" rmax="2246.825" deltaphi="TWOPI" />
+    &sidewall_tpb; 
   </solids>
 
   <structure>
@@ -124,6 +154,21 @@
       <solidref ref="PMTSolid" />
     </volume>
 
+    <volume name="TPBTopLog">
+      <materialref ref="TPB" />
+      <solidref ref="TPBTopSolid" />
+    </volume>
+
+    <volume name="TPBBotLog">
+      <materialref ref="TPB" />
+      <solidref ref="TPBBotSolid" />
+    </volume>
+
+    <volume name="TPBSideLog">
+      <materialref ref="TPB" />
+      <solidref ref="TPBSideSolid" />
+    </volume>
+    
     <volume name="ReflectorLog">
       <materialref ref="PTFE" />
       <solidref ref="ReflectorSolid" />
@@ -133,10 +178,25 @@
       <materialref ref="TPB" />
       <solidref ref="WLSSolid" />
     </volume>
+
+    <volume name="SideReflLog">
+      <materialref ref="PTFE" />
+      <solidref ref="SideReflector" />
+    </volume>
+
+    <volume name="SideTPBLog">
+      <materialref ref="TPB" />
+      <solidref ref="SideTPB" />
+    </volume>
     
     <volume name="EndCapLog">
-      <materialref ref="TPB" />
+      <materialref ref="PTFE" />
       <solidref ref="EndCap" />
+    </volume>
+
+    <volume name="EndCapTPBLog">
+      <materialref ref="TPB" />
+      <solidref ref="TPBEndCap" />
     </volume>
     
     <volume name="LArCylLog">
@@ -144,8 +204,10 @@
       <solidref ref="LArCylSolid" />
 
       &pmt_placements;
-      <!--&sidewall_pmt_placements; -->
-
+      &sidewall_pmt_placements;
+      &sidewall_tpb_placements;
+      &tpb_placements;
+     <!--
       <physvol name="ReflectorVol">
 	<volumeref ref="ReflectorLog" />
 	<positionref ref="ReflectorPos" />
@@ -155,12 +217,39 @@
 	<volumeref ref="WLSLog" />
 	<positionref ref="WLSPos" />
       </physvol>
-     <!--
+      -->
+      
+      <physvol name="SideReflectorVol">
+	<volumeref ref="SideReflLog" />
+	<positionref ref="ReflectorPos" />
+      </physvol>
+
+      <physvol name="SideTPBVol">
+	<volumeref ref="SideTPBLog" />
+	<positionref ref="WLSPos" />
+      </physvol>
+    
+
       <physvol name="TopEndCapVol">
 	<volumeref ref="EndCapLog" />
 	<positionref ref="TopEndCapPos" />
       </physvol>
-      -->
+
+      <physvol name="TopTPBEndCapVol">
+	<volumeref ref="EndCapTPBLog" />
+	<positionref ref="TopEndCapTPBPos" />
+      </physvol>
+
+      <physvol name="BotEndCapVol">
+	<volumeref ref="EndCapLog" />
+	<positionref ref="BotEndCapPos" />
+      </physvol>
+
+      <physvol name="BotTPBEndCapVol">
+	<volumeref ref="EndCapTPBLog" />
+	<positionref ref="BotEndCapTPBPos" />
+      </physvol>
+     
     </volume>
 
     <volume name="FullDetectorLog">

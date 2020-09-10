@@ -1462,6 +1462,7 @@ CMakeFiles/darksectorsim.dir/src/DarkSectorSimDetectorConstruction.cc.o
  /cvmfs/fermilab.opensciencegrid.org/products/larsoft/geant4/v4_10_6_p01/Linux64bit+2.6-2.12-e19-prof/include/Geant4/G4ParameterisedNavigation.hh
  /cvmfs/fermilab.opensciencegrid.org/products/larsoft/geant4/v4_10_6_p01/Linux64bit+2.6-2.12-e19-prof/include/Geant4/G4ParameterisedNavigation.icc
  /cvmfs/fermilab.opensciencegrid.org/products/larsoft/geant4/v4_10_6_p01/Linux64bit+2.6-2.12-e19-prof/include/Geant4/G4PhysicalConstants.hh
+ /cvmfs/fermilab.opensciencegrid.org/products/larsoft/geant4/v4_10_6_p01/Linux64bit+2.6-2.12-e19-prof/include/Geant4/G4PhysicalVolumeStore.hh
  /cvmfs/fermilab.opensciencegrid.org/products/larsoft/geant4/v4_10_6_p01/Linux64bit+2.6-2.12-e19-prof/include/Geant4/G4Physics2DVector.hh
  /cvmfs/fermilab.opensciencegrid.org/products/larsoft/geant4/v4_10_6_p01/Linux64bit+2.6-2.12-e19-prof/include/Geant4/G4Physics2DVector.icc
  /cvmfs/fermilab.opensciencegrid.org/products/larsoft/geant4/v4_10_6_p01/Linux64bit+2.6-2.12-e19-prof/include/Geant4/G4PhysicsFreeVector.hh
@@ -1587,6 +1588,26 @@ CMakeFiles/darksectorsim.dir/src/DarkSectorSimDetectorConstruction.cc.o
  /cvmfs/fermilab.opensciencegrid.org/products/larsoft/geant4/v4_10_6_p01/Linux64bit+2.6-2.12-e19-prof/include/Geant4/templates.hh
  /cvmfs/fermilab.opensciencegrid.org/products/larsoft/geant4/v4_10_6_p01/Linux64bit+2.6-2.12-e19-prof/include/Geant4/tls.hh
  /cvmfs/fermilab.opensciencegrid.org/products/larsoft/geant4/v4_10_6_p01/Linux64bit+2.6-2.12-e19-prof/include/Geant4/windefs.hh
+ /cvmfs/fermilab.opensciencegrid.org/products/larsoft/root/v6_18_04/Linux64bit+2.6-2.12-e17-prof/include/DllImport.h
+ /cvmfs/fermilab.opensciencegrid.org/products/larsoft/root/v6_18_04/Linux64bit+2.6-2.12-e17-prof/include/RConfigure.h
+ /cvmfs/fermilab.opensciencegrid.org/products/larsoft/root/v6_18_04/Linux64bit+2.6-2.12-e17-prof/include/ROOT/RConfig.hxx
+ /cvmfs/fermilab.opensciencegrid.org/products/larsoft/root/v6_18_04/Linux64bit+2.6-2.12-e17-prof/include/ROOT/RSpan.hxx
+ /cvmfs/fermilab.opensciencegrid.org/products/larsoft/root/v6_18_04/Linux64bit+2.6-2.12-e17-prof/include/ROOT/RStringView.hxx
+ /cvmfs/fermilab.opensciencegrid.org/products/larsoft/root/v6_18_04/Linux64bit+2.6-2.12-e17-prof/include/ROOT/RWrap_libcpp_string_view.h
+ /cvmfs/fermilab.opensciencegrid.org/products/larsoft/root/v6_18_04/Linux64bit+2.6-2.12-e17-prof/include/ROOT/TypeTraits.hxx
+ /cvmfs/fermilab.opensciencegrid.org/products/larsoft/root/v6_18_04/Linux64bit+2.6-2.12-e17-prof/include/ROOT/libcpp_string_view.h
+ /cvmfs/fermilab.opensciencegrid.org/products/larsoft/root/v6_18_04/Linux64bit+2.6-2.12-e17-prof/include/ROOT/span.hxx
+ /cvmfs/fermilab.opensciencegrid.org/products/larsoft/root/v6_18_04/Linux64bit+2.6-2.12-e17-prof/include/RVersion.h
+ /cvmfs/fermilab.opensciencegrid.org/products/larsoft/root/v6_18_04/Linux64bit+2.6-2.12-e17-prof/include/Rtypes.h
+ /cvmfs/fermilab.opensciencegrid.org/products/larsoft/root/v6_18_04/Linux64bit+2.6-2.12-e17-prof/include/RtypesCore.h
+ /cvmfs/fermilab.opensciencegrid.org/products/larsoft/root/v6_18_04/Linux64bit+2.6-2.12-e17-prof/include/TGenericClassInfo.h
+ /cvmfs/fermilab.opensciencegrid.org/products/larsoft/root/v6_18_04/Linux64bit+2.6-2.12-e17-prof/include/TIsAProxy.h
+ /cvmfs/fermilab.opensciencegrid.org/products/larsoft/root/v6_18_04/Linux64bit+2.6-2.12-e17-prof/include/TMathBase.h
+ /cvmfs/fermilab.opensciencegrid.org/products/larsoft/root/v6_18_04/Linux64bit+2.6-2.12-e17-prof/include/TSchemaHelper.h
+ /cvmfs/fermilab.opensciencegrid.org/products/larsoft/root/v6_18_04/Linux64bit+2.6-2.12-e17-prof/include/TString.h
+ /cvmfs/fermilab.opensciencegrid.org/products/larsoft/root/v6_18_04/Linux64bit+2.6-2.12-e17-prof/include/TVirtualIsAProxy.h
+ /cvmfs/fermilab.opensciencegrid.org/products/larsoft/root/v6_18_04/Linux64bit+2.6-2.12-e17-prof/include/snprintf.h
+ /cvmfs/fermilab.opensciencegrid.org/products/larsoft/root/v6_18_04/Linux64bit+2.6-2.12-e17-prof/include/strlcpy.h
  /cvmfs/fermilab.opensciencegrid.org/products/larsoft/xerces_c/v3_2_2/Linux64bit+2.6-2.12-e19-prof/include/xercesc/dom/DOM.hpp
  /cvmfs/fermilab.opensciencegrid.org/products/larsoft/xerces_c/v3_2_2/Linux64bit+2.6-2.12-e19-prof/include/xercesc/dom/DOMAttr.hpp
  /cvmfs/fermilab.opensciencegrid.org/products/larsoft/xerces_c/v3_2_2/Linux64bit+2.6-2.12-e19-prof/include/xercesc/dom/DOMCDATASection.hpp

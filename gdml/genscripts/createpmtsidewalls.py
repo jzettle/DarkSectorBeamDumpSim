@@ -36,7 +36,7 @@ for num in range(num_pmt_levels/2):
         num_pmt_side = num_pmt_side + 1
 for num in range(1,num_pmt_levels/2):
     angle = 15
-    z = num_pmt_levels*pmtplussd;
+    z = num*pmtplussd;
     for deg in range(0, 360, angle):
         phi = deg*(2.0*math.pi/360.0)
         x = pmt_rad*math.cos(phi)
@@ -53,31 +53,85 @@ side_place_out = open('../simple_target_detector/pmt_sidewall_placements.xml', '
 #for rotations, need <rotation name="" x="" y="" z="" unit="deg,rad />
 #to place rotated PMT, need to include <rotationref ref="" /> as part of physvol placement block
 side_rot_out = open('../simple_target_detector/pmt_sidewall_rotations.xml', 'w')
+side_hole_out = open('../simple_target_detector/pmthole_sidewall_positions.xml', 'w')
+side_hole_rot_out = open('../simple_target_detector/pmthole_sidewall_rotations.xml', 'w')
+sidewall_refl_out = open('../simple_target_detector/refl_sidewall_subtractions.xml', 'w')
+
+side_tpb_pos_out = open('../simple_target_detector/tpb_sidewall_positions.xml', 'w')
+side_tpb_place_out = open('../simple_target_detector/tpb_sidewall_placements.xml', 'w')
+side_tpb_rot_out = open('../simple_target_detector/tpb_sidewall_rotations.xml', 'w')
+sidewall_tpb_out = open('../simple_target_detector/tpb_sidewall_subtractions.xml', 'w')
+
 print(pmt_positions[1][0])
 for i in range(num_pmt_side):
     print("<position name=\"side_pmt_pos%d\" unit=\"cm\" x=\"%.3f\" y=\"%.3f\" z=\"%.3f\" />"%(i, pmt_positions[i][0],pmt_positions[i][1], pmt_positions[i][2]), file=side_pos_out)
+    print("<position name=\"side_tpb_pos%d\" unit=\"cm\" x=\"%.3f\" y=\"%.3f\" z=\"%.3f\" />"%(i, pmt_positions[i][0],pmt_positions[i][1], pmt_positions[i][2]), file=side_tpb_pos_out)
+    print("<position name=\"side_hole_pos%d\" unit=\"cm\" x=\"%.3f\" y=\"%.3f\" z=\"%.3f\" />"%(i, pmt_positions[i][0],pmt_positions[i][1], pmt_positions[i][2]), file=side_hole_out)
     if(pmt_positions[i][2] > 0):
         print("<position name=\"side_pmt_pos%d\" unit=\"cm\" x=\"%.3f\" y=\"%.3f\" z=\"%.3f\" />"%(i+num_pmt, pmt_positions[i][0],pmt_positions[i][1], -pmt_positions[i][2]), file=side_pos_out)
+        print("<position name=\"side_tpb_pos%d\" unit=\"cm\" x=\"%.3f\" y=\"%.3f\" z=\"%.3f\" />"%(i+num_pmt, pmt_positions[i][0],pmt_positions[i][1], -pmt_positions[i][2]), file=side_tpb_pos_out)
+        print("<position name=\"side_hole_pos%d\" unit=\"cm\" x=\"%.3f\" y=\"%.3f\" z=\"%.3f\" />"%(i+num_pmt, pmt_positions[i][0],pmt_positions[i][1], -pmt_positions[i][2]), file=side_hole_out)
     print("<rotation name=\"side_pmt_rot%d\" x=\"%.3f\" y=\"%.3f\" z=\"%.3f\" unit=\"deg\" />"%(i, pmt_rotations[i][0]*(180/math.pi), pmt_rotations[i][1]*(180/math.pi), pmt_rotations[i][2]*(180/math.pi)), file=side_rot_out)
+    print("<rotation name=\"side_hole_rot%d\" x=\"%.3f\" y=\"%.3f\" z=\"%.3f\" unit=\"deg\" />"%(i, pmt_rotations[i][0]*(180/math.pi), pmt_rotations[i][1]*(180/math.pi), pmt_rotations[i][2]*(180/math.pi)), file=side_hole_rot_out)
+    #print("<rotation name=\"side_tpb_rot%d\" x=\"%.3f\" y=\"%.3f\" z=\"%.3f\" unit=\"deg\" />"%(i, pmt_rotations[i][0]*(180/math.pi), pmt_rotations[i][1]*(180/math.pi), pmt_rotations[i][2]*(180/math.pi)), file=side_tpb_rot_out)
+    print("<rotation name=\"side_tpb_rot%d\" x=\"%.3f\" y=\"%.3f\" z=\"%.3f\" unit=\"deg\" />"%(i, 0.0,0.0,0.0), file=side_tpb_rot_out)
     if(pmt_positions[i][2] > 0):
          print("<rotation name=\"side_pmt_rot%d\" x=\"%.3f\" y=\"%.3f\" z=\"%.3f\" unit=\"deg\" />"%(i+num_pmt, pmt_rotations[i][0]*(180/math.pi), pmt_rotations[i][1]*(180/math.pi), pmt_rotations[i][2]*(180/math.pi)), file=side_rot_out)
+         print("<rotation name=\"side_tpb_rot%d\" x=\"%.3f\" y=\"%.3f\" z=\"%.3f\" unit=\"deg\" />"%(i+num_pmt, pmt_rotations[i][0]*(180/math.pi), pmt_rotations[i][1]*(180/math.pi), pmt_rotations[i][2]*(180/math.pi)), file=side_tpb_rot_out)
+         print("<rotation name=\"side_hole_rot%d\" x=\"%.3f\" y=\"%.3f\" z=\"%.3f\" unit=\"deg\" />"%(i+num_pmt, pmt_rotations[i][0]*(180/math.pi), pmt_rotations[i][1]*(180/math.pi), pmt_rotations[i][2]*(180/math.pi)), file=side_hole_rot_out)
+         #print("<rotation name=\"side_tpb_rot%d\" x=\"%.3f\" y=\"%.3f\" z=\"%.3f\" unit=\"deg\" />"%(i+num_pmt,0.0,0.0,0.0), file=side_tpb_rot_out)
     print("<physvol name=\"sidePMT%d\" copynumber=\"%d\">"%(i,i), file=side_place_out)
     print("  <volumeref ref=\"PMTLog\" />", file=side_place_out)
     print("  <positionref ref=\"side_pmt_pos%d\"/>"%(i), file=side_place_out)
     print("  <rotationref ref=\"side_pmt_rot%d\"/>"%(i), file=side_place_out)
     print("</physvol>", file=side_place_out)
+    print("<physvol name=\"sideTPB%d\" copynumber=\"%d\">"%(i,i), file=side_tpb_place_out)
+    print("  <volumeref ref=\"TPBSideLog\" />", file=side_tpb_place_out)
+    print("  <positionref ref=\"side_tpb_pos%d\"/>"%(i), file=side_tpb_place_out)
+    print("  <rotationref ref=\"side_tpb_rot%d\"/>"%(i), file=side_tpb_place_out)
+    print("</physvol>", file=side_tpb_place_out)
     if(pmt_positions[i][2] > 0):
         print("<physvol name=\"sidePMT%d\" copynumber=\"%d\">"%(i+num_pmt,i+num_pmt), file=side_place_out)
         print("  <volumeref ref=\"PMTLog\" />", file=side_place_out)
         print("  <positionref ref=\"side_pmt_pos%d\"/>"%(i+num_pmt), file=side_place_out)
         print("  <rotationref ref=\"side_pmt_rot%d\"/>"%(i+num_pmt), file=side_place_out)
         print("</physvol>", file=side_place_out)
+        print("<physvol name=\"sideTPB%d\" copynumber=\"%d\">"%(i+num_pmt,i+num_pmt), file=side_tpb_place_out)
+        print("  <volumeref ref=\"TPBSideLog\" />", file=side_tpb_place_out)
+        print("  <positionref ref=\"side_tpb_pos%d\"/>"%(i+num_pmt), file=side_tpb_place_out)
+        print("  <rotationref ref=\"side_tpb_rot%d\"/>"%(i+num_pmt), file=side_tpb_place_out)
+        print("</physvol>", file=side_tpb_place_out)
+for i in range(num_pmt_side+num_pmt):
+    if(i+1 < num_pmt_side+num_pmt):
+        print("<subtraction name=\"%s%d\">"%("SideReflWithPMTHole",i+1), file = sidewall_refl_out)
+    else:
+        print("<subtraction name=\"%s\">"%("SideReflector"), file = sidewall_refl_out)
+    print("  <first ref=\"%s%d\" />"%("SideReflWithPMTHole", i), file = sidewall_refl_out)
+    print("  <second ref=\"%s\" />"%("SidePMTHole"), file = sidewall_refl_out)
+    print("  <positionref ref=\"side_hole_pos%d\" />"%(i), file = sidewall_refl_out)
+    print("  <rotationref ref=\"side_hole_rot%d\" />"%(i), file = sidewall_refl_out)
+    print("</subtraction>", file=sidewall_refl_out);
+        
+    if(i+1 < num_pmt_side+num_pmt):
+        print("<subtraction name=\"%s%d\">"%("SideTPBWithPMTHole",i+1), file = sidewall_tpb_out)
+    else:
+        print("<subtraction name=\"%s\">"%("SideTPB"), file = sidewall_tpb_out)
+    print("  <first ref=\"%s%d\" />"%("SideTPBWithPMTHole", i), file = sidewall_tpb_out)
+    print("  <second ref=\"%s\" />"%("SidePMTHole"), file = sidewall_tpb_out)
+    print("  <positionref ref=\"side_hole_pos%d\" />"%(i), file = sidewall_tpb_out)
+    print("  <rotationref ref=\"side_hole_rot%d\" />"%(i), file = sidewall_tpb_out)
+    print("</subtraction>", file=sidewall_tpb_out)
+    
 
 side_pos_out.close()
 side_rot_out.close()
 side_place_out.close()
+sidewall_refl_out.close()
+sidewall_tpb_out.close()
  
-
+side_tpb_pos_out.close()
+side_tpb_rot_out.close()
+side_tpb_place_out.close()
     
     
 

@@ -35,6 +35,7 @@
 #include "TParameter.h"
 #include "TH1.h"
 #include "TPad.h"
+#include <string>
 #include <vector>
 
 class DarkSectorSimAnalysis
@@ -87,9 +88,18 @@ private:
   G4double fNumDAR;
   G4double fNumDIF;
   G4double fNum_numu;
+  G4double fnumu_gen_posx;
+  G4double fnumu_gen_posy;
+  G4double fnumu_gen_posz;
   G4double fNum_nue;
+  G4double fnue_gen_posx;
+  G4double fnue_gen_posy;
+  G4double fnue_gen_posz;
   G4double fNum_antinue;
   G4double fNum_antinumu;
+  G4double fantinumu_gen_posx;
+  G4double fantinumu_gen_posy;
+  G4double fantinumu_gen_posz;
   G4double fnumu_energy;
   G4double fnue_energy;
   G4double fantinue_energy;
@@ -103,6 +113,22 @@ private:
   G4double fNuInDetector;
   G4double fPiDecayTime;
   G4double fMuDecayTime;
+  G4double fReflectTeflon;
+  std::vector<G4double> fNumReflections;
+  std::vector<G4double> fTrackLength;
+  G4double fTotalPMTHit;
+  G4double fTotalPMTHitVUV;
+  std::vector<G4double> fPMTHit;
+  std::vector<G4double> fPMTHitPosX;
+  std::vector<G4double> fPMTHitPosY;
+  std::vector<G4double> fPMTHitPosZ;
+  std::vector<G4double> fTrackLengthWLS;
+  G4double fTotalPMTHitWLS;
+  std::vector<G4double> fPMTHitWLS;
+  std::vector<G4double> fPMTHitPosXWLS;
+  std::vector<G4double> fPMTHitPosYWLS;
+  std::vector<G4double> fPMTHitPosZWLS;
+  
 };
 
 class DarkSectorSimAnalysisMessenger : public G4UImessenger

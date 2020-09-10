@@ -4300,6 +4300,14 @@ vector
 map
 -
 
+/cvmfs/fermilab.opensciencegrid.org/products/larsoft/geant4/v4_10_6_p01/Linux64bit+2.6-2.12-e19-prof/include/Geant4/G4PhysicalVolumeStore.hh
+vector
+-
+G4VPhysicalVolume.hh
+/cvmfs/fermilab.opensciencegrid.org/products/larsoft/geant4/v4_10_6_p01/Linux64bit+2.6-2.12-e19-prof/include/Geant4/G4VPhysicalVolume.hh
+G4VStoreNotifier.hh
+/cvmfs/fermilab.opensciencegrid.org/products/larsoft/geant4/v4_10_6_p01/Linux64bit+2.6-2.12-e19-prof/include/Geant4/G4VStoreNotifier.hh
+
 /cvmfs/fermilab.opensciencegrid.org/products/larsoft/geant4/v4_10_6_p01/Linux64bit+2.6-2.12-e19-prof/include/Geant4/G4Physics2DVector.hh
 iostream
 -
@@ -9155,6 +9163,14 @@ Randomize.hh
 /icarus/app/users/jzettle/DarkSectorBeamDumpSim/src/Randomize.hh
 DarkSectorSimTrackingAction.hh
 /icarus/app/users/jzettle/DarkSectorBeamDumpSim/src/DarkSectorSimTrackingAction.hh
+string
+-
+sstream
+-
+stdlib.h
+-
+algorithm
+-
 limits
 -
 
@@ -9225,6 +9241,8 @@ TH1.h
 /icarus/app/users/jzettle/DarkSectorBeamDumpSim/src/TH1.h
 TPad.h
 /icarus/app/users/jzettle/DarkSectorBeamDumpSim/src/TPad.h
+string
+-
 vector
 -
 
@@ -9265,6 +9283,8 @@ G4VPhysicalVolume.hh
 /icarus/app/users/jzettle/DarkSectorBeamDumpSim/src/G4VPhysicalVolume.hh
 G4PVPlacement.hh
 /icarus/app/users/jzettle/DarkSectorBeamDumpSim/src/G4PVPlacement.hh
+G4PhysicalVolumeStore.hh
+/icarus/app/users/jzettle/DarkSectorBeamDumpSim/src/G4PhysicalVolumeStore.hh
 G4Isotope.hh
 /icarus/app/users/jzettle/DarkSectorBeamDumpSim/src/G4Isotope.hh
 G4Element.hh
@@ -9289,6 +9309,8 @@ G4VisAttributes.hh
 /icarus/app/users/jzettle/DarkSectorBeamDumpSim/src/G4VisAttributes.hh
 G4GDMLParser.hh
 /icarus/app/users/jzettle/DarkSectorBeamDumpSim/src/G4GDMLParser.hh
+TString.h
+/icarus/app/users/jzettle/DarkSectorBeamDumpSim/src/TString.h
 DarkSectorSimDetectorConstruction.hh
 /icarus/app/users/jzettle/DarkSectorBeamDumpSim/src/DarkSectorSimDetectorConstruction.hh
 

@@ -3,6 +3,7 @@
 #include "G4ParticleGun.hh"
 #include "G4ParticleTable.hh"
 #include "G4Gamma.hh"
+#include "G4Proton.hh"
 #include "G4IonTable.hh"
 #include "G4Navigator.hh"
 #include "G4TransportationManager.hh"
@@ -31,7 +32,17 @@ void DarkSectorSimPrimaryGeneratorAction::GeneratePrimaries(G4Event *event)
 { 
   //Use standard Geant4 gps commands to create particle sources
   if(fGenerator == "gps" || fGenerator == "GeneralParticleSource")
-    fParticleGun->GeneratePrimaryVertex(event);
+  {
+    if(fParticleGun->GetParticleDefinition() == G4Proton::ProtonDefinition())
+    {
+      G4double random = G4UniformRand();
+      G4double pottime = random*320.0 + 400; //add 400 ns offset to better see results for now
+      fParticleGun->SetParticleTime(pottime);
+      fParticleGun->GeneratePrimaryVertex(event);
+    }
+    else
+      fParticleGun->GeneratePrimaryVertex(event);
+  }
 }
       
 

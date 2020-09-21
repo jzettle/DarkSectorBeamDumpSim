@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<gdml xmlns:gdml="http://cern.ch/2001/Schemas/GDML" 
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+      xsi:noNamespaceSchemaLocation="../schema/gdml.xsd" >
+
+  <define>
+    <!-- Constants --> 
+    <constant name="TWOPI" value="2.0*pi" />
+    <constant name="pmtrad" value="4.0*2.54" />
+    <constant name="PI" value="1.0*pi" />
+    <constant name="HALFPI" value="0.5*pi" />
+    <!-- Quantities -->
+    <quantity name="world_x" value="50000.0" unit="mm" />
+    <quantity name="world_y" unit="mm" value="50000.0" />
+    <quantity name="world_z" unit="mm" value="50000.0" />
+    <quantity name="target_x" value="3600.0" unit="mm" />
+    <!-- <quantity name="target_x" unit="cm" value="0.5" /> -->
+    <quantity name="target_y" value="270.0" unit="mm" />
+    <quantity name="target_z" value="270.0" unit="mm" />
+    <!-- Positions -->
+    <position name="targetPos" unit="m" x="-1.8" y="0.0" z="0.0" />
+    <!-- <position name="targetPos" unit="m" x="-3.5975" y="0.0" z="0.0" /> -->
+  </define>
+
+  <materials>
+    <element name="Hydrogen" formula="H" Z="1."> <atom value="1.01"/>
+    </element>
+    <element name="Oxygen" formula="O" Z="8."> <atom value="16.0"/>
+    </element>
+    <element name="Nitrogen" formula="N" Z="7."> <atom value="14.01"/>
+    </element>
+    <element name="Carbon" formula="C" Z="6."> <atom value="12.01"/>
+    </element>
+    <element name="Fluorine" formula="F" Z="9"> <atom value="18.00"/>
+    </element>
+    <element name="W_tungsten" formula="W" Z="74"> <atom value="183.84"/>
+    </element>
+    <element name="Argon" formula="Ar" Z="18."> <atom value="39.95"/>
+    </element>
+    <material name="Air">
+      <D value="1.290" unit="mg/cm3"/>
+      <fraction n="0.7" ref="Nitrogen"/>
+      <fraction n="0.3" ref="Oxygen"/>
+    </material>
+    <material name="Graphite">
+      <D value="1.78" unit="g/cm3"/>
+      <composite n="1" ref="Carbon"/>
+    </material>
+    <material name="Tungsten">
+      <D value="19.3" unit="g/cm3"/>
+      <composite n="1" ref="W_tungsten"/>
+    </material>
+    <material name="liquidArgon" formula="LAr">
+      <D value="1.4" unit="g/cm3"/>
+      <composite n="1" ref="Argon"/>
+    </material>
+    <material name="PTFE">
+      <D value="2.2" unit="g/cm3"/>
+      <composite n="2" ref="Carbon"/>
+      <composite n="4" ref="Fluorine"/>
+    </material>
+    <material name="TPB">
+      <D value="1.08" unit="g/cm3"/>
+      <composite n="22" ref="Carbon"/>
+      <composite n="28" ref="Hydrogen"/>
+    </material>
+  </materials>
+  
+  <solids>
+    <box name="WorldSolid" lunit="mm" x="500000.0" y="500000.0" z="500000.0" />
+    <box name="TargetSolid" lunit="mm" x="3600.0" y="270.0" z="270.0" />
+  </solids>
+
+  <structure>
+    <volume name="TargetLog">
+      <materialref ref="Graphite" />
+      <solidref ref="TargetSolid" />
+    </volume>
+
+    <volume name="World" >
+      <materialref ref="Air" />
+      <solidref ref="WorldSolid" />
+      
+      <physvol name="TargetVol" >
+        <volumeref ref="TargetLog" />
+	<positionref ref="targetPos" />
+      </physvol>
+
+    </volume>
+  </structure>
+
+  <setup name="Target" version="1.0">
+    <world ref="World"/>
+  </setup>
+</gdml>
+   
+		          

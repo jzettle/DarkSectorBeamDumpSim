@@ -22,7 +22,8 @@ pos = 0
 num_pmt = 0
 num_pmt_side = 0
 for num in range(num_pmt_levels/2):
-    angle = 15
+    #angle = 15 //original geometry
+    angle = 10
     z = num*pmtplussd;
     for deg in range(0, 360, angle):
         phi = deg*(2.0*math.pi/360.0)
@@ -35,7 +36,8 @@ for num in range(num_pmt_levels/2):
         pmt_rotations.append([u,v,w])
         num_pmt_side = num_pmt_side + 1
 for num in range(1,num_pmt_levels/2):
-    angle = 15
+    #angle = 15 //original geometry
+    angle = 10
     z = num*pmtplussd;
     for deg in range(0, 360, angle):
         phi = deg*(2.0*math.pi/360.0)

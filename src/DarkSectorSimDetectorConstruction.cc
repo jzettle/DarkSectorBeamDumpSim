@@ -76,7 +76,7 @@ G4VPhysicalVolume* DarkSectorSimDetectorConstruction::Construct()
   */
   //Try GDML with current geometry
   G4GDMLParser parser;
-  std::string gdml_file = "../gdml/simple_target_detector/simple.gdml";
+  std::string gdml_file = "../gdml/simple_target_detector/Target.gdml";
   G4cout << "Parsing GDML file at " << gdml_file << G4endl;
   parser.Read(gdml_file.c_str());
   G4cout << "GDML: Get World" << G4endl;  
@@ -274,15 +274,15 @@ void DarkSectorSimDetectorConstruction::SetArgonProperties()
   G4double RIndexSpectrum[RIndexbins] = { 1.232,  1.236,  1.240,  1.261,  1.282,  1.306,  1.353,  1.387,  1.404,  1.423,  1.434,  1.446,  1.459,  1.473,  1.488,  1.505,  1.524,  1.569,  1.627,  1.751,  1.879 };
   const G4int AbsBins = 11;
   G4double AbsLengthEnergies[AbsBins] = {1.*eV, 2.*eV, 3.*eV, 4.*eV, 5.*eV, 6.*eV, 7.*eV, 8.*eV, 9.*eV, 10.*eV, 11.*eV};
-  //G4double AbsLengthSpectrum[AbsBins] = {2000.*cm, 2000.*cm, 2000.*cm, 2000.*cm, 2000.*cm, 2000.*cm, 2000.*cm, 2000.*cm, 2000.*cm, 2000.*cm, 2000.*cm};
   G4double AbsLengthSpectrum[AbsBins] = {2000.*cm, 2000.*cm, 2000.*cm, 2000.*cm, 2000.*cm, 2000.*cm, 2000.*cm, 2000.*cm, 2000.*cm, 2000.*cm, 2000.*cm};
+  //G4double AbsLengthSpectrum[AbsBins] = {3000.*cm, 3000.*cm, 3000.*cm, 3000.*cm, 3000.*cm, 3000.*cm, 3000.*cm, 3000.*cm, 3000.*cm, 3000.*cm, 3000.*cm};
 
   const G4int RayleighBins = 22;
   //Rayleigh scattering length (cm) @ 90K as a function of energy (eV) from arXiv:1502.04213                                         
   G4double RayleighEnergies[RayleighBins] = {2.80*eV, 3.00*eV, 3.50*eV, 4.00*eV, 5.00*eV, 6.00*eV, 7.00*eV, 8.00*eV, 8.50*eV, 9.00*eV, 9.20*eV, 9.40*eV, 9.50*eV, 9.60*eV, 9.70*eV, 9.80*eV, 9.90*eV, 10.0*eV, 10.2*eV, 10.4*eV, 10.6*eV, 10.8*eV};
   G4double RayleighSpectrum[RayleighBins] = {47923.*cm, 35981.*cm, 18825.*cm, 10653.*cm, 3972.*cm, 1681.*cm, 750.9*cm, 334.7*cm, 216.8*cm, 135.0*cm, 109.7*cm, 88.06*cm, 78.32*cm, 69.34*cm, 61.06*cm, 53.46*cm, 46.50*cm, 40.13*cm, 28.91*cm, 19.81*cm, 12.61*cm, 7.20*cm};
-  //for(int i=0; i < RayleighBins; ++i)
-  //RayleighSpectrum[i] *= (90/61.06);
+  for(int i=0; i < RayleighBins; ++i)
+    RayleighSpectrum[i] *= (90/61.06);
 
   LArProp->AddProperty("RINDEX", RIndexEnergies, RIndexSpectrum, RIndexbins);
   LArProp->AddProperty("ABSLENGTH", AbsLengthEnergies, AbsLengthSpectrum, AbsBins);

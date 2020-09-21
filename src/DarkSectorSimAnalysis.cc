@@ -10,6 +10,7 @@
 #include "TRandom3.h"
 #include "Randomize.hh"
 #include "DarkSectorSimTrackingAction.hh"
+#include "DarkSectorSimTrajectory.hh"
 #include <string>
 #include <sstream>
 #include <stdlib.h>
@@ -111,7 +112,7 @@ void DarkSectorSimAnalysis::PrepareNewEvent(const G4Event* event)
   //After beginning of run, when a new event is created 
   ClearVariables();
   fEventNumber = event->GetEventID();
-  if(fEventNumber % 10 == 0) {
+  if(fEventNumber % 100 == 0) {
     G4cout << "Event # "<<fEventNumber<<G4endl;
   }
 }
@@ -168,7 +169,8 @@ G4ClassificationOfNewTrack DarkSectorSimAnalysis::ClassifyNewTrack(const G4Track
     //G4cout << g4Track->GetCreatorProcess()->GetProcessName() << G4endl;
     
   //}
-  
+  //if(g4Track->GetDefinition() == G4OpticalPhoton::OpticalPhotonDefinition() && g4Track->GetKineticEnergy()/eV > 6.0)
+  //fTotalLength = 0;
   return fUrgent;
 }
 
@@ -200,6 +202,7 @@ void DarkSectorSimAnalysis::SteppingAction(const G4Step* step)
       G4bool cont = postVolName.contains("topcapPMT");
       G4bool cont2 = postVolName.contains("bottomcapPMT");
       G4bool cont3 = postVolName.contains("sidePMT");
+      fTotalLength += step->GetStepLength();
       if(step->GetTrack()->GetKineticEnergy()/eV < 6.0)
       {
 	if(cont)
@@ -210,7 +213,7 @@ void DarkSectorSimAnalysis::SteppingAction(const G4Step* step)
 	  ++fPMTHitWLS[pmtnum];
 	  ++fTotalPMTHitWLS;
 	  ++fTotalPMTHit;
-	  fTrackLengthWLS.push_back(stepTrack->GetTrackLength());
+	  //fTrackLengthWLS.push_back(fTotalLength);
 	  fPMTHitPosXWLS.push_back(postStepPoint->GetPosition().getX()/mm);
 	  fPMTHitPosYWLS.push_back(postStepPoint->GetPosition().getY()/mm);
 	  fPMTHitPosZWLS.push_back(postStepPoint->GetPosition().getZ()/mm);
@@ -224,7 +227,7 @@ void DarkSectorSimAnalysis::SteppingAction(const G4Step* step)
 	  ++fPMTHitWLS[pmtnum];
 	  ++fTotalPMTHitWLS;
 	  ++fTotalPMTHit;
-	  fTrackLengthWLS.push_back(stepTrack->GetTrackLength());
+	  //fTrackLengthWLS.push_back(fTotalLength);
 	  fPMTHitPosXWLS.push_back(postStepPoint->GetPosition().getX()/mm);
 	  fPMTHitPosYWLS.push_back(postStepPoint->GetPosition().getY()/mm);
 	  fPMTHitPosZWLS.push_back(postStepPoint->GetPosition().getZ()/mm);
@@ -238,13 +241,13 @@ void DarkSectorSimAnalysis::SteppingAction(const G4Step* step)
 	  ++fPMTHitWLS[pmtnum];
 	  ++fTotalPMTHitWLS;
 	  ++fTotalPMTHit;
-	  fTrackLengthWLS.push_back(stepTrack->GetTrackLength());
+	  //fTrackLengthWLS.push_back(fTotalLength);
 	  fPMTHitPosXWLS.push_back(postStepPoint->GetPosition().getX()/mm);
 	  fPMTHitPosYWLS.push_back(postStepPoint->GetPosition().getY()/mm);
 	  fPMTHitPosZWLS.push_back(postStepPoint->GetPosition().getZ()/mm);
 	}
       } 
-      
+      /*
       G4OpBoundaryProcessStatus boundaryStatus = Undefined;
       G4OpBoundaryProcess* boundary = NULL;
       if(!boundary) {
@@ -268,15 +271,41 @@ void DarkSectorSimAnalysis::SteppingAction(const G4Step* step)
 	default:
 	  break;
 	}
+      */
     }
   }
 }
 
 void DarkSectorSimAnalysis::PreUserTrackingAction(const G4Track* g4Track,G4TrackingManager* fpTrackingManager)
-{;}
+{
+  DarkSectorSimTrajectory* traj = NULL;
+  if(!fpTrackingManager->GimmeTrajectory())
+  {
+    traj = new DarkSectorSimTrajectory(g4Track);
+    //fpTrackingManager->SetTrajectory(traj);
+    fpTrackingManager->SetStoreTrajectory(true);
+    fpTrackingManager->SetTrajectory(traj);
+  }
+  else
+    fpTrackingManager->SetStoreTrajectory(false);
+    
+}
 
 void DarkSectorSimAnalysis::PostUserTrackingAction(const G4Track* g4Track, G4TrackingManager* fpTrackingManager)
 {
+
+  if(fpTrackingManager->GimmeTrajectory() && fpTrackingManager->GetStoreTrajectory())
+  {
+    DarkSectorSimTrajectory* traj = (DarkSectorSimTrajectory*)fpTrackingManager->GimmeTrajectory();
+    traj->SetFinalTrackLength(g4Track->GetTrackLength());
+    if(g4Track->GetDefinition() == G4OpticalPhoton::OpticalPhotonDefinition() && g4Track->GetKineticEnergy()/eV < 6.0)
+    {
+      //DarkSectorSimTrajectory* traj = (DarkSectorSimTrajectory*)fpTrackingManager->GimmeTrajectory();
+      G4double totTrackLength = g4Track->GetTrackLength() + traj->GetParentTrajectory()->GetFinalTrackLength();
+      fTrackLengthWLS.push_back(totTrackLength);
+    }
+  }
+
   G4String name = g4Track->GetDefinition()->GetParticleName();
   G4double finalkineticenergy = g4Track->GetKineticEnergy();
   G4double time = g4Track->GetGlobalTime();
@@ -317,6 +346,7 @@ void DarkSectorSimAnalysis::PostUserTrackingAction(const G4Track* g4Track, G4Tra
 	    fnumu_gen_posx = child->GetPosition().getX()/mm;
 	    fnumu_gen_posy = child->GetPosition().getY()/mm;
 	    fnumu_gen_posz = child->GetPosition().getZ()/mm;
+	    fnumu_time = child->GetGlobalTime()/ns;
 	  }
 	if(cname == "nu_e")
 	  {
@@ -325,6 +355,7 @@ void DarkSectorSimAnalysis::PostUserTrackingAction(const G4Track* g4Track, G4Tra
 	    fnue_gen_posx = child->GetPosition().getX()/mm;
             fnue_gen_posy = child->GetPosition().getY()/mm;
             fnue_gen_posz = child->GetPosition().getZ()/mm;
+	    fnue_time = child->GetGlobalTime()/ns;
 	  }
 	if(cname == "anti_nu_e")
 	  {
@@ -338,6 +369,7 @@ void DarkSectorSimAnalysis::PostUserTrackingAction(const G4Track* g4Track, G4Tra
             fantinumu_gen_posx = child->GetPosition().getX()/mm;
             fantinumu_gen_posy = child->GetPosition().getY()/mm;
             fantinumu_gen_posz = child->GetPosition().getZ()/mm;
+	    fantinumu_time = child->GetGlobalTime()/ns;
 	  }
 	G4int ctid = child->GetTrackID();
 	G4int cpid = child->GetParentID();
@@ -390,14 +422,17 @@ void DarkSectorSimAnalysis::ClearVariables(void)
   fnumu_gen_posx = 0;
   fnumu_gen_posy = 0;
   fnumu_gen_posz = 0;
+  fnumu_time = 0;
   fNum_nue = 0;
   fnue_gen_posx = 0;
   fnue_gen_posy = 0;
   fnue_gen_posz = 0;
+  fnue_time = 0;
   fNum_antinumu = 0;
   fantinumu_gen_posx = 0;
   fantinumu_gen_posy = 0;
   fantinumu_gen_posz = 0;
+  fantinumu_time = 0;
   fNum_antinue = 0;
   fNumDAR = 0;
   fnumu_darE = 0;
@@ -407,13 +442,14 @@ void DarkSectorSimAnalysis::ClearVariables(void)
   fnue_difE = 0;
   fantinumu_difE = 0;
   fNumDIF = 0;
-  G4int nChans = 610+455;
+  G4int nChans = 610+684;
   fTotalPMTHit = 0;
   fTotalPMTHitWLS = 0;
   fTotalPMTHitVUV = 0;
   fNumReflections.clear();
   fReflectTeflon = 0;
   fTrackLength.clear();
+  fTotalLength = 0;
   fPMTHitPosX.clear();
   fPMTHitPosY.clear();
   fPMTHitPosZ.clear();
@@ -450,15 +486,18 @@ void DarkSectorSimAnalysis::SetBranches(void)
   fRootTree->Branch("nu_mu_genposx", &fnumu_gen_posx);
   fRootTree->Branch("nu_mu_genposy", &fnumu_gen_posy);
   fRootTree->Branch("nu_mu_genposz", &fnumu_gen_posz);
+  fRootTree->Branch("nu_mu_time", &fnumu_time);
   fRootTree->Branch("nu_e_gen", &fNum_nue);
   fRootTree->Branch("nu_e_genposx", &fnue_gen_posx);
   fRootTree->Branch("nu_e_genposy", &fnue_gen_posy);
   fRootTree->Branch("nu_e_genposz", &fnue_gen_posz);
+  fRootTree->Branch("nu_e_time", &fnue_time);
   fRootTree->Branch("antinu_e_gen", &fNum_antinue);
   fRootTree->Branch("antinu_mu_gen", &fNum_antinumu);
   fRootTree->Branch("antinu_mu_genposx", &fantinumu_gen_posx);
   fRootTree->Branch("antinu_mu_genposy", &fantinumu_gen_posy);
   fRootTree->Branch("antinu_mu_genposz", &fantinumu_gen_posz);
+  fRootTree->Branch("antinu_mu_time", &fantinumu_time);
   fRootTree->Branch("nu_mu_energy", &fnumu_energy);
   fRootTree->Branch("nu_e_energy", &fnue_energy);
   fRootTree->Branch("antinu_e_energy", &fantinue_energy);

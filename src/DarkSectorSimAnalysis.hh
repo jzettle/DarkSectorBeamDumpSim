@@ -35,6 +35,7 @@
 #include "TParameter.h"
 #include "TH1.h"
 #include "TPad.h"
+#include "DarkSectorSimTrajectory.hh"
 #include <string>
 #include <vector>
 
@@ -91,15 +92,18 @@ private:
   G4double fnumu_gen_posx;
   G4double fnumu_gen_posy;
   G4double fnumu_gen_posz;
+  G4double fnumu_time;
   G4double fNum_nue;
   G4double fnue_gen_posx;
   G4double fnue_gen_posy;
   G4double fnue_gen_posz;
+  G4double fnue_time;
   G4double fNum_antinue;
   G4double fNum_antinumu;
   G4double fantinumu_gen_posx;
   G4double fantinumu_gen_posy;
   G4double fantinumu_gen_posz;
+  G4double fantinumu_time;
   G4double fnumu_energy;
   G4double fnue_energy;
   G4double fantinue_energy;
@@ -124,6 +128,7 @@ private:
   std::vector<G4double> fPMTHitPosZ;
   std::vector<G4double> fTrackLengthWLS;
   G4double fTotalPMTHitWLS;
+  G4double fTotalLength;
   std::vector<G4double> fPMTHitWLS;
   std::vector<G4double> fPMTHitPosXWLS;
   std::vector<G4double> fPMTHitPosYWLS;

@@ -5,14 +5,16 @@
 #include "G4VModularPhysicsList.hh"
 
 #include "G4Cerenkov.hh" 
-#include "G4Scintillation.hh"
+//#include "G4Scintillation.hh"
+#include "DarkSectorSimScintillation.hh"
 #include "G4OpWLS.hh"
 #include "G4OpAbsorption.hh"
 #include "G4OpRayleigh.hh"
 #include "G4OpBoundaryProcess.hh"
 #include "G4OpWLS.hh"
 
-class G4Scintillation;
+//class G4Scintillation;
+class DarkSectorSimScintillation;
 class G4Cerenkov;
 class G4OpAbsorption;
 class G4OpRayleigh;
@@ -33,8 +35,10 @@ public:
 //    void SetCuts();
   
 private:
-  G4Scintillation* theScintillationProcessElectron;
-  G4Scintillation* theScintillationProcessNeutron;
+  //G4Scintillation* theScintillationProcessElectron;
+  //G4Scintillation* theScintillationProcessNeutron;
+  DarkSectorSimScintillation* theScintillationProcessElectron;
+  DarkSectorSimScintillation* theScintillationProcessNeutron;
   G4Cerenkov* theCerenkovProcess;
   G4OpAbsorption* theAbsorptionProcess;
   G4OpRayleigh* theRayleighScatteringProcess;

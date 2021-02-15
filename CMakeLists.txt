@@ -29,12 +29,26 @@ MESSAGE( STATUS "CMAKE_BUILD_TYPE: " ${CMAKE_BUILD_TYPE} )
 
 SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH TRUE)
 
+file(GLOB libsources ${PROJECT_SOURCE_DIR}/additional/*.cc)
+file(GLOB libheaders ${PROJECT_SOURCE_DIR}/additional/*.hh)
+
 file(GLOB sources ${PROJECT_SOURCE_DIR}/src/*.cc)
 file(GLOB headers ${PROJECT_SOURCE_DIR}/src/*.hh)
 
-include_directories(${PROJECT_SOURCE_DIR}/src)
-add_executable(darksectorsim DarkSectorSim.cc ${sources} ${headers})
-target_link_libraries(darksectorsim ${Geant4_LIBRARIES} ${ROOT_LIBRARIES})
+include_directories(${PROJECT_SOURCE_DIR}/src ${PROJECT_SOURCE_DIR}/additional)
+ROOT_GENERATE_DICTIONARY(g4DarkSector_Dict ${libheaders} MODULE darksectorg4lib LINKDEF LinkDef.h)
+set(PCMFILE ${CMAKE_CURRENT_BINARY_DIR}/libdarksectorg4lib_rdict.pcm)
+set(RMAPFILE ${CMAKE_CURRENT_BINARY_DIR}/libdarksectorg4lib.rootmap)
 
+add_library(darksectorg4lib SHARED ${libsources} ${libheaders} g4DarkSector_Dict.cxx)
+
+target_link_libraries(darksectorg4lib ${ROOT_LIBRARIES})
+
+add_executable(darksectorsim DarkSectorSim.cc ${sources} ${headers})
+target_link_libraries(darksectorsim darksectorg4lib ${Geant4_LIBRARIES} ${ROOT_LIBRARIES})
+
+install(TARGETS darksectorg4lib DESTINATION lib)
 install(TARGETS darksectorsim DESTINATION bin)
+install(FILES ${PCMFILE} DESTINATION ${CMAKE_INSTALL_PREFIX}/lib)
+install(FILES ${RMAPFILE} DESTINATION ${CMAKE_INSTALL_PREFIX}/lib)
 

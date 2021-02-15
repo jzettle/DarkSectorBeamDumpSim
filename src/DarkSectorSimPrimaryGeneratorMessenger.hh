@@ -20,6 +20,8 @@ private:
   DarkSectorSimPrimaryGeneratorAction* fDSAction;
   G4UIdirectory* fDirectory;
   G4UIcmdWithAString* fGenerateCmd;
+  G4UIcmdWithADouble* fVoxelRNumCmd;
+  G4UIcmdWithADouble* fVoxelZNumCmd;
 };
 
 #endif

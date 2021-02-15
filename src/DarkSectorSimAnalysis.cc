@@ -6,6 +6,8 @@
 #include "G4VProcess.hh"
 #include "G4TrajectoryContainer.hh"
 #include "G4EventManager.hh"
+#include "G4NistManager.hh"
+#include "G4HadronicProcessStore.hh"
 #include "TDirectory.h"
 #include "TRandom3.h"
 #include "Randomize.hh"
@@ -16,6 +18,11 @@
 #include <stdlib.h>
 #include <algorithm>
 #include <limits>
+
+#include "DetectorChannel.hh"
+#include "DetectorEvent.hh"
+#include "BeamEvent.hh"
+#include "ScintillationStore.hh"
 
 DarkSectorSimAnalysisMessenger::DarkSectorSimAnalysisMessenger(DarkSectorSimAnalysis* analysis)
 {
@@ -31,7 +38,16 @@ DarkSectorSimAnalysisMessenger::DarkSectorSimAnalysisMessenger(DarkSectorSimAnal
   fRootTreeNameCmd = new G4UIcmdWithAString("/analysis/setOutputTreeName",this);
   fRootTreeNameCmd->SetGuidance("Set the output ROOT tree name");
   fRootTreeNameCmd->AvailableForStates(G4State_PreInit, G4State_Idle);
+  
+  fUseVoxelCmd = new G4UIcmdWithABool("/analysis/useVoxel", this);
+  fUseVoxelCmd->SetGuidance("Use voxelization for optical table?");
+  fUseVoxelCmd->SetDefaultValue(false);
+  fUseVoxelCmd->AvailableForStates(G4State_PreInit, G4State_Idle);
 
+  fSaveFastOpTableCmd = new G4UIcmdWithABool("/analysis/saveFastOpTable", this);
+  fSaveFastOpTableCmd->SetGuidance("Save ROOT tree for information tables for fast optical simulation (run only once!)");
+  fSaveFastOpTableCmd->SetDefaultValue(false);
+  fSaveFastOpTableCmd->AvailableForStates(G4State_PreInit, G4State_Idle);
 }
 
 DarkSectorSimAnalysisMessenger::~DarkSectorSimAnalysisMessenger()
@@ -39,6 +55,8 @@ DarkSectorSimAnalysisMessenger::~DarkSectorSimAnalysisMessenger()
   delete fDirectory;
   delete fRootFileNameCmd;
   delete fRootTreeNameCmd;
+  delete fUseVoxelCmd;
+  delete fSaveFastOpTableCmd;
 }
 void DarkSectorSimAnalysisMessenger::SetNewValue(G4UIcommand* cmd, G4String val)
 {
@@ -46,6 +64,10 @@ void DarkSectorSimAnalysisMessenger::SetNewValue(G4UIcommand* cmd, G4String val)
     fAnalysis->SetROOTFileName(val);
   else if(cmd == fRootTreeNameCmd)
     fAnalysis->SetROOTTreeName(val);
+  else if(cmd == fUseVoxelCmd)
+    fAnalysis->SetVoxelization(val);
+  else if(cmd == fSaveFastOpTableCmd)
+    fAnalysis->SetSaveFastOpTable(val);
 }
 
 DarkSectorSimAnalysis* DarkSectorSimAnalysis::fInstance = 0;
@@ -54,8 +76,12 @@ DarkSectorSimAnalysis::DarkSectorSimAnalysis()
 {
   fRootFile = NULL;
   fRootTree = NULL;
+  fVoxel = false;
+  fSaveFastOpTable = false;
   fRootFileName = "DSout.root";
   fRootTreeName = "DStree";
+  fDetEvent = new DetectorEvent();
+  fBeamEvent = new BeamEvent();
   ClearVariables();
 }
 
@@ -73,6 +99,10 @@ void DarkSectorSimAnalysis::PrepareNewRun(const G4Run* g4run)
   fRootTree = new TTree(fRootTreeName, "DS Information Tree");
   fRootTree->SetDirectory(fRootFile);
   //Reset variables and add all ROOT branches to file for output
+  if(!fDetEvent)
+    fDetEvent = new DetectorEvent();
+  if(!fBeamEvent)
+    fBeamEvent = new BeamEvent();
   ClearVariables();
   SetBranches();
 }
@@ -100,11 +130,48 @@ void DarkSectorSimAnalysis::EndofRun(const G4Run* g4run)
   //gDirectory->WriteObject(&end,Form("EndTime_Run%d",g4run->GetRunID()));
 
   G4cout << "Saving tree: " << fRootTreeName << " to output ROOT file: " << fRootFileName << G4endl;
+
+  G4String elementName = "C";
+  G4String particleName = "pi+";
+  const G4Element* el = G4NistManager::Instance()->FindOrBuildElement(elementName);
+  const G4ParticleDefinition* particle = G4ParticleTable::GetParticleTable()->FindParticle(particleName);
+  if(!particle || ! el)
+    G4cout << "Particle or element not found!" << G4endl;
+  else
+  {
+    G4int prec = G4cout.precision();
+    G4cout.precision(4);
+    G4HadronicProcessStore* store = G4HadronicProcessStore::Instance();
+    G4double minE = 10*MeV;
+    G4double maxE = 2000*MeV;
+    G4double nbins = 2000;
+    G4double e1 = std::log10(minE/MeV);
+    G4double e2 = std::log10(maxE/MeV);
+    G4double dE = (e2-e1)/G4double(nbins);
+    G4double x = e1 - dE*0.5;
+    G4double e, xs, xstot;
+    G4int i;
+    for(i = 0; i<nbins; ++i)
+    {
+      x += dE;
+      e = std::pow(10., x)*MeV;
+      xs = store->GetInelasticCrossSectionPerAtom(particle, e, el);
+      //G4cout << e << " " << std::setw(12) << xs/barn << G4endl;
+    }
+    G4cout.precision(prec);
+  }
+
   //Finish writing ROOT file and close
   fRootTree->Write();
   fRootFile->Close();
   delete fRootFile;
   fRootFile = 0;
+  fDetEvent->clear();
+  delete fDetEvent;
+  fDetEvent = 0;
+  fBeamEvent->clear();
+  delete fBeamEvent;
+  fBeamEvent = 0;
 }
 
 void DarkSectorSimAnalysis::PrepareNewEvent(const G4Event* event)
@@ -112,14 +179,108 @@ void DarkSectorSimAnalysis::PrepareNewEvent(const G4Event* event)
   //After beginning of run, when a new event is created 
   ClearVariables();
   fEventNumber = event->GetEventID();
-  if(fEventNumber % 100 == 0) {
+  if(fEventNumber % 10 == 0) {
     G4cout << "Event # "<<fEventNumber<<G4endl;
   }
+  fSinglePhoton = new OpPhoton();
+  //G4cout << "New Event: " << overallStore.GetScintEnergy() << G4endl;
 }
 
 void DarkSectorSimAnalysis::EndOfEvent(const G4Event* /* event */)
 {
-    fRootTree->Fill();
+  //Compute F90 here
+  G4double fast = 0.0;
+  G4double slow = 0.0;
+  //start with earliest, make calculation relative to that, removes effects of decay (still need to factor into global times as for some decays cannot then see effect of F90 on new global timescale
+  G4double earliesthit = 100000000000000.0;
+
+  
+  for(unsigned int i = 0; i<fPhotonHitTimes.size(); ++i)
+  {
+    earliesthit = std::min(earliesthit, fPhotonHitTimes[i]);
+  }
+  for(unsigned int i = 0; i<fPhotonHitTimes.size(); ++i)
+  {
+    G4double relativeval = fPhotonHitTimes[i]-earliesthit;
+    if(relativeval < 90.0)
+      ++fast;
+    else
+      ++slow;
+  }
+  fF90 = fast/(fast+slow);
+
+  //Photon Storage
+  fSinglePhoton->SetID(fEventNumber);
+  fSinglePhoton->SetDetectionTime(fPhotonHitTime);
+  fSinglePhoton->SetHitPosX(fPMTHitPosX);
+  fSinglePhoton->SetHitPosY(fPMTHitPosY);
+  fSinglePhoton->SetHitPosZ(fPMTHitPosZ);
+  fSinglePhoton->SetHitChannel(fPMTHit);
+  fSinglePhoton->SetNumReflections(fReflectTeflon);
+  fPhotonStore.push_back(*(fSinglePhoton));
+  //G4cout << "Here" << G4endl;
+  overallStore.AddPhoton(*(fSinglePhoton));
+  //G4cout << "Here" << G4endl;
+  //Detector Event Storage
+  fDetEvent->SetEventID(fEventNumber);
+  fDetEvent->SetGenPosX(fGenXPhoton);
+  fDetEvent->SetGenPosY(fGenYPhoton);
+  fDetEvent->SetGenPosZ(fGenZPhoton);
+  fDetEvent->SetNumChannels(1284);
+  fDetEvent->SetF90Value(fF90);
+  fDetEvent->SetHitChannel(fPMTHit);
+  for(int i = 0; i < fDetEvent->GetNumChannels(); ++i)
+  {
+    DetectorChannel &chan = *fDetEvent->GetChannel(i);
+    chan.SetChannelNum(i);
+    if(i == fSinglePhoton->GetHitChannel())
+      chan.SetDetectedPhotonsStore(fPhotonStore);
+  }
+  //fDetEvent->SetStore(overallStore);
+
+  //Beam Event Storage
+  fBeamEvent->SetEventID(fEventNumber);
+  fBeamEvent->SetProtonGenPosX(fGenXProton);
+  fBeamEvent->SetProtonGenPosY(fGenYProton);
+  fBeamEvent->SetProtonGenPosZ(fGenZProton);
+  fBeamEvent->SetNumPiPlus(fGenPiPlus);
+  fBeamEvent->SetPiPlusGenPosX(fGenXPiPlus);
+  fBeamEvent->SetPiPlusGenPosY(fGenYPiPlus);
+  fBeamEvent->SetPiPlusGenPosZ(fGenZPiPlus);
+  fBeamEvent->SetNumPiZero(fGenPiZero);
+  fBeamEvent->SetPiZeroGenPosX(fGenXPiZero);
+  fBeamEvent->SetPiZeroGenPosY(fGenYPiZero);
+  fBeamEvent->SetPiZeroGenPosZ(fGenZPiZero);
+  fBeamEvent->SetNumPiMinus(fGenPiMinus);
+  fBeamEvent->SetNumDAR(fNumDAR);
+  fBeamEvent->SetNumDIF(fNumDIF);
+  fBeamEvent->SetNumNuMu(fNum_numu);
+  fBeamEvent->SetNuMuGenPosX(fnumu_gen_posx);
+  fBeamEvent->SetNuMuGenPosY(fnumu_gen_posy);
+  fBeamEvent->SetNuMuGenPosZ(fnumu_gen_posz);
+  fBeamEvent->SetNuMuTime(fnumu_time);
+  fBeamEvent->SetNuMuEnergy(fnumu_energy);
+  fBeamEvent->SetNumNuE(fNum_nue);
+  fBeamEvent->SetNuEGenPosX(fnue_gen_posx);
+  fBeamEvent->SetNuEGenPosY(fnue_gen_posy);
+  fBeamEvent->SetNuEGenPosZ(fnue_gen_posz);
+  fBeamEvent->SetNuETime(fnue_time);
+  fBeamEvent->SetNuEEnergy(fnue_energy);
+  fBeamEvent->SetNumAntiNuMu(fNum_antinumu);
+  fBeamEvent->SetAntiNuMuGenPosX(fantinumu_gen_posx);
+  fBeamEvent->SetAntiNuMuGenPosY(fantinumu_gen_posy);
+  fBeamEvent->SetAntiNuMuGenPosZ(fantinumu_gen_posz);
+  fBeamEvent->SetAntiNuMuTime(fantinumu_time);
+  fBeamEvent->SetAntiNuMuEnergy(fantinumu_energy);
+  fBeamEvent->SetNuMuDAREnergy(fnumu_darE);
+  fBeamEvent->SetNuEDAREnergy(fnue_darE);
+  fBeamEvent->SetAntiNuMuDAREnergy(fantinumu_darE);
+  fBeamEvent->SetNuMuDIFEnergy(fnumu_difE);
+  fBeamEvent->SetNuEDIFEnergy(fnue_difE);
+  fBeamEvent->SetAntiNuMuDIFEnergy(fantinumu_difE);
+
+
+  fRootTree->Fill();
 }
 
 G4ClassificationOfNewTrack DarkSectorSimAnalysis::ClassifyNewTrack(const G4Track* g4Track)
@@ -144,6 +305,7 @@ G4ClassificationOfNewTrack DarkSectorSimAnalysis::ClassifyNewTrack(const G4Track
     fGenXPiPlus = g4Track->GetPosition().getX()/mm;
     fGenYPiPlus = g4Track->GetPosition().getY()/mm;
     fGenZPiPlus = g4Track->GetPosition().getZ()/mm;
+    //G4cout << g4Track->GetCreatorProcess()->GetProcessName() << G4endl;
   }
   if(g4Track->GetParentID() == 1 && g4Track->GetDefinition()->GetParticleName() == "pi0")
   {
@@ -154,7 +316,25 @@ G4ClassificationOfNewTrack DarkSectorSimAnalysis::ClassifyNewTrack(const G4Track
   }
   if(g4Track->GetParentID() == 1 && g4Track->GetDefinition()->GetParticleName() == "pi-")
     ++fGenPiMinus;
-
+  
+  if(g4Track->GetParentID() != 1 && g4Track->GetDefinition()->GetParticleName() == "pi+")
+  {
+    G4cout << "Event #: " << fEventNumber << G4endl;
+    G4cout << "Parent ID is: " << g4Track->GetParentID() << G4endl;
+    G4cout << g4Track->GetCreatorProcess()->GetProcessName() << G4endl;
+  }
+  if(g4Track->GetParentID() != 0 && g4Track->GetCreatorProcess()->GetProcessName() == "pi+Inelastic")
+  {
+    G4cout << "Event #: " << fEventNumber << G4endl;
+    G4cout << g4Track->GetDefinition()->GetParticleName() <<  G4endl;
+  }
+  if(fVoxel)
+  {
+    fGenXPhoton = g4Track->GetPosition().getX()/mm;
+    fGenYPhoton = g4Track->GetPosition().getY()/mm;
+    fGenZPhoton = g4Track->GetPosition().getZ()/mm;
+  }
+  //G4cout << g4Track->GetDefinition()->GetParticleName() <<  G4endl;
   //if(g4Track->GetParentID() != 0)
   //{ 
       //Reset time for rad decay (e.g. Cs137 decay gives 1e10 yrs)
@@ -186,6 +366,16 @@ void DarkSectorSimAnalysis::SteppingAction(const G4Step* step)
   const G4String preVolName = preStepVolume->GetName();
   G4Track* stepTrack = step->GetTrack();
   G4String partname = stepTrack->GetDefinition()->GetParticleName();
+  //step->GetTrack()->GetTrackStatus() == fStopAndKill &&
+  
+  if(step->GetTrack()->GetTrackStatus() == fStopAndKill && partname == "pi+")
+    {
+      G4cout << "Event Number #: " << fEventNumber << G4endl;
+      G4cout << "pi+ Kill Process: " << postStepPoint->GetProcessDefinedStep()->GetProcessName() << G4endl;
+      G4cout << "Energy: " << postStepPoint->GetKineticEnergy()/MeV << G4endl;
+      G4cout << "Position (x,y,z): " << postStepPoint->GetPosition().getX()/mm << " " << postStepPoint->GetPosition().getY()/mm << " " << postStepPoint->GetPosition().getZ()/mm << G4endl;  
+    }
+  
   if(postStepVolume)
   {
     G4String postVolName = postStepVolume->GetName();
@@ -197,7 +387,7 @@ void DarkSectorSimAnalysis::SteppingAction(const G4Step* step)
     {
       G4int numPMTendcap = 305;
       G4int numPMTside = 610;
-      G4int pmtnum;
+      G4int pmtnum = 0;
       //G4cout << "Here" << G4endl;
       G4bool cont = postVolName.contains("topcapPMT");
       G4bool cont2 = postVolName.contains("bottomcapPMT");
@@ -214,9 +404,24 @@ void DarkSectorSimAnalysis::SteppingAction(const G4Step* step)
 	  ++fTotalPMTHitWLS;
 	  ++fTotalPMTHit;
 	  //fTrackLengthWLS.push_back(fTotalLength);
-	  fPMTHitPosXWLS.push_back(postStepPoint->GetPosition().getX()/mm);
-	  fPMTHitPosYWLS.push_back(postStepPoint->GetPosition().getY()/mm);
-	  fPMTHitPosZWLS.push_back(postStepPoint->GetPosition().getZ()/mm);
+	  /*
+	  if(fSaveFastOpTable)
+	  {
+	    if(fReflectTeflon < 5)
+	      ++fPMTReflEffVec[fReflectTeflon][pmtnum];
+	    else
+	      ++fPMTReflEffVec[5][pmtnum];
+	    //fPMTReflTimeMap[pmtnum].push_back(std::make_pair(fReflectTeflon, postStepPoint->GetGlobalTime()));
+	  }
+	  */
+	  if(fVoxel)
+	  {
+	    fPMTHitPosX = postStepPoint->GetPosition().getX()/mm;
+	    fPMTHitPosY = postStepPoint->GetPosition().getY()/mm;
+	    fPMTHitPosZ = postStepPoint->GetPosition().getZ()/mm;
+	    fPhotonHitTime = postStepPoint->GetGlobalTime()/ns;
+	    fPMTHit = pmtnum;
+	  }
 	}
 	if(cont2)
 	{
@@ -227,27 +432,58 @@ void DarkSectorSimAnalysis::SteppingAction(const G4Step* step)
 	  ++fPMTHitWLS[pmtnum];
 	  ++fTotalPMTHitWLS;
 	  ++fTotalPMTHit;
+	  /*
+	  if(fSaveFastOpTable)
+	    {
+	      if(fReflectTeflon < 5)
+		++fPMTReflEffVec[fReflectTeflon][pmtnum];
+	      else
+		++fPMTReflEffVec[5][pmtnum];
+	      //fPMTReflTimeMap[pmtnum].push_back(std::make_pair(fReflectTeflon, postStepPoint->GetGlobalTime()));
+	    }
+	  */
 	  //fTrackLengthWLS.push_back(fTotalLength);
-	  fPMTHitPosXWLS.push_back(postStepPoint->GetPosition().getX()/mm);
-	  fPMTHitPosYWLS.push_back(postStepPoint->GetPosition().getY()/mm);
-	  fPMTHitPosZWLS.push_back(postStepPoint->GetPosition().getZ()/mm);
+	  if(fVoxel)
+	  {
+	    fPMTHitPosX = postStepPoint->GetPosition().getX()/mm;
+	    fPMTHitPosY = postStepPoint->GetPosition().getY()/mm;
+	    fPMTHitPosZ = postStepPoint->GetPosition().getZ()/mm;
+	    fPhotonHitTime = postStepPoint->GetGlobalTime()/ns;
+	    fPMTHit = pmtnum;
+	  }
 	}
 	if(cont3)
 	{
 	  const char* numstring = postVolName.remove(0,7).c_str();
 	  std::istringstream iss(numstring);
 	  iss >> pmtnum; 
-	  pmtnum += numPMTendcap;
+	  pmtnum += numPMTendcap*2.0;
 	  ++fPMTHitWLS[pmtnum];
 	  ++fTotalPMTHitWLS;
 	  ++fTotalPMTHit;
+	  /*
+	  if(fSaveFastOpTable)
+	    {
+	      G4cout << fReflectTeflon << " " << pmtnum << G4endl;
+	      if(fReflectTeflon < 5)
+		++fPMTReflEffVec[fReflectTeflon][pmtnum];
+	      else
+		++fPMTReflEffVec[5][pmtnum];
+	      //fPMTReflTimeMap[pmtnum].push_back(std::make_pair(fReflectTeflon, postStepPoint->GetGlobalTime()));
+	    }
+	  */
 	  //fTrackLengthWLS.push_back(fTotalLength);
-	  fPMTHitPosXWLS.push_back(postStepPoint->GetPosition().getX()/mm);
-	  fPMTHitPosYWLS.push_back(postStepPoint->GetPosition().getY()/mm);
-	  fPMTHitPosZWLS.push_back(postStepPoint->GetPosition().getZ()/mm);
+	  if(fVoxel)
+	  {
+	    fPMTHitPosX = postStepPoint->GetPosition().getX()/mm;
+	    fPMTHitPosY = postStepPoint->GetPosition().getY()/mm;
+	    fPMTHitPosZ = postStepPoint->GetPosition().getZ()/mm;
+	    fPhotonHitTime = postStepPoint->GetGlobalTime()/ns;
+	    fPMTHit = pmtnum;
+	  }
 	}
-      } 
-      /*
+      } 	
+     
       G4OpBoundaryProcessStatus boundaryStatus = Undefined;
       G4OpBoundaryProcess* boundary = NULL;
       if(!boundary) {
@@ -271,7 +507,7 @@ void DarkSectorSimAnalysis::SteppingAction(const G4Step* step)
 	default:
 	  break;
 	}
-      */
+     
     }
   }
 }
@@ -304,6 +540,30 @@ void DarkSectorSimAnalysis::PostUserTrackingAction(const G4Track* g4Track, G4Tra
       G4double totTrackLength = g4Track->GetTrackLength() + traj->GetParentTrajectory()->GetFinalTrackLength();
       fTrackLengthWLS.push_back(totTrackLength);
     }
+    
+    if(g4Track->GetDefinition()->GetParticleName() == "nu_mu")
+    {
+      G4String parentname = traj->GetParentTrajectory()->GetDefinition()->GetParticleName();
+      G4cout << "Event Number: " << fEventNumber << G4endl;
+      G4cout << "Muon Neutrino Parent: " << parentname << G4endl;
+      G4cout << "Energy: " << g4Track->GetKineticEnergy()/MeV << G4endl;
+    } 
+    if(g4Track->GetDefinition()->GetParticleName() == "nu_e")
+    {
+      G4String parentname = traj->GetParentTrajectory()->GetDefinition()->GetParticleName();
+      G4cout <<"Electron Neutrino Parent: " << parentname << G4endl;
+      G4cout <<"Energy: " << g4Track->GetKineticEnergy()/MeV << G4endl;
+    }
+    if(g4Track->GetDefinition()->GetParticleName() == "anti_nu_mu")
+      {
+	G4String parentname = traj->GetParentTrajectory()->GetDefinition()->GetParticleName();
+	G4cout <<"Nu-mu-bar Parent: " << parentname << G4endl;
+	G4cout <<"Energy: " << g4Track->GetKineticEnergy()/MeV << G4endl;
+      }
+    
+
+
+
   }
 
   G4String name = g4Track->GetDefinition()->GetParticleName();
@@ -313,8 +573,7 @@ void DarkSectorSimAnalysis::PostUserTrackingAction(const G4Track* g4Track, G4Tra
   if(g4Track->GetDefinition() == G4OpticalPhoton::OpticalPhotonDefinition())
   {
     fNumReflections.push_back(fReflectTeflon);
-  }
-
+  }    
   if(name=="pi0" || name=="pi+" || name=="pi-" || name=="mu+" || name=="mu-") {
   //if(name == "pi+" || name == "mu+") {
     G4TrackVector *children = fpTrackingManager->GimmeSecondaries();
@@ -373,7 +632,7 @@ void DarkSectorSimAnalysis::PostUserTrackingAction(const G4Track* g4Track, G4Tra
 	  }
 	G4int ctid = child->GetTrackID();
 	G4int cpid = child->GetParentID();
-	if(cproc == "Decay") {
+	if(cproc == "Decay" || cproc == "Scintillation") {
 	  if(finalkineticenergy < 0.1) {
 	    cproc = name + "_DAR";
 	    fNumDAR = 1;
@@ -396,12 +655,18 @@ void DarkSectorSimAnalysis::PostUserTrackingAction(const G4Track* g4Track, G4Tra
 	}
       }
     }
+    /*
+    if(fGenPiPlus > 0)
+      G4cout << fNum_numu << G4endl;
+    */
   }
 }
 
 void DarkSectorSimAnalysis::ClearVariables(void)
 {
   //Reset variables at the end of an event}
+  fDetEvent->clear();
+  fBeamEvent->clear();
   fGenPiPlus = 0;
   fGenXPiPlus = 0;
   fGenYPiPlus = 0;
@@ -450,79 +715,33 @@ void DarkSectorSimAnalysis::ClearVariables(void)
   fReflectTeflon = 0;
   fTrackLength.clear();
   fTotalLength = 0;
-  fPMTHitPosX.clear();
-  fPMTHitPosY.clear();
-  fPMTHitPosZ.clear();
-  for (int i=0; i<nChans; ++i) {
-    fPMTHit.push_back(0.0);
-  }
+  fPMTHitPosX = 0;
+  fPMTHitPosY = 0;
+  fPMTHitPosZ = 0;
+  fPMTHit = -1;
+  fPhotonHitTime = -1;
   fTrackLengthWLS.clear();
-  fPMTHitPosXWLS.clear();
-  fPMTHitPosYWLS.clear();
-  fPMTHitPosZWLS.clear();
+  fPMTHitWLS.clear();
   for (int i=0; i<nChans; ++i) {
     fPMTHitWLS.push_back(0.0);
   }
-
+  /*
+  for(int j=0; j<6; ++j) {
+    std::vector<G4double> container;
+    for (int i=0; i<nChans; ++i) {
+      container.push_back(0.0);
+    }
+    fPMTReflEffVec.push_back(container);
+  }
+  */
+  fF90 = 0.0;
+  fPhotonHitTimes.clear();
+  fPhotonStore.clear();
+  //fPMTReflTimeMap.clear();
 }
 
 void DarkSectorSimAnalysis::SetBranches(void)
 {
-  fRootTree->Branch("GenProtonXPos", &fGenXProton);
-  fRootTree->Branch("GenProtonYPos", &fGenYProton);
-  fRootTree->Branch("GenProtonZPos", &fGenZProton);
-  fRootTree->Branch("NumPiPlus", &fGenPiPlus);
-  fRootTree->Branch("GenPiPlusXPos", &fGenXPiPlus);
-  fRootTree->Branch("GenPiPlusYPos", &fGenYPiPlus);
-  fRootTree->Branch("GenPiPlusZPos", &fGenZPiPlus);
-  fRootTree->Branch("NumPiZero", &fGenPiZero);
-  fRootTree->Branch("GenPiZeroXPos", &fGenXPiZero);
-  fRootTree->Branch("GenPiZeroYPos", &fGenYPiZero);
-  fRootTree->Branch("GenPiZeroZPos", &fGenZPiZero);
-  fRootTree->Branch("NumPiMinus", &fGenPiMinus);
-  fRootTree->Branch("NumDAR", &fNumDAR);
-  fRootTree->Branch("NumDIF", &fNumDIF);
-  fRootTree->Branch("nu_mu_gen", &fNum_numu);
-  fRootTree->Branch("nu_mu_genposx", &fnumu_gen_posx);
-  fRootTree->Branch("nu_mu_genposy", &fnumu_gen_posy);
-  fRootTree->Branch("nu_mu_genposz", &fnumu_gen_posz);
-  fRootTree->Branch("nu_mu_time", &fnumu_time);
-  fRootTree->Branch("nu_e_gen", &fNum_nue);
-  fRootTree->Branch("nu_e_genposx", &fnue_gen_posx);
-  fRootTree->Branch("nu_e_genposy", &fnue_gen_posy);
-  fRootTree->Branch("nu_e_genposz", &fnue_gen_posz);
-  fRootTree->Branch("nu_e_time", &fnue_time);
-  fRootTree->Branch("antinu_e_gen", &fNum_antinue);
-  fRootTree->Branch("antinu_mu_gen", &fNum_antinumu);
-  fRootTree->Branch("antinu_mu_genposx", &fantinumu_gen_posx);
-  fRootTree->Branch("antinu_mu_genposy", &fantinumu_gen_posy);
-  fRootTree->Branch("antinu_mu_genposz", &fantinumu_gen_posz);
-  fRootTree->Branch("antinu_mu_time", &fantinumu_time);
-  fRootTree->Branch("nu_mu_energy", &fnumu_energy);
-  fRootTree->Branch("nu_e_energy", &fnue_energy);
-  fRootTree->Branch("antinu_e_energy", &fantinue_energy);
-  fRootTree->Branch("antinu_mu_energy", &fantinumu_energy);
-  fRootTree->Branch("nu_mu_darE", &fnumu_darE);
-  fRootTree->Branch("nu_e_darE", &fnue_darE);
-  fRootTree->Branch("antinu_mu_darE", &fantinumu_darE);
-  fRootTree->Branch("nu_mu_difE", &fnumu_difE);
-  fRootTree->Branch("nu_e_difE", &fnue_difE);
-  fRootTree->Branch("antinumu_difE", &fantinumu_difE);
-  fRootTree->Branch("pi_decay", &fPiDecayTime);
-  fRootTree->Branch("mu_decay", &fMuDecayTime);
-  fRootTree->Branch("nu_in_detector", &fNuInDetector);
-  fRootTree->Branch("num_reflections",&fNumReflections);
-  fRootTree->Branch("PMThit_track_length_vuv", &fTrackLength);
-  fRootTree->Branch("total_pmt_hits_vuv", &fTotalPMTHitVUV);
-  fRootTree->Branch("total_pmt_hits", &fTotalPMTHit);
-  fRootTree->Branch("pmt_hit_vuv", &fPMTHit);
-  fRootTree->Branch("pmt_hit_posX_vuv", &fPMTHitPosX);
-  fRootTree->Branch("pmt_hit_posY_vuv", &fPMTHitPosY);
-  fRootTree->Branch("pmt_hit_posZ_vuv", &fPMTHitPosZ);
-  fRootTree->Branch("PMThit_track_length_wls", &fTrackLengthWLS);
-  fRootTree->Branch("total_pmt_hits_wls", &fTotalPMTHitWLS);
-  fRootTree->Branch("pmt_hit_wls", &fPMTHitWLS);
-  fRootTree->Branch("pmt_hit_posX_wls", &fPMTHitPosXWLS);
-  fRootTree->Branch("pmt_hit_posY_wls", &fPMTHitPosYWLS);
-  fRootTree->Branch("pmt_hit_posZ_wls", &fPMTHitPosZWLS);
+  fRootTree->Branch("DetectorEvent", &fDetEvent);
+  fRootTree->Branch("BeamEvent", &fBeamEvent);
 }

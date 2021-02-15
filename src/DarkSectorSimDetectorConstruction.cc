@@ -41,15 +41,24 @@
 #include "TString.h"
 
 #include "DarkSectorSimDetectorConstruction.hh"
+#include "DarkSectorSimDetectorMessenger.hh"
 
 DarkSectorSimDetectorConstruction::DarkSectorSimDetectorConstruction():
   G4VUserDetectorConstruction()
 {
   fNISTManager = G4NistManager::Instance();
+  fDetMessenger = new DarkSectorSimDetectorMessenger(this);
+  
 }
 
 DarkSectorSimDetectorConstruction::~DarkSectorSimDetectorConstruction()
 {
+  delete fDetMessenger;
+}
+
+void DarkSectorSimDetectorConstruction::SetInputModel(G4String inputstr)
+{
+  fInputModel = inputstr;
 }
 
 G4LogicalVolume* DarkSectorSimDetectorConstruction::GetWorldLogical() const
@@ -76,7 +85,10 @@ G4VPhysicalVolume* DarkSectorSimDetectorConstruction::Construct()
   */
   //Try GDML with current geometry
   G4GDMLParser parser;
-  std::string gdml_file = "../gdml/simple_target_detector/Target.gdml";
+  G4String gdml_file = fInputModel;
+  if(fInputModel == "")
+    gdml_file = "../gdml/simple_target_detector/simple.gdml";
+  G4cout << "GDML Input file: " << fInputModel << G4endl;
   G4cout << "Parsing GDML file at " << gdml_file << G4endl;
   parser.Read(gdml_file.c_str());
   G4cout << "GDML: Get World" << G4endl;  
@@ -99,14 +111,35 @@ G4VPhysicalVolume* DarkSectorSimDetectorConstruction::Construct()
   G4VPhysicalVolume *topwlscapVol = physvolstore->GetVolume("TopTPBEndCapVol");
   G4VPhysicalVolume *botreflcapVol = physvolstore->GetVolume("BotEndCapVol");
   G4VPhysicalVolume *botwlscapVol = physvolstore->GetVolume("BotTPBEndCapVol");
+  G4VPhysicalVolume *larVol = physvolstore->GetVolume("LArCylVol");
+  G4LogicalVolumeStore *logvolstore = G4LogicalVolumeStore::GetInstance();
+  G4LogicalVolume *reflLog = logvolstore->GetVolume("SideReflLog");
+  G4LogicalVolume *topreflcapLog = logvolstore->GetVolume("TopEndCapLog");
+  G4LogicalVolume *botreflcapLog = logvolstore->GetVolume("BotEndCapLog");
   G4double reflectivity = 0.99;
-  if(!reflVol || !wlsVol)
+  //G4double reflectivity = 1.0;
+  if(!reflVol || !wlsVol || !topwlscapVol || !botwlscapVol || !topreflcapVol || !botreflcapVol)
+  {
+    //SetReflSurface(topwlscapVol, topreflcapVol, reflectivity, 0.05);
+    //SetReflSurface(botwlscapVol, botreflcapVol, reflectivity, 0.05);
     return worldPhys;
+  }
   G4cout << "Setting up WLS-Reflector Optical Surface" << G4endl;
-  SetReflSurface(wlsVol, reflVol, reflectivity, 0.05);
-  SetReflSurface(reflVol, wlsVol, reflectivity, 0.05);
-  SetReflSurface(topwlscapVol, topreflcapVol, reflectivity, 0.05);
-  SetReflSurface(botwlscapVol, botreflcapVol, reflectivity, 0.05);
+  //SetReflSurface(topreflcapLog, topreflcapLog, reflectivity, 0.05);
+  //SetReflSurface(botreflcapLog, botreflcapLog, reflectivity, 0.05);
+  SetReflSurface(reflLog, reflLog, reflectivity, 0.05);
+  //SetReflSurface(topwlscapLog, topreflcapLog, reflectivity, 0.05);
+  //SetReflSurface(botwlscapLog, botreflcapLog, reflectivity, 0.05);
+  //SetReflSurface(topreflcapLog, topreflcapLog, reflectivity, 0.05);
+  //SetReflSurface(botreflcapLog, botreflcapLog, reflectivity, 0.05);
+  //SetReflSurface(wlsVol, reflVol, reflectivity, 0.05);
+  //SetTransmitSurface(wlsVol, larVol, 0.0, 0.05);
+  //SetTransmitSurface(larVol, wlsVol, 0.0, 0.05);
+  //SetReflSurface(reflVol, wlsVol, reflectivity, 0.05);
+  SetReflBorderSurface(topwlscapVol, topreflcapVol, reflectivity, 0.05);
+  SetReflBorderSurface(botwlscapVol, botreflcapVol, reflectivity, 0.05);
+  SetReflBorderSurface(topreflcapVol,larVol, reflectivity, 0.05);
+  SetReflBorderSurface(botreflcapVol,larVol, reflectivity, 0.05);
   return worldPhys;
 }
 
@@ -176,12 +209,12 @@ void DarkSectorSimDetectorConstruction::SetWLSProperties()
 {
   //Set Properties of wavelength shifter TPB
   G4Material *WLShifter = G4Material::GetMaterial("TPB");
-  const G4int numWLSBins = 6;
-  G4double WLSEnergy[numWLSBins] = {0.602*eV, 5.474*eV, 9.5*eV, 9.6*eV, 9.7*eV, 9.8*eV};
-  G4double WLSAbsorption[numWLSBins] = {1000*m, 1000*m, 0.001*nm, 0.001*nm, 0.001*nm, 0.001*nm};
-  G4double WLSTransmittance[numWLSBins] = {1.0, 1.0, 1.0, 1.0, 1.0, 1.0};
-  G4double WLSVisAbsorption[numWLSBins] = {1000.*m, 1000.*m, 1000.*m, 1000.*m, 1000.*m, 1000.*m};
-  G4double WLSRefIndex[numWLSBins] = {1.38, 1.38, 1.38, 1.38, 1.38, 1.38}; //Make same as Reflector, Geant requires separate WLS-specific volume to perform WLS process, can adjust as needed
+  const G4int numWLSBins = 8;
+  G4double WLSEnergy[numWLSBins] = {0.602*eV, 5.474*eV, 6.8*eV, 7.0*eV, 9.5*eV, 9.6*eV, 9.7*eV, 9.8*eV};
+  G4double WLSAbsorption[numWLSBins] = {1000*m, 1000*m, 0.001*nm, 0.001*nm, 0.001*nm, 0.001*nm, 0.001*nm, 0.001*nm};
+  G4double WLSTransmittance[numWLSBins] = {1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0};
+  G4double WLSVisAbsorption[numWLSBins] = {2000.*m, 2000.*m, 2000.*m, 2000.*m, 2000.*m, 2000.*m, 2000.*m, 2000.*m};
+  G4double WLSRefIndex[numWLSBins] = {1.38, 1.38, 1.38, 1.38, 1.38, 1.38, 1.38, 1.38}; //Make same as Reflector, Geant requires separate WLS-specific volume to perform WLS process, can adjust as needed
 
   //adapted from NIM A 654, 1, 2011, Pages 116-121                                                                                
   const G4int WLSEmitEntries = 25;
@@ -205,7 +238,7 @@ void DarkSectorSimDetectorConstruction::SetWLSProperties()
   WLSProp->AddConstProperty("WLSMEANNUMBERPHOTONS", 1.0);
   WLSProp->AddProperty("RINDEX", WLSEnergy, WLSRefIndex, numWLSBins);
   WLSProp->AddProperty("ABSLENGTH", WLSEnergy, WLSVisAbsorption, numWLSBins);
-  WLSProp->AddProperty("TRANSMITTANCE", WLSEnergy, WLSTransmittance, numWLSBins);
+  //WLSProp->AddProperty("TRANSMITTANCE", WLSEnergy, WLSTransmittance, numWLSBins);
   WLShifter->SetMaterialPropertiesTable(WLSProp);
 }
 
@@ -216,19 +249,21 @@ void DarkSectorSimDetectorConstruction::SetReflProperties()
   G4double ReflEnergy[numReflBins] = {0.1*eV, 1600*eV};
   G4double ReflRefIndex[numReflBins] = {1.38, 1.38};
   G4double ReflReflectivity[numReflBins] = {0.99, 0.99}; //99% chance to reflect at all wavelengths (WAG)
+  //G4double ReflReflectivity[numReflBins] = {1.0, 1.0};
   G4double ReflTransmittance[numReflBins] = {0.0,0.0}; //0% chance to transmit, then 1% chance to just be absorbed
   
   G4MaterialPropertiesTable *ReflProp =new G4MaterialPropertiesTable();
   ReflProp->AddProperty("RINDEX", ReflEnergy, ReflRefIndex, numReflBins);
-  ReflProp->AddProperty("REFLECTIVITY", ReflEnergy, ReflReflectivity, numReflBins);
+  //ReflProp->AddProperty("REFLECTIVITY", ReflEnergy, ReflReflectivity, numReflBins);
+  //ReflProp->AddProperty("TRANSMITTANCE", ReflEnergy, ReflTransmittance, numReflBins);
   Reflector->SetMaterialPropertiesTable(ReflProp);
 }
 
-void DarkSectorSimDetectorConstruction::SetReflSurface(G4VPhysicalVolume *exitVol, G4VPhysicalVolume *enterVol, G4double reflectivity, G4double sigmaAlpha)
+void DarkSectorSimDetectorConstruction::SetReflSurface(G4LogicalVolume *exitVol, G4LogicalVolume *enterVol, G4double reflectivity, G4double sigmaAlpha)
 {
-  G4OpticalSurface *SurfRefl = new G4OpticalSurface("Reflector");
-  SurfRefl->SetType(dielectric_dielectric);
+  G4OpticalSurface *SurfRefl = new G4OpticalSurface(Form("surf_%s_%s", exitVol->GetName().data(), enterVol->GetName().data()));
   SurfRefl->SetModel(unified);
+  SurfRefl->SetType(dielectric_dielectric);
   if(sigmaAlpha <= 0.0)
      SurfRefl->SetFinish(polished);
   else
@@ -239,21 +274,55 @@ void DarkSectorSimDetectorConstruction::SetReflSurface(G4VPhysicalVolume *exitVo
   const G4int numReflBins = 2;
   G4double ReflEnergy[numReflBins] = {0.1*eV, 1600*eV};
   G4double ReflReflectivity[numReflBins] = {0.99, 0.99};
+  G4double ReflTransmittance[numReflBins] = {0.0,0.0};
+  G4double ReflEff[numReflBins] = {1.0, 1.0};
+  //G4double ReflReflectivity[numReflBins] = {1.0, 1.0};
   G4MaterialPropertiesTable *ReflSurfProp = new G4MaterialPropertiesTable();
-  ReflSurfProp->AddProperty("REFLECTIVITY", ReflEnergy, ReflReflectivity, numReflBins); 
+  ReflSurfProp->AddProperty("REFLECTIVITY", ReflEnergy, ReflReflectivity, numReflBins);
+  ReflSurfProp->AddProperty("TRANSMITTANCE", ReflEnergy, ReflTransmittance, numReflBins);
+  ReflSurfProp->AddProperty("EFFICIENCY", ReflEnergy, ReflEff, numReflBins);
   SurfRefl->SetMaterialPropertiesTable(ReflSurfProp);
   G4String surfName(Form("surf_%s_%s", exitVol->GetName().data(), enterVol->GetName().data()));
-  new G4LogicalBorderSurface(surfName, exitVol, enterVol, SurfRefl);
+  G4LogicalSkinSurface *ReflSurface = new G4LogicalSkinSurface(surfName, exitVol, SurfRefl);
 
+}
+
+void DarkSectorSimDetectorConstruction::SetReflBorderSurface(G4VPhysicalVolume *exitVol, G4VPhysicalVolume *enterVol, G4double reflectivity, G4double sigmaAlpha)
+{
+  G4OpticalSurface *SurfRefl = new G4OpticalSurface(Form("surf_%s_%s", exitVol->GetName().data(), enterVol->GetName().data()));
+  SurfRefl->SetModel(unified);
+  SurfRefl->SetType(dielectric_dielectric);
+  if(sigmaAlpha <= 0.0)
+    SurfRefl->SetFinish(polished);
+  else
+    {
+      SurfRefl->SetFinish(ground);
+      SurfRefl->SetSigmaAlpha(sigmaAlpha);
+    }
+  const G4int numReflBins = 2;
+  G4double ReflEnergy[numReflBins] = {0.1*eV, 1600*eV};
+  G4double ReflReflectivity[numReflBins] = {0.99, 0.99};
+  G4double ReflTransmittance[numReflBins] = {0.0,0.0};
+  G4double ReflEff[numReflBins] = {1.0, 1.0}; 
+  G4MaterialPropertiesTable *ReflSurfProp = new G4MaterialPropertiesTable();
+  ReflSurfProp->AddProperty("REFLECTIVITY", ReflEnergy, ReflReflectivity, numReflBins);
+  ReflSurfProp->AddProperty("TRANSMITTANCE", ReflEnergy, ReflTransmittance, numReflBins);
+  ReflSurfProp->AddProperty("EFFICIENCY", ReflEnergy, ReflEff, numReflBins);
+  SurfRefl->SetMaterialPropertiesTable(ReflSurfProp);
+  G4String surfName(Form("surf_%s_%s", exitVol->GetName().data(), enterVol->GetName().data()));
+  G4LogicalBorderSurface *ReflSurface = new G4LogicalBorderSurface(surfName, exitVol, enterVol, SurfRefl);
 }
 
 void DarkSectorSimDetectorConstruction::SetArgonProperties()
 {
   G4Material *LAr = G4Material::GetMaterial("liquidArgon");
   
-  const G4int numScintBins = 3;
-  G4double scintEn[numScintBins] = {9.6*eV,9.7*eV,9.8*eV};
-  G4double scintSpectrum[numScintBins] = {0.0, 1.0, 0.0};
+  //const G4int numScintBins = 3;
+  //G4double scintEn[numScintBins] = {9.6*eV,9.7*eV,9.8*eV};
+  //G4double scintSpectrum[numScintBins] = {0.0, 1.0, 0.0};
+  const G4int numScintBins = 6;
+  G4double scintEn[numScintBins] = {6.90*eV, 6.98*eV, 7.00*eV, 9.6*eV,9.7*eV,9.8*eV};
+  G4double scintSpectrum[numScintBins] = {0.0, 0.0, 0.0, 0.0, 1.0, 0.0};
 
   G4double actualSY = 40000; //40k photons/MeV
   //G4double photoneff = 1.0; //Right now, can just plug in constant PMT QE, could fold in real spectrum of visible light PMT QE but would increase sim time, for now do this
@@ -275,14 +344,14 @@ void DarkSectorSimDetectorConstruction::SetArgonProperties()
   const G4int AbsBins = 11;
   G4double AbsLengthEnergies[AbsBins] = {1.*eV, 2.*eV, 3.*eV, 4.*eV, 5.*eV, 6.*eV, 7.*eV, 8.*eV, 9.*eV, 10.*eV, 11.*eV};
   G4double AbsLengthSpectrum[AbsBins] = {2000.*cm, 2000.*cm, 2000.*cm, 2000.*cm, 2000.*cm, 2000.*cm, 2000.*cm, 2000.*cm, 2000.*cm, 2000.*cm, 2000.*cm};
-  //G4double AbsLengthSpectrum[AbsBins] = {3000.*cm, 3000.*cm, 3000.*cm, 3000.*cm, 3000.*cm, 3000.*cm, 3000.*cm, 3000.*cm, 3000.*cm, 3000.*cm, 3000.*cm};
+  //G4double AbsLengthSpectrum[AbsBins] = {50000.*cm, 50000.*cm, 50000.*cm, 50000.*cm, 50000.*cm, 50000.*cm, 50000.*cm, 50000.*cm, 50000.*cm, 50000.*cm, 50000.*cm};
 
   const G4int RayleighBins = 22;
   //Rayleigh scattering length (cm) @ 90K as a function of energy (eV) from arXiv:1502.04213                                         
   G4double RayleighEnergies[RayleighBins] = {2.80*eV, 3.00*eV, 3.50*eV, 4.00*eV, 5.00*eV, 6.00*eV, 7.00*eV, 8.00*eV, 8.50*eV, 9.00*eV, 9.20*eV, 9.40*eV, 9.50*eV, 9.60*eV, 9.70*eV, 9.80*eV, 9.90*eV, 10.0*eV, 10.2*eV, 10.4*eV, 10.6*eV, 10.8*eV};
   G4double RayleighSpectrum[RayleighBins] = {47923.*cm, 35981.*cm, 18825.*cm, 10653.*cm, 3972.*cm, 1681.*cm, 750.9*cm, 334.7*cm, 216.8*cm, 135.0*cm, 109.7*cm, 88.06*cm, 78.32*cm, 69.34*cm, 61.06*cm, 53.46*cm, 46.50*cm, 40.13*cm, 28.91*cm, 19.81*cm, 12.61*cm, 7.20*cm};
   for(int i=0; i < RayleighBins; ++i)
-    RayleighSpectrum[i] *= (90/61.06);
+    RayleighSpectrum[i] *= (99.9/61.06);
 
   LArProp->AddProperty("RINDEX", RIndexEnergies, RIndexSpectrum, RIndexbins);
   LArProp->AddProperty("ABSLENGTH", AbsLengthEnergies, AbsLengthSpectrum, AbsBins);

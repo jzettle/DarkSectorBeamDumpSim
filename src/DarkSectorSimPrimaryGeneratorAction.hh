@@ -26,11 +26,17 @@ public:
 
   void GeneratePrimaries(G4Event *event);
   void SetGenerator(G4String);
+  void SetVoxelRNum(G4double voxelR);
+  void SetVoxelZNum(G4double voxelZ);
+  void GenerateOptPhotonVoxel(G4Event *event);
+  void GetPositioninVoxel(G4ThreeVector &pos, G4double voxelR, G4double voxelZ);
 
 private:
   G4GeneralParticleSource* fParticleGun;    // For normal work need using gps
   DarkSectorSimPrimaryGeneratorMessenger* fGunMessenger;
   G4String fGenerator;
   G4ParticleGun* fPartGenerator;
+  G4double voxelRNum;
+  G4double voxelZNum;
 };
 #endif /* __DARKSECTORSIM_PRIMARY_GENERATOR_ACTION_HH__ */

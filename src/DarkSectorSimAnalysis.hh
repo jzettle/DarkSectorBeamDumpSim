@@ -38,6 +38,14 @@
 #include "DarkSectorSimTrajectory.hh"
 #include <string>
 #include <vector>
+#include <map>
+#include "DetectorEvent.hh"
+#include "BeamEvent.hh"
+#include "OpPhoton.hh"
+
+class DetectorEvent;
+class BeamEvent;
+class OpPhoton;
 
 class DarkSectorSimAnalysis
 {
@@ -52,6 +60,8 @@ public:
   virtual ~DarkSectorSimAnalysis();
   void SetROOTFileName(G4String& name) {fRootFileName = name;}
   void SetROOTTreeName(G4String& name) {fRootTreeName = name;}
+  void SetVoxelization(G4bool voxel) {fVoxel = voxel;}
+  void SetSaveFastOpTable(G4bool savefastop) {fSaveFastOpTable = savefastop;}
   void PrepareNewRun(const G4Run* g4run);
   void EndofRun(const G4Run* g4run);
   void PrepareNewEvent(const G4Event* event);
@@ -69,10 +79,16 @@ private:
   void SetBranches();
   G4String fRootFileName;
   G4String fRootTreeName;
+  G4bool fVoxel;
+  G4bool fSaveFastOpTable;
   TFile* fRootFile;
   TTree* fRootTree;
 private:
-  
+
+  DetectorEvent *fDetEvent;
+  BeamEvent *fBeamEvent;
+  OpPhoton *fSinglePhoton;
+  std::vector<OpPhoton> fPhotonStore;
   G4int fEventNumber;
   G4double fGenXProton;
   G4double fGenYProton;
@@ -122,18 +138,22 @@ private:
   std::vector<G4double> fTrackLength;
   G4double fTotalPMTHit;
   G4double fTotalPMTHitVUV;
-  std::vector<G4double> fPMTHit;
-  std::vector<G4double> fPMTHitPosX;
-  std::vector<G4double> fPMTHitPosY;
-  std::vector<G4double> fPMTHitPosZ;
+  G4int fPMTHit;
+  G4double fPMTHitPosX;
+  G4double fPMTHitPosY;
+  G4double fPMTHitPosZ;
   std::vector<G4double> fTrackLengthWLS;
   G4double fTotalPMTHitWLS;
   G4double fTotalLength;
   std::vector<G4double> fPMTHitWLS;
-  std::vector<G4double> fPMTHitPosXWLS;
-  std::vector<G4double> fPMTHitPosYWLS;
-  std::vector<G4double> fPMTHitPosZWLS;
-  
+  std::vector<G4double> fPhotonHitTimes;
+  G4double fPhotonHitTime;
+  G4double fF90;
+  G4double fGenXPhoton;
+  G4double fGenYPhoton;
+  G4double fGenZPhoton;
+  std::vector< std::vector <std::pair<G4double, G4double> > > fPMTReflTimeMap;
+  std::vector< std::vector<G4double> > fPMTReflEffVec;
 };
 
 class DarkSectorSimAnalysisMessenger : public G4UImessenger
@@ -148,7 +168,8 @@ private:
   G4UIdirectory* fDirectory;
   G4UIcmdWithAString* fRootFileNameCmd;
   G4UIcmdWithAString* fRootTreeNameCmd;  
-  
+  G4UIcmdWithABool* fUseVoxelCmd;
+  G4UIcmdWithABool* fSaveFastOpTableCmd;
 };
 
 #endif

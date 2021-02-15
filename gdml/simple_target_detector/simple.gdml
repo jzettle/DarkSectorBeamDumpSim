@@ -163,38 +163,48 @@
       <materialref ref="TPB" />
       <solidref ref="TPBBotSolid" />
     </volume>
-
-    <volume name="TPBSideLog">
-      <materialref ref="TPB" />
-      <solidref ref="TPBSideSolid" />
-    </volume>
-    
-    <volume name="ReflectorLog">
-      <materialref ref="PTFE" />
-      <solidref ref="ReflectorSolid" />
-    </volume>
     
     <volume name="WLSLog">
       <materialref ref="TPB" />
       <solidref ref="WLSSolid" />
     </volume>
-
+    
     <volume name="SideReflLog">
       <materialref ref="PTFE" />
       <solidref ref="SideReflector" />
+    </volume>
+
+    <volume name="TPBSideLog">
+      <materialref ref="TPB" />
+      <solidref ref="TPBSideSolid" />
+    </volume>
+
+    <volume name="ReflectorLog">
+      <materialref ref="PTFE" />
+      <solidref ref="ReflectorSolid" />
     </volume>
 
     <volume name="SideTPBLog">
       <materialref ref="TPB" />
       <solidref ref="SideTPB" />
     </volume>
-    
-    <volume name="EndCapLog">
+   
+    <volume name="TopEndCapLog">
       <materialref ref="PTFE" />
       <solidref ref="EndCap" />
     </volume>
 
-    <volume name="EndCapTPBLog">
+    <volume name="TopEndCapTPBLog">
+      <materialref ref="TPB" />
+      <solidref ref="TPBEndCap" />
+    </volume>
+
+    <volume name="BotEndCapLog">
+      <materialref ref="PTFE" />
+      <solidref ref="EndCap" />
+    </volume>
+
+    <volume name="BotEndCapTPBLog">
       <materialref ref="TPB" />
       <solidref ref="TPBEndCap" />
     </volume>
@@ -207,18 +217,7 @@
       &sidewall_pmt_placements;
       &sidewall_tpb_placements;
       &tpb_placements;
-     <!--
-      <physvol name="ReflectorVol">
-	<volumeref ref="ReflectorLog" />
-	<positionref ref="ReflectorPos" />
-      </physvol>
-      
-      <physvol name="WLSVol">
-	<volumeref ref="WLSLog" />
-	<positionref ref="WLSPos" />
-      </physvol>
-      -->
-      
+     
       <physvol name="SideReflectorVol">
 	<volumeref ref="SideReflLog" />
 	<positionref ref="ReflectorPos" />
@@ -228,25 +227,24 @@
 	<volumeref ref="SideTPBLog" />
 	<positionref ref="WLSPos" />
       </physvol>
-    
-
+      
       <physvol name="TopEndCapVol">
-	<volumeref ref="EndCapLog" />
+	<volumeref ref="TopEndCapLog" />
 	<positionref ref="TopEndCapPos" />
       </physvol>
 
       <physvol name="TopTPBEndCapVol">
-	<volumeref ref="EndCapTPBLog" />
+	<volumeref ref="TopEndCapTPBLog" />
 	<positionref ref="TopEndCapTPBPos" />
       </physvol>
 
       <physvol name="BotEndCapVol">
-	<volumeref ref="EndCapLog" />
+	<volumeref ref="BotEndCapLog" />
 	<positionref ref="BotEndCapPos" />
       </physvol>
 
       <physvol name="BotTPBEndCapVol">
-	<volumeref ref="EndCapTPBLog" />
+	<volumeref ref="BotEndCapTPBLog" />
 	<positionref ref="BotEndCapTPBPos" />
       </physvol>
      

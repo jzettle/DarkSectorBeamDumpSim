@@ -10,7 +10,7 @@
 class G4NistManager;
 class G4Material;
 class G4LogicalVolume;
-//class DarkSectorSimDetectorMessenger;
+class DarkSectorSimDetectorMessenger;
 
 class DarkSectorSimDetectorConstruction : public G4VUserDetectorConstruction
 {
@@ -18,13 +18,15 @@ public:
   DarkSectorSimDetectorConstruction();
   ~DarkSectorSimDetectorConstruction();
   virtual G4VPhysicalVolume* Construct();
-  //virtual DarkSectorSimDetectorMessenger* GetMessenger(void) {return fDetectorMessenger;}
+  virtual DarkSectorSimDetectorMessenger* GetMessenger(void) {return fDetMessenger;}
 
   void ConstructTarget();
   void ConstructDetector();
-  
+  void SetInputModel(G4String);
 private:
   std::map<G4String, G4String> fVolNames;
+  DarkSectorSimDetectorMessenger *fDetMessenger;
+  G4String fInputModel;
   G4NistManager *fNISTManager;
   G4Material *fGraphite;
   G4Material *fLAr;
@@ -34,7 +36,8 @@ private:
   void SetWLSProperties();
   void SetReflProperties();
   void SetArgonProperties();
-  void SetReflSurface(G4VPhysicalVolume* exitVol, G4VPhysicalVolume* enterVol, G4double refl, G4double sigmaAlpha);
+  void SetReflSurface(G4LogicalVolume* exitVol, G4LogicalVolume* enterVol, G4double reflectivity, G4double sigmaAlpha);
+  void SetReflBorderSurface(G4VPhysicalVolume *exitVol, G4VPhysicalVolume *enterVol, G4double reflectivity, G4double sigmaAlpha);
 };
 
 #endif /* DARKSECTORSIM_DETECTOR_CONSTRUCTION_H */

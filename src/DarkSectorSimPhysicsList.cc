@@ -135,10 +135,14 @@ void DarkSectorSimPhysicsList::ConstructProcess()
   
   //Add Optical Processes
   //different scintillation yields for electron/neutron
-  theScintillationProcessElectron = new G4Scintillation("Scintillation");
+  //theScintillationProcessElectron = new G4Scintillation("Scintillation");
+  G4cout << "Here" << G4endl;
+  theScintillationProcessElectron = new DarkSectorSimScintillation("Scintillation");
+  G4cout << "Registered Scintillation" << G4endl;
   theScintillationProcessElectron->SetScintillationYieldFactor(1.0);
   theScintillationProcessElectron->SetScintillationExcitationRatio(0.3);
-  theScintillationProcessNeutron = new G4Scintillation("Scintillation");
+  //theScintillationProcessNeutron = new G4Scintillation("Scintillation");
+  theScintillationProcessNeutron = new DarkSectorSimScintillation("Scintillation");
   theScintillationProcessNeutron->SetScintillationYieldFactor(1.0);
   theScintillationProcessNeutron->SetScintillationExcitationRatio(0.7);
   //Other optical processes: Cherenkov, Absorption, Rayleigh Scattering, wavelength shifting
@@ -148,7 +152,7 @@ void DarkSectorSimPhysicsList::ConstructProcess()
   theBoundaryProcess = new G4OpBoundaryProcess();
   theWLSProcess = new G4OpWLS();
   theWLSProcess->UseTimeProfile("exponential");
-  theBoundaryProcess->SetVerboseLevel(0);
+  //theBoundaryProcess->SetVerboseLevel(1);
   //theWLSProcess->SetVerboseLevel(1);
   //Have Geant4 track the secondary optical photons as soon as they are created
   theScintillationProcessElectron->SetTrackSecondariesFirst(true);

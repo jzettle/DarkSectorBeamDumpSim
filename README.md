@@ -2,7 +2,7 @@
 
 J. Zettlemoyer, FNAL, jzettle@fnal.gov
 
-This simulation has been tested and verified to run against GEANT4 10.6 with cmake version 3.9.5
+This simulation has been tested and verified to run against GEANT4 10.6, ROOT 6.18 with cmake version 3.9.5
 
 To build and compile, with the DarkSectorBeamDumpSim directory
 

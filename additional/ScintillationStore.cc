@@ -25,6 +25,7 @@ void ScintillationStore::clear()
   scint_posx = 0.0;
   scint_posy = 0.0;
   scint_posz = 0.0;
+  if(store)
+    delete store;
 }
 
-ScintillationStore overallStore;

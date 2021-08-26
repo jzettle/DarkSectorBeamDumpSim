@@ -53,7 +53,7 @@ DarkSectorSimPhysicsList::DarkSectorSimPhysicsList(G4String name): G4VModularPhy
   //fPhysicsListMessenger = new DarkSectorSimPhysicsListMessenger(this);
   G4LossTableManager::Instance();
   SetDefaultCutValue(1.*mm);
-  
+  //SetDefaultCutValue(1.*cm);
   G4VModularPhysicsList* physList = NULL; //initialize list
   std::vector<G4String>* construct = new std::vector<G4String>; //Create vector to hold options
 
@@ -177,7 +177,7 @@ void DarkSectorSimPhysicsList::ConstructProcess()
   //G4OpticalSurfaceModel Model = unified;
   //theBoundaryProcess->SetModel(Model);
   //auto particleIterator = GetParticleIterator();
-  
+  SetDefaultCutValue(1.*mm);
   GetParticleIterator()->reset();
   //Add scintillation and cherenkov processes to particles
   while((*GetParticleIterator())()) 

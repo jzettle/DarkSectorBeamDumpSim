@@ -36,8 +36,10 @@
 #include "TH1.h"
 #include "TPad.h"
 #include "DarkSectorSimTrajectory.hh"
+#include <cstdlib>
 #include <string>
 #include <vector>
+#include <fstream>
 #include <map>
 #include "DetectorEvent.hh"
 #include "BeamEvent.hh"
@@ -62,6 +64,8 @@ public:
   void SetROOTTreeName(G4String& name) {fRootTreeName = name;}
   void SetVoxelization(G4bool voxel) {fVoxel = voxel;}
   void SetSaveFastOpTable(G4bool savefastop) {fSaveFastOpTable = savefastop;}
+  void SetSaveBeamPion(G4bool savepion) {fSaveBeamPion = savepion;}
+  void SetBeamPionFile(G4String pionfile) {fBeamPionFile = pionfile;}
   void PrepareNewRun(const G4Run* g4run);
   void EndofRun(const G4Run* g4run);
   void PrepareNewEvent(const G4Event* event);
@@ -81,6 +85,8 @@ private:
   G4String fRootTreeName;
   G4bool fVoxel;
   G4bool fSaveFastOpTable;
+  G4bool fSaveBeamPion;
+  std::string fBeamPionFile;
   TFile* fRootFile;
   TTree* fRootTree;
 private:
@@ -89,7 +95,9 @@ private:
   BeamEvent *fBeamEvent;
   OpPhoton *fSinglePhoton;
   std::vector<OpPhoton> fPhotonStore;
+  //ScintillationStore *fStore;
   G4int fEventNumber;
+  G4double fParentEnergy;
   G4double fGenXProton;
   G4double fGenYProton;
   G4double fGenZProton;
@@ -152,8 +160,15 @@ private:
   G4double fGenXPhoton;
   G4double fGenYPhoton;
   G4double fGenZPhoton;
+  G4double fInitialtime;
   std::vector< std::vector <std::pair<G4double, G4double> > > fPMTReflTimeMap;
   std::vector< std::vector<G4double> > fPMTReflEffVec;
+
+  G4double fpi_xmom;
+  G4double fpi_ymom;
+  G4double fpi_zmom;
+  G4double fpi_time;
+  G4double fpi_E;
 };
 
 class DarkSectorSimAnalysisMessenger : public G4UImessenger
@@ -170,6 +185,8 @@ private:
   G4UIcmdWithAString* fRootTreeNameCmd;  
   G4UIcmdWithABool* fUseVoxelCmd;
   G4UIcmdWithABool* fSaveFastOpTableCmd;
+  G4UIcmdWithABool* fSaveBeamPionCmd;
+  G4UIcmdWithAString* fBeamPionFileCmd;
 };
 
 #endif

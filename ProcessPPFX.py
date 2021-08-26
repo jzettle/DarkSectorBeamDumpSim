@@ -6,14 +6,14 @@
 import os, optparse, random, shutil, tarfile, sys
 import subprocess, string
 
-CACHE_PNFS_AREA = "/pnfs/icarus/scratch/users/{USER}/grid_cache/".format(USER = os.getenv("USER"))
+CACHE_PNFS_AREA = "/pnfs/ldrd/darksectorldrd/scratch/users/{USER}/grid_cache/".format(USER = os.getenv("USER"))
 PWD = os.getenv("PWD")
 
 ##################################################
 # Job Defaults
 ##################################################
-N_JOBS             = 10
-OUTDIR             = "/pnfs/icarus/persistent/users/{USER}/darksectorsim/test".format(USER = os.getenv("USER")) + str(random.randint(0,10000)) + "/"
+N_JOBS             = 1000
+OUTDIR             = "/pnfs/ldrd/darksectorldrd/persistent/users/{USER}/darksectorsim/CEvNS_".format(USER = os.getenv("USER")) + str(random.randint(0,10000)) + "/"
 #INPUT_OPTIONS      = "{0}/scripts/inputs_default.xml".format(PWD)
 #INPUT_OPTIONS      = "scripts/inputs_default.xml"
 #IDET               = "3"
@@ -45,14 +45,15 @@ def main():
 
   #Add {MEMORY} if bring back memory command
   submit_command = ("jobsub_submit {GRID} -N {NJOBS} " 
-      "-G icarus "   
+      "-G darksectorldrd "   
       "-d PPFX {OUTDIR} " 
       "-f {TARFILE} "
       "-L {LOGFILE} "
       "file://{CACHE}/ppfx_job.sh".format(
       GRID       = ("--OS=SL7 -g "
-                    "--resource-provides=usage_model=DEDICATED,OFFSITE "
-                    "--role=Analysis "),
+                    "--resource-provides=usage_model=OPPORTUNISTIC,OFFSITE "
+                    "--role=Analysis "
+                    "--expected-lifetime='long' "),
       #MEMORY     = "--memory 200MB ",
       NJOBS      = options.n_jobs,
       OUTDIR     = options.outdir,

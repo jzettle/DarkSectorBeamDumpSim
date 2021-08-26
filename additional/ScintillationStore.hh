@@ -13,6 +13,7 @@ private:
   double scint_posx;
   double scint_posy;
   double scint_posz;
+  ScintillationStore *store;
 
 public:
   ScintillationStore();
@@ -31,6 +32,9 @@ public:
   void SetScintPosZ(double z) {scint_posz = z;}
   double GetScintPosZ() {return scint_posz;}
 
+  void SetScintillationStore(ScintillationStore* st) {store = st;}
+  ScintillationStore * GetScintillationStore() {return store;}
+
   OpPhoton* GetPhotonInVector(int photonnum)
   {
     std::vector<OpPhoton>::iterator start = photonVec.begin();
@@ -46,7 +50,5 @@ public:
 
   ClassDef(ScintillationStore, 1)
 };
-
-extern ScintillationStore overallStore;
 
 #endif

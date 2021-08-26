@@ -9,7 +9,8 @@ setup_for_grid(){
     source /cvmfs/fermilab.opensciencegrid.org/products/common/etc/setups.sh
     setup login
     setup jobsub_client
-    source /cvmfs/fermilab.opensciencegrid.org/products/larsoft/setup
+    #source /cvmfs/fermilab.opensciencegrid.org/products/larsoft/setup
+    source /cvmfs/larsoft.opensciencegrid.org/products/setup
     setup root v6_18_04 -q e17:prof
     setup geant4 v4_10_6_p01 -q e19:prof
     setup cmake v3_9_5

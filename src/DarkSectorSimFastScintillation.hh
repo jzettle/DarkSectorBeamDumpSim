@@ -74,6 +74,7 @@
 #include "G4PhysicsOrderedFreeVector.hh"
 
 #include "G4EmSaturation.hh"
+#include "ScintillationStore.hh"
 
 // Class Description:
 // RestDiscrete Process - Generation of Scintillation Photons.
@@ -262,6 +263,8 @@ private:
         G4bool fStackingFlag;
 
         G4int fNumPhotons;
+
+  ScintillationStore* fStore;
 
 #ifdef G4DEBUG_SCINTILLATION
         G4double ScintTrackEDep, ScintTrackYield;

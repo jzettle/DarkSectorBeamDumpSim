@@ -42,27 +42,33 @@ echo "/inputmodel/inputGDML ../gdml/simple_target_detector/simple.gdml " >> $MAC
 echo "/analysis/setOutputFileName ../${OUTPUT_FILE} " >> $MACROFILE
 echo "/analysis/useVoxel true" >> $MACROFILE
 #echo "/run/initialize" >> $MACROFILE
-#echo "/generator/setGenerator gps" >> $MACROFILE
-echo "/generator/setGenerator VoxelPhoton" >> $MACROFILE
-echo "/generator/voxelNumR 0" >> $MACROFILE
-echo "/generator/voxelNumZ 0" >> $MACROFILE
+echo "/generator/setGenerator gps" >> $MACROFILE
+#echo "/generator/setGenerator VoxelPhoton" >> $MACROFILE
+#echo "/generator/voxelNumR 0" >> $MACROFILE
+#echo "/generator/voxelNumZ -100" >> $MACROFILE
 echo "/run/initialize" >> $MACROFILE
-#echo "/gps/particle ion" >> $MACROFILE
-#echo "/gps/ion 18 39 0 0" >> $MACROFILE
+echo "/gps/particle ion" >> $MACROFILE
+echo "/gps/ion 18 40 0 0" >> $MACROFILE
 #echo "/gps/particle opticalphoton" >> $MACROFILE
 #echo "/gps/ene/type Mono" >> $MACROFILE
 #echo "/gps/ene/mono 0.009686 keV" >> $MACROFILE 
 #echo "/gps/ene/type Mono" >> $MACROFILE
 #echo "/gps/ene/mono 0.0000001 keV" >> $MACROFILE
-#echo "/gps/pos/type Volume" >> $MACROFILE
-#echo "/gps/pos/shape Cylinder" >> $MACROFILE
-#echo "/gps/pos/centre 21.0 0. 0. m" >> $MACROFILE
-#echo "/gps/pos/radius 1 mm" >> $MACROFILE
-#echo "/gps/pos/halfz 1 mm" >> $MACROFILE
+echo "/gps/ene/type Lin" >> $MACROFILE
+echo "/gps/ene/min 0.0 MeV" >> $MACROFILE
+echo "/gps/ene/max 0.15 MeV" >> $MACROFILE
+echo "/gps/ene/gradient 0.0" >> $MACROFILE
+echo "/gps/ene/intercept 0.001" >> $MACROFILE
+echo "/gps/ang/type iso" >> $MACROFILE
+echo "/gps/pos/type Volume" >> $MACROFILE
+echo "/gps/pos/shape Cylinder" >> $MACROFILE
+echo "/gps/pos/centre 21.0 0. 0. m" >> $MACROFILE
+echo "/gps/pos/radius 2 m" >> $MACROFILE
+echo "/gps/pos/halfz 2 m" >> $MACROFILE
 #echo "/gps/pos/radius 2.0 m" >> $MACROFILE
 #echo "/gps/pos/halfz 2.0 m" >> $MACROFILE
 echo "/gps/pos/confine LArCylVol" >> $MACROFILE
-echo "/run/beamOn 100000" >> $MACROFILE
+echo "/run/beamOn 1000" >> $MACROFILE
 
 ls *.mac
 

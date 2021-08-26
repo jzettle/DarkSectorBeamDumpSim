@@ -10,7 +10,7 @@ private:
   int fChannel;
   int fHitChannel;
   std::vector<OpPhoton> fOpPhotonVec;
-
+  //OpPhoton onephoton;
 public:
   DetectorChannel();
   virtual ~DetectorChannel();
@@ -24,6 +24,7 @@ public:
   int GetHitChannelNum() {return fHitChannel;}
 
   void SetDetectedPhotonsStore(std::vector<OpPhoton> photons) {fOpPhotonVec = photons;}
+  void AddSinglePhoton(OpPhoton photon) {fOpPhotonVec.push_back(photon);}
   const std::vector<OpPhoton>& GetDetectedPhotonsStore() {return fOpPhotonVec;}
   double GetChannelDetectedPhotons() {return fOpPhotonVec.size();}
   

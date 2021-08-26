@@ -84,6 +84,7 @@
 // Class Definition
 /////////////////////
 
+
 class DarkSectorSimScintillation : public G4VRestDiscreteProcess
 {
 

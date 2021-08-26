@@ -73,7 +73,6 @@
 #include "G4ParticleTypes.hh"
 #include "G4EmProcessSubType.hh"
 #include "G4ScintillationTrackInformation.hh"
-#include "ScintillationStore.hh"
 
 #include "DarkSectorSimScintillation.hh"
 
@@ -178,6 +177,7 @@ DarkSectorSimScintillation::PostStepDoIt(const G4Track& aTrack, const G4Step& aS
         G4double      t0 = pPreStepPoint->GetGlobalTime();
 
         G4double TotalEnergyDeposit = aStep.GetTotalEnergyDeposit();
+
         G4MaterialPropertiesTable* aMaterialPropertiesTable =
                                aMaterial->GetMaterialPropertiesTable();
         if (!aMaterialPropertiesTable)
@@ -316,7 +316,10 @@ DarkSectorSimScintillation::PostStepDoIt(const G4Track& aTrack, const G4Step& aS
 		 //GetConstProperty(kYIELDRATIO);
 		 const G4ParticleDefinition *partdef = aTrack.GetParticleDefinition();
 		 G4double yieldRatio = GetComponentRatio(partdef->GetParticleName(), TotalEnergyDeposit);
+		 //G4cout << partdef->GetParticleName() << " " << TotalEnergyDeposit << " " << yieldRatio << " " << Num << G4endl;
 		 Num = G4int (std::min(yieldRatio, 1.0) * fNumPhotons);
+		 //G4cout << partdef->GetParticleName() << " " << TotalEnergyDeposit << " " << yieldRatio << " " << Num << " " << fNumPhotons << G4endl;
+
 		 /*
                  if ( fExcitationRatio == 1.0 || fExcitationRatio == 0.0) {
                     Num = G4int (std::min(yieldRatio,1.0) * fNumPhotons);
@@ -884,26 +887,45 @@ G4double DarkSectorSimScintillation::GetQuenchingFactor(G4String aParticleName, 
 G4double DarkSectorSimScintillation::GetComponentRatio(G4String aParticleName, G4double aTotalEnergyDeposit)
 {
   G4String partType = "";
-  G4double compratio = 1.0;
+  G4double compratio = 0.0;
   
-  if(aParticleName == "neutron" || aParticleName == "nuclear" || aParticleName == "nucleus" || aParticleName == "GenericIon" || aParticleName == "Ar40" || aParticleName == "alpha")
+  if(aParticleName == "neutron" || aParticleName == "nuclear" || aParticleName == "nucleus" || aParticleName == "GenericIon" || aParticleName == "Ar40" || aParticleName == "alpha" )
     partType = "nr";
   else
     partType = "er";
   if(aTotalEnergyDeposit <= 0.0)
     compratio = 0.0;
-  //Put in functional form of some kind after tests, tease out from Regenfus et al. paper
-  G4double E_keVee = aTotalEnergyDeposit*1000.0;
+  //Put in functional form taken from fits to Regenfus et al. paper (https://arxiv.org/abs/1203.0849)
+  //G4cout << partType << G4endl; 
+  G4double energy = aTotalEnergyDeposit*1000.0;
   if(partType == "nr")
   {
-    compratio = 0.75;
+    if(energy >= 0 && energy < 200)
+      //compratio = 1.45489*(1-pow(energy, -0.133867));
+      compratio = 25.9538-25.7367*pow(energy, -0.00382462);
+      
+    else
+      //compratio = 1.45489*(1-pow(200, -0.133867));
+      compratio = 25.9538-25.7367*pow(200, -0.00382462);
+    if(compratio < 0.0)
+      compratio = 0.0;
   }
   else if(partType == "er")
   {
-    compratio = 0.25;
+    /*
+    if(energy >= 0 && energy < 186)
+      //compratio = 2.35462*(0.09281 + pow(energy, -1.373));
+      compratio = -0.204874+0.707936*pow(energy, -0.11635);
+    else
+      //compratio = 2.35462*(0.09281 + pow(186, -1.373));
+      compratio= -0.204874+0.707936*pow(186, -0.11635);
+    if(compratio > 1.0)
+      compratio = 1.0;
+    */
+    compratio = 0.3;
   }
-  else 
+  else //should never get here, but just in case 
     compratio = 0.0;
-
+  //G4cout << aParticleName << " " << partType << " " << energy << " " << compratio << G4endl;
   return compratio;
 }

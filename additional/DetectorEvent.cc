@@ -25,6 +25,7 @@ void DetectorEvent::clear()
   fGenPosY = 0.0;
   fGenPosZ = 0.0;
   fEnergy = 0.0;
+  fTotalPhotons = 0.0;
   fF90 = 0.0;
   fChannels = 0;
   fDetChannels.clear();

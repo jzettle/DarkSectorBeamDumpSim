@@ -8,7 +8,7 @@ DarkSectorSimPrimaryGeneratorMessenger::DarkSectorSimPrimaryGeneratorMessenger(D
   
   fGenerateCmd = new G4UIcmdWithAString("/generator/setGenerator", this);
   fGenerateCmd->SetGuidance("Choose the primary event generator");
-  fGenerateCmd->SetGuidance("gps (default), VoxelPhoton");
+  fGenerateCmd->SetGuidance("gps (default), VoxelPhoton, BoostedDM");
   fGenerateCmd->SetDefaultValue("gps");
   fGenerateCmd->AvailableForStates(G4State_PreInit, G4State_Idle);
 
@@ -35,7 +35,10 @@ DarkSectorSimPrimaryGeneratorMessenger::~DarkSectorSimPrimaryGeneratorMessenger(
 void DarkSectorSimPrimaryGeneratorMessenger::SetNewValue(G4UIcommand* cmd, G4String value)
 {
   if(cmd == fGenerateCmd)
+  {
+    G4cout << "Generator string is: " << value << G4endl;
     fDSAction->SetGenerator(value);
+  }
 
   if(cmd == fVoxelRNumCmd)
     fDSAction->SetVoxelRNum(fVoxelRNumCmd->GetNewDoubleValue(value));

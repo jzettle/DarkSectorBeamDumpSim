@@ -75,6 +75,7 @@
 #include "G4ScintillationTrackInformation.hh"
 
 #include "DarkSectorSimFastScintillation.hh"
+#include "ScintillationStore.hh"
 
 DarkSectorSimFastScintillation::DarkSectorSimFastScintillation(const G4String& processName,
                                        G4ProcessType type)

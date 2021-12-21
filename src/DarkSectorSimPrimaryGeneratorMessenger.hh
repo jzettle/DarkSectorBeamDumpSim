@@ -22,6 +22,7 @@ private:
   G4UIcmdWithAString* fGenerateCmd;
   G4UIcmdWithADouble* fVoxelRNumCmd;
   G4UIcmdWithADouble* fVoxelZNumCmd;
+  G4UIcmdWithAString* fDarkMatterFileCmd;
 };
 
 #endif

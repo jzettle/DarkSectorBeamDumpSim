@@ -22,6 +22,11 @@ DarkSectorSimPrimaryGeneratorMessenger::DarkSectorSimPrimaryGeneratorMessenger(D
   fVoxelZNumCmd->SetDefaultValue(0.0);
   fVoxelZNumCmd->AvailableForStates(G4State_PreInit, G4State_Idle);
 
+  fDarkMatterFileCmd = new G4UIcmdWithAString("/generator/setDarkMatterFile", this);
+  fDarkMatterFileCmd->SetGuidance("Set path to dark matter event file");
+  fDarkMatterFileCmd->SetDefaultValue("");
+  fDarkMatterFileCmd->AvailableForStates(G4State_PreInit, G4State_Idle);
+
 }
 
 DarkSectorSimPrimaryGeneratorMessenger::~DarkSectorSimPrimaryGeneratorMessenger()
@@ -30,6 +35,7 @@ DarkSectorSimPrimaryGeneratorMessenger::~DarkSectorSimPrimaryGeneratorMessenger(
   delete fGenerateCmd;
   delete fVoxelRNumCmd;
   delete fVoxelZNumCmd;
+  delete fDarkMatterFileCmd;
 }
 
 void DarkSectorSimPrimaryGeneratorMessenger::SetNewValue(G4UIcommand* cmd, G4String value)
@@ -45,4 +51,7 @@ void DarkSectorSimPrimaryGeneratorMessenger::SetNewValue(G4UIcommand* cmd, G4Str
   
   if(cmd == fVoxelZNumCmd)
     fDSAction->SetVoxelZNum(fVoxelZNumCmd->GetNewDoubleValue(value));
+
+  if(cmd == fDarkMatterFileCmd)
+    fDSAction->SetDarkMatterFile(value);
 }

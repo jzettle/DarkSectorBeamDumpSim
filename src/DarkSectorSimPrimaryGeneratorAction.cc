@@ -25,7 +25,8 @@ DarkSectorSimPrimaryGeneratorAction::DarkSectorSimPrimaryGeneratorAction():
   fPartGenerator = new G4ParticleGun();
   voxelRNum = 0;
   voxelZNum = 0;
-  setupDMFile("../splitDMResults_ArRecoils.txt");
+  //setupDMFile("../splitDMResults_ArRecoils.txt");
+  
 }
 
 DarkSectorSimPrimaryGeneratorAction::~DarkSectorSimPrimaryGeneratorAction()
@@ -41,6 +42,13 @@ void DarkSectorSimPrimaryGeneratorAction::SetVoxelRNum(G4double voxelR)
 void DarkSectorSimPrimaryGeneratorAction::SetVoxelZNum(G4double voxelZ)
 {
   voxelZNum = voxelZ;
+}
+
+void DarkSectorSimPrimaryGeneratorAction::SetDarkMatterFile(G4String dmfile)
+{
+  dm_events_file = dmfile;
+  G4cout << dm_events_file << G4endl;
+  setupDMFile(dm_events_file);
 }
 
 void DarkSectorSimPrimaryGeneratorAction::setupDMFile(std::string filename)
@@ -76,9 +84,9 @@ void DarkSectorSimPrimaryGeneratorAction::setupDMFile(std::string filename)
     {
       if(infile.eof()) {break;}
       infile >> E >> px >> py >> pz >> m >> x0 >> x1 >> x2 >> x3 >> end0 >> end1 >> end2 >> end3 >> recE >> p0 >> p1;
-      fDMposX.push_back(x2);
+      fDMposX.push_back(x0);
       fDMposY.push_back(x1);
-      fDMposZ.push_back(x0);
+      fDMposZ.push_back(x2);
       fDMtime.push_back(x3);
       fDMrecE.push_back(recE);
       fDMmomX.push_back(px);
@@ -197,7 +205,7 @@ void DarkSectorSimPrimaryGeneratorAction::GenerateDM(G4Event *event)
     px = fDMmomX[selval];
     py = fDMmomY[selval];
     pz = fDMmomZ[selval];
-    x = (fDMposX[selval]);
+    x = (fDMposX[selval] + 3.0);
     y = (fDMposY[selval]);
     z = (fDMposZ[selval]);
     energy = (fDMrecE[selval]*1e6);

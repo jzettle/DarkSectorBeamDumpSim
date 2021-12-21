@@ -29,6 +29,7 @@ public:
   void SetGenerator(G4String);
   void SetVoxelRNum(G4double voxelR);
   void SetVoxelZNum(G4double voxelZ);
+  void SetDarkMatterFile(G4String dmfile);
   void setupDMFile(std::string filename);
   void GenerateOptPhotonVoxel(G4Event *event);
   void GetPositioninVoxel(G4ThreeVector &pos, G4double voxelR, G4double voxelZ);
@@ -41,6 +42,7 @@ private:
   G4ParticleGun* fPartGenerator;
   G4double voxelRNum;
   G4double voxelZNum;
+  G4String dm_events_file;
   std::vector<G4double> fDMposX;
   std::vector<G4double> fDMposY;
   std::vector<G4double> fDMposZ;

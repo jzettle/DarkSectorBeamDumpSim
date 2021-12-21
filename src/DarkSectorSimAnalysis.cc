@@ -351,7 +351,7 @@ G4ClassificationOfNewTrack DarkSectorSimAnalysis::ClassifyNewTrack(const G4Track
     fGenXPiZero = g4Track->GetPosition().getX()/m;
     fGenYPiZero = g4Track->GetPosition().getY()/m;
     fGenZPiZero = g4Track->GetPosition().getZ()/m;
-    fpi_E = g4Track->GetKineticEnergy()/GeV;
+    fpi_E = g4Track->GetTotalEnergy()/GeV;
     fpi_xmom = g4Track->GetMomentum().getX()/GeV;
     fpi_ymom = g4Track->GetMomentum().getY()/GeV;
     fpi_zmom = g4Track->GetMomentum().getZ()/GeV;

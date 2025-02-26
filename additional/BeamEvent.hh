@@ -10,6 +10,9 @@ private:
   double fProtonGenPosX;
   double fProtonGenPosY;
   double fProtonGenPosZ;
+  double fProtonStopPosX;
+  double fProtonStopPosY;
+  double fProtonStopPosZ;
   int fGenPiPlus;
   double fPiPlusGenPosX;
   double fPiPlusGenPosY;
@@ -63,6 +66,12 @@ public:
   double GetProtonGenPosY() const {return fProtonGenPosY;}
   void SetProtonGenPosZ(double protonz) {fProtonGenPosZ = protonz;}
   double GetProtonGenPosZ() const {return fProtonGenPosZ;} 
+  void SetProtonStopPosX(double protonx) {fProtonStopPosX = protonx;}
+  double GetProtonStopPosX() const {return fProtonStopPosX;}
+  void SetProtonStopPosY(double protony) {fProtonStopPosY = protony;}
+  double GetProtonStopPosY() const {return fProtonStopPosY;}
+  void SetProtonStopPosZ(double protonz) {fProtonStopPosZ = protonz;}
+  double GetProtonStopPosZ() const {return fProtonStopPosZ;}
   void SetNumPiPlus(int piplus) {fGenPiPlus = piplus;}
   int GetNumPiPlus() const {return fGenPiPlus;}
   void SetPiPlusGenPosX(double piplusx) {fPiPlusGenPosX = piplusx;}

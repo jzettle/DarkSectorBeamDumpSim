@@ -1,0 +1,720 @@
+<subtraction name="SideReflWithPMTHole1">
+  <first ref="SideReflWithPMTHole0" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos0" />
+  <rotationref ref="side_hole_rot0" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole2">
+  <first ref="SideReflWithPMTHole1" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos1" />
+  <rotationref ref="side_hole_rot1" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole3">
+  <first ref="SideReflWithPMTHole2" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos2" />
+  <rotationref ref="side_hole_rot2" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole4">
+  <first ref="SideReflWithPMTHole3" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos3" />
+  <rotationref ref="side_hole_rot3" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole5">
+  <first ref="SideReflWithPMTHole4" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos4" />
+  <rotationref ref="side_hole_rot4" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole6">
+  <first ref="SideReflWithPMTHole5" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos5" />
+  <rotationref ref="side_hole_rot5" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole7">
+  <first ref="SideReflWithPMTHole6" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos6" />
+  <rotationref ref="side_hole_rot6" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole8">
+  <first ref="SideReflWithPMTHole7" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos7" />
+  <rotationref ref="side_hole_rot7" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole9">
+  <first ref="SideReflWithPMTHole8" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos8" />
+  <rotationref ref="side_hole_rot8" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole10">
+  <first ref="SideReflWithPMTHole9" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos9" />
+  <rotationref ref="side_hole_rot9" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole11">
+  <first ref="SideReflWithPMTHole10" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos10" />
+  <rotationref ref="side_hole_rot10" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole12">
+  <first ref="SideReflWithPMTHole11" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos11" />
+  <rotationref ref="side_hole_rot11" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole13">
+  <first ref="SideReflWithPMTHole12" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos12" />
+  <rotationref ref="side_hole_rot12" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole14">
+  <first ref="SideReflWithPMTHole13" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos13" />
+  <rotationref ref="side_hole_rot13" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole15">
+  <first ref="SideReflWithPMTHole14" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos14" />
+  <rotationref ref="side_hole_rot14" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole16">
+  <first ref="SideReflWithPMTHole15" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos15" />
+  <rotationref ref="side_hole_rot15" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole17">
+  <first ref="SideReflWithPMTHole16" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos16" />
+  <rotationref ref="side_hole_rot16" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole18">
+  <first ref="SideReflWithPMTHole17" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos17" />
+  <rotationref ref="side_hole_rot17" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole19">
+  <first ref="SideReflWithPMTHole18" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos18" />
+  <rotationref ref="side_hole_rot18" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole20">
+  <first ref="SideReflWithPMTHole19" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos19" />
+  <rotationref ref="side_hole_rot19" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole21">
+  <first ref="SideReflWithPMTHole20" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos20" />
+  <rotationref ref="side_hole_rot20" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole22">
+  <first ref="SideReflWithPMTHole21" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos21" />
+  <rotationref ref="side_hole_rot21" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole23">
+  <first ref="SideReflWithPMTHole22" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos22" />
+  <rotationref ref="side_hole_rot22" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole24">
+  <first ref="SideReflWithPMTHole23" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos23" />
+  <rotationref ref="side_hole_rot23" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole25">
+  <first ref="SideReflWithPMTHole24" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos24" />
+  <rotationref ref="side_hole_rot24" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole26">
+  <first ref="SideReflWithPMTHole25" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos25" />
+  <rotationref ref="side_hole_rot25" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole27">
+  <first ref="SideReflWithPMTHole26" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos26" />
+  <rotationref ref="side_hole_rot26" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole28">
+  <first ref="SideReflWithPMTHole27" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos27" />
+  <rotationref ref="side_hole_rot27" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole29">
+  <first ref="SideReflWithPMTHole28" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos28" />
+  <rotationref ref="side_hole_rot28" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole30">
+  <first ref="SideReflWithPMTHole29" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos29" />
+  <rotationref ref="side_hole_rot29" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole31">
+  <first ref="SideReflWithPMTHole30" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos30" />
+  <rotationref ref="side_hole_rot30" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole32">
+  <first ref="SideReflWithPMTHole31" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos31" />
+  <rotationref ref="side_hole_rot31" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole33">
+  <first ref="SideReflWithPMTHole32" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos32" />
+  <rotationref ref="side_hole_rot32" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole34">
+  <first ref="SideReflWithPMTHole33" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos33" />
+  <rotationref ref="side_hole_rot33" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole35">
+  <first ref="SideReflWithPMTHole34" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos34" />
+  <rotationref ref="side_hole_rot34" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole36">
+  <first ref="SideReflWithPMTHole35" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos35" />
+  <rotationref ref="side_hole_rot35" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole37">
+  <first ref="SideReflWithPMTHole36" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos36" />
+  <rotationref ref="side_hole_rot36" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole38">
+  <first ref="SideReflWithPMTHole37" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos37" />
+  <rotationref ref="side_hole_rot37" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole39">
+  <first ref="SideReflWithPMTHole38" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos38" />
+  <rotationref ref="side_hole_rot38" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole40">
+  <first ref="SideReflWithPMTHole39" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos39" />
+  <rotationref ref="side_hole_rot39" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole41">
+  <first ref="SideReflWithPMTHole40" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos40" />
+  <rotationref ref="side_hole_rot40" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole42">
+  <first ref="SideReflWithPMTHole41" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos41" />
+  <rotationref ref="side_hole_rot41" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole43">
+  <first ref="SideReflWithPMTHole42" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos42" />
+  <rotationref ref="side_hole_rot42" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole44">
+  <first ref="SideReflWithPMTHole43" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos43" />
+  <rotationref ref="side_hole_rot43" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole45">
+  <first ref="SideReflWithPMTHole44" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos44" />
+  <rotationref ref="side_hole_rot44" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole46">
+  <first ref="SideReflWithPMTHole45" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos45" />
+  <rotationref ref="side_hole_rot45" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole47">
+  <first ref="SideReflWithPMTHole46" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos46" />
+  <rotationref ref="side_hole_rot46" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole48">
+  <first ref="SideReflWithPMTHole47" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos47" />
+  <rotationref ref="side_hole_rot47" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole49">
+  <first ref="SideReflWithPMTHole48" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos48" />
+  <rotationref ref="side_hole_rot48" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole50">
+  <first ref="SideReflWithPMTHole49" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos49" />
+  <rotationref ref="side_hole_rot49" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole51">
+  <first ref="SideReflWithPMTHole50" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos50" />
+  <rotationref ref="side_hole_rot50" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole52">
+  <first ref="SideReflWithPMTHole51" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos51" />
+  <rotationref ref="side_hole_rot51" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole53">
+  <first ref="SideReflWithPMTHole52" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos52" />
+  <rotationref ref="side_hole_rot52" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole54">
+  <first ref="SideReflWithPMTHole53" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos53" />
+  <rotationref ref="side_hole_rot53" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole55">
+  <first ref="SideReflWithPMTHole54" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos54" />
+  <rotationref ref="side_hole_rot54" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole56">
+  <first ref="SideReflWithPMTHole55" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos55" />
+  <rotationref ref="side_hole_rot55" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole57">
+  <first ref="SideReflWithPMTHole56" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos56" />
+  <rotationref ref="side_hole_rot56" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole58">
+  <first ref="SideReflWithPMTHole57" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos57" />
+  <rotationref ref="side_hole_rot57" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole59">
+  <first ref="SideReflWithPMTHole58" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos58" />
+  <rotationref ref="side_hole_rot58" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole60">
+  <first ref="SideReflWithPMTHole59" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos59" />
+  <rotationref ref="side_hole_rot59" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole61">
+  <first ref="SideReflWithPMTHole60" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos60" />
+  <rotationref ref="side_hole_rot60" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole62">
+  <first ref="SideReflWithPMTHole61" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos61" />
+  <rotationref ref="side_hole_rot61" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole63">
+  <first ref="SideReflWithPMTHole62" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos62" />
+  <rotationref ref="side_hole_rot62" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole64">
+  <first ref="SideReflWithPMTHole63" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos63" />
+  <rotationref ref="side_hole_rot63" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole65">
+  <first ref="SideReflWithPMTHole64" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos64" />
+  <rotationref ref="side_hole_rot64" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole66">
+  <first ref="SideReflWithPMTHole65" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos65" />
+  <rotationref ref="side_hole_rot65" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole67">
+  <first ref="SideReflWithPMTHole66" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos66" />
+  <rotationref ref="side_hole_rot66" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole68">
+  <first ref="SideReflWithPMTHole67" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos67" />
+  <rotationref ref="side_hole_rot67" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole69">
+  <first ref="SideReflWithPMTHole68" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos68" />
+  <rotationref ref="side_hole_rot68" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole70">
+  <first ref="SideReflWithPMTHole69" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos69" />
+  <rotationref ref="side_hole_rot69" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole71">
+  <first ref="SideReflWithPMTHole70" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos70" />
+  <rotationref ref="side_hole_rot70" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole72">
+  <first ref="SideReflWithPMTHole71" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos71" />
+  <rotationref ref="side_hole_rot71" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole73">
+  <first ref="SideReflWithPMTHole72" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos72" />
+  <rotationref ref="side_hole_rot72" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole74">
+  <first ref="SideReflWithPMTHole73" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos73" />
+  <rotationref ref="side_hole_rot73" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole75">
+  <first ref="SideReflWithPMTHole74" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos74" />
+  <rotationref ref="side_hole_rot74" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole76">
+  <first ref="SideReflWithPMTHole75" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos75" />
+  <rotationref ref="side_hole_rot75" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole77">
+  <first ref="SideReflWithPMTHole76" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos76" />
+  <rotationref ref="side_hole_rot76" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole78">
+  <first ref="SideReflWithPMTHole77" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos77" />
+  <rotationref ref="side_hole_rot77" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole79">
+  <first ref="SideReflWithPMTHole78" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos78" />
+  <rotationref ref="side_hole_rot78" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole80">
+  <first ref="SideReflWithPMTHole79" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos79" />
+  <rotationref ref="side_hole_rot79" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole81">
+  <first ref="SideReflWithPMTHole80" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos80" />
+  <rotationref ref="side_hole_rot80" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole82">
+  <first ref="SideReflWithPMTHole81" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos81" />
+  <rotationref ref="side_hole_rot81" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole83">
+  <first ref="SideReflWithPMTHole82" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos82" />
+  <rotationref ref="side_hole_rot82" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole84">
+  <first ref="SideReflWithPMTHole83" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos83" />
+  <rotationref ref="side_hole_rot83" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole85">
+  <first ref="SideReflWithPMTHole84" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos84" />
+  <rotationref ref="side_hole_rot84" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole86">
+  <first ref="SideReflWithPMTHole85" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos85" />
+  <rotationref ref="side_hole_rot85" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole87">
+  <first ref="SideReflWithPMTHole86" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos86" />
+  <rotationref ref="side_hole_rot86" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole88">
+  <first ref="SideReflWithPMTHole87" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos87" />
+  <rotationref ref="side_hole_rot87" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole89">
+  <first ref="SideReflWithPMTHole88" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos88" />
+  <rotationref ref="side_hole_rot88" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole90">
+  <first ref="SideReflWithPMTHole89" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos89" />
+  <rotationref ref="side_hole_rot89" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole91">
+  <first ref="SideReflWithPMTHole90" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos90" />
+  <rotationref ref="side_hole_rot90" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole92">
+  <first ref="SideReflWithPMTHole91" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos91" />
+  <rotationref ref="side_hole_rot91" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole93">
+  <first ref="SideReflWithPMTHole92" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos92" />
+  <rotationref ref="side_hole_rot92" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole94">
+  <first ref="SideReflWithPMTHole93" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos93" />
+  <rotationref ref="side_hole_rot93" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole95">
+  <first ref="SideReflWithPMTHole94" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos94" />
+  <rotationref ref="side_hole_rot94" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole96">
+  <first ref="SideReflWithPMTHole95" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos95" />
+  <rotationref ref="side_hole_rot95" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole97">
+  <first ref="SideReflWithPMTHole96" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos96" />
+  <rotationref ref="side_hole_rot96" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole98">
+  <first ref="SideReflWithPMTHole97" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos97" />
+  <rotationref ref="side_hole_rot97" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole99">
+  <first ref="SideReflWithPMTHole98" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos98" />
+  <rotationref ref="side_hole_rot98" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole100">
+  <first ref="SideReflWithPMTHole99" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos99" />
+  <rotationref ref="side_hole_rot99" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole101">
+  <first ref="SideReflWithPMTHole100" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos100" />
+  <rotationref ref="side_hole_rot100" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole102">
+  <first ref="SideReflWithPMTHole101" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos101" />
+  <rotationref ref="side_hole_rot101" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole103">
+  <first ref="SideReflWithPMTHole102" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos102" />
+  <rotationref ref="side_hole_rot102" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole104">
+  <first ref="SideReflWithPMTHole103" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos103" />
+  <rotationref ref="side_hole_rot103" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole105">
+  <first ref="SideReflWithPMTHole104" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos104" />
+  <rotationref ref="side_hole_rot104" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole106">
+  <first ref="SideReflWithPMTHole105" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos105" />
+  <rotationref ref="side_hole_rot105" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole107">
+  <first ref="SideReflWithPMTHole106" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos106" />
+  <rotationref ref="side_hole_rot106" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole108">
+  <first ref="SideReflWithPMTHole107" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos107" />
+  <rotationref ref="side_hole_rot107" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole109">
+  <first ref="SideReflWithPMTHole108" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos108" />
+  <rotationref ref="side_hole_rot108" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole110">
+  <first ref="SideReflWithPMTHole109" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos109" />
+  <rotationref ref="side_hole_rot109" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole111">
+  <first ref="SideReflWithPMTHole110" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos110" />
+  <rotationref ref="side_hole_rot110" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole112">
+  <first ref="SideReflWithPMTHole111" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos111" />
+  <rotationref ref="side_hole_rot111" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole113">
+  <first ref="SideReflWithPMTHole112" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos112" />
+  <rotationref ref="side_hole_rot112" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole114">
+  <first ref="SideReflWithPMTHole113" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos113" />
+  <rotationref ref="side_hole_rot113" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole115">
+  <first ref="SideReflWithPMTHole114" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos114" />
+  <rotationref ref="side_hole_rot114" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole116">
+  <first ref="SideReflWithPMTHole115" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos115" />
+  <rotationref ref="side_hole_rot115" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole117">
+  <first ref="SideReflWithPMTHole116" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos116" />
+  <rotationref ref="side_hole_rot116" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole118">
+  <first ref="SideReflWithPMTHole117" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos117" />
+  <rotationref ref="side_hole_rot117" />
+</subtraction>
+<subtraction name="SideReflWithPMTHole119">
+  <first ref="SideReflWithPMTHole118" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos118" />
+  <rotationref ref="side_hole_rot118" />
+</subtraction>
+<subtraction name="SideReflector">
+  <first ref="SideReflWithPMTHole119" />
+  <second ref="SidePMTHole" />
+  <positionref ref="side_hole_pos119" />
+  <rotationref ref="side_hole_rot119" />
+</subtraction>

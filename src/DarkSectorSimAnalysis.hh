@@ -65,7 +65,16 @@ public:
   void SetVoxelization(G4bool voxel) {fVoxel = voxel;}
   void SetSaveFastOpTable(G4bool savefastop) {fSaveFastOpTable = savefastop;}
   void SetSaveBeamPion(G4bool savepion) {fSaveBeamPion = savepion;}
-  void SetBeamPionFile(G4String pionfile) {fBeamPionFile = pionfile;}
+  void SetBeamPiZeroFile(G4String pionfile) {fBeamPiZeroFile = pionfile;}
+  void SetBeamPiPlusMinusFile(G4String pipmfile) {fBeamPiPlusMinusFile = pipmfile;}
+  void SetBeamKaonFile(G4String kaonfile) {fBeamKaonFile = kaonfile;}
+  void SetBeamEtaFile(G4String etafile) {fBeamEtaFile = etafile;}
+  void SetSaveALPProducts(G4bool savealp) {fSaveALP = savealp;}
+  void SetALPProductElFile(G4String elfile) {fALPElFile = elfile;}
+  void SetALPProductGammaFile(G4String gammafile) {fALPGammaFile = gammafile;}
+  void SetSaveBeamTargetProducts(G4bool savebt) {fSaveBeamTarget = savebt;}
+  void SetBeamTargetProductFile(G4String btfile) {fBeamTargetFile = btfile;}
+  void SetStepGammaFile(G4String exfile) {fExGammaFile = exfile;}
   void PrepareNewRun(const G4Run* g4run);
   void EndofRun(const G4Run* g4run);
   void PrepareNewEvent(const G4Event* event);
@@ -86,7 +95,16 @@ private:
   G4bool fVoxel;
   G4bool fSaveFastOpTable;
   G4bool fSaveBeamPion;
-  std::string fBeamPionFile;
+  std::string fBeamPiPlusMinusFile;
+  std::string fBeamPiZeroFile;
+  std::string fBeamEtaFile;
+  G4bool fSaveALP;
+  std::string fALPElFile;
+  std::string fALPGammaFile;
+  G4bool fSaveBeamTarget;
+  std::string fBeamTargetFile;
+  std::string fExGammaFile;
+  std::string fBeamKaonFile;
   TFile* fRootFile;
   TTree* fRootTree;
 private:
@@ -101,15 +119,29 @@ private:
   G4double fGenXProton;
   G4double fGenYProton;
   G4double fGenZProton;
+  G4double fStopXProton;
+  G4double fStopYProton;
+  G4double fStopZProton;
   G4double fGenPiPlus;
   G4double fGenXPiPlus;
   G4double fGenYPiPlus;
   G4double fGenZPiPlus;
+  G4double fGenPiMinus;
+  G4double fGenXPiMinus;
+  G4double fGenYPiMinus;
+  G4double fGenZPiMinus;
   G4double fGenPiZero;
   G4double fGenXPiZero;
   G4double fGenYPiZero;
   G4double fGenZPiZero;
-  G4double fGenPiMinus;
+  G4double fGenEta;
+  G4double fGenXEta;
+  G4double fGenYEta;
+  G4double fGenZEta;
+  G4double fGenKaon;
+  G4double fGenXKaon;
+  G4double fGenYKaon;
+  G4double fGenZKaon;
   G4double fNumDAR;
   G4double fNumDIF;
   G4double fNum_numu;
@@ -164,11 +196,60 @@ private:
   std::vector< std::vector <std::pair<G4double, G4double> > > fPMTReflTimeMap;
   std::vector< std::vector<G4double> > fPMTReflEffVec;
 
-  G4double fpi_xmom;
-  G4double fpi_ymom;
-  G4double fpi_zmom;
-  G4double fpi_time;
-  G4double fpi_E;
+  G4double fpizero_xmom;
+  G4double fpizero_ymom;
+  G4double fpizero_zmom;
+  G4double fpizero_time;
+  G4double fpizero_E;
+
+  G4String fpiplus_name;
+  G4double fpiplus_xmom;
+  G4double fpiplus_ymom;
+  G4double fpiplus_zmom;
+  G4double fpiplus_time;
+  G4double fpiplus_E;
+
+  G4String fpiminus_name;
+  G4double fpiminus_xmom;
+  G4double fpiminus_ymom;
+  G4double fpiminus_zmom;
+  G4double fpiminus_time;
+  G4double fpiminus_E;
+
+  G4String fkaon_name;
+  G4double fkaon_xmom;
+  G4double fkaon_ymom;
+  G4double fkaon_zmom;
+  G4double fkaon_time;
+  G4double fkaon_E;
+
+  G4double feta_xmom;
+  G4double feta_ymom;
+  G4double feta_zmom;
+  G4double feta_time;
+  G4double feta_E;
+
+  G4double fbeamprod_xmom;
+  G4double fbeamprod_ymom;
+  G4double fbeamprod_zmom;
+  G4double fbeamprod_time;
+  G4double fbeamprod_E;
+  std::vector<G4String> fbeamprod_parentname;
+
+  G4int fGenElectron;
+  std::vector<G4double> fGenElEnergy;
+  std::vector<G4double> fGenElPx;
+  std::vector<G4double> fGenElPy;
+  std::vector<G4double> fGenElPz;
+  std::vector<G4String> fGenElName;
+
+  G4int fGenGamma;
+  std::vector<G4double> fGenGammaEnergy;
+  std::vector<G4double> fGenGammaPx;
+  std::vector<G4double> fGenGammaPy;
+  std::vector<G4double> fGenGammaPz;
+  std::vector<G4String> fGenGammaCreatorProc;
+  std::vector<G4String> fGenGammaParentofParent;
 };
 
 class DarkSectorSimAnalysisMessenger : public G4UImessenger
@@ -186,7 +267,19 @@ private:
   G4UIcmdWithABool* fUseVoxelCmd;
   G4UIcmdWithABool* fSaveFastOpTableCmd;
   G4UIcmdWithABool* fSaveBeamPionCmd;
-  G4UIcmdWithAString* fBeamPionFileCmd;
+  G4UIcmdWithABool* fSaveBeamEtaCmd;
+  G4UIcmdWithAString* fBeamPiZeroFileCmd;
+  G4UIcmdWithAString* fBeamPiPlusMinusFileCmd;
+  G4UIcmdWithAString* fBeamEtaFileCmd;
+  G4UIcmdWithAString* fBeamKaonFileCmd;
+  G4UIcmdWithABool* fSaveALPProdCmd;
+  G4UIcmdWithAString* fALPProdElFileCmd;
+  G4UIcmdWithAString* fALPProdGammaFileCmd;
+  G4UIcmdWithABool* fSaveBeamTargetCmd;
+  G4UIcmdWithAString* fBeamTargetFileCmd;
+  G4UIcmdWithAString* fSaveStepGammaCmd;
 };
 
 #endif
+
+

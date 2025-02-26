@@ -18,7 +18,7 @@
     <quantity name="target_y" value="270.0" unit="mm" />
     <quantity name="target_z" value="270.0" unit="mm" />
     <!-- Positions -->
-    <position name="targetPos" unit="m" x="-1.8" y="0.0" z="0.0" /> <!-- this is the position of the center of the box -->
+    <position name="targetPos" unit="m" x="-1.8" y="0.0" z="0.0" />
     <!-- <position name="targetPos" unit="m" x="-3.5975" y="0.0" z="0.0" /> -->
   </define>
 
@@ -41,6 +41,11 @@
       <D value="1.290" unit="mg/cm3"/>
       <fraction n="0.7" ref="Nitrogen"/>
       <fraction n="0.3" ref="Oxygen"/>
+    </material>
+      <material name="Water" formula="H2O"> 
+      <D value="1.0" unit="g/cm3"/>
+      <composite n="2" ref="Hydrogen" /> 
+      <composite n="1" ref="Oxygen" />
     </material>
     <material name="Graphite">
       <D value="1.78" unit="g/cm3"/>
@@ -73,7 +78,7 @@
 
   <structure>
     <volume name="TargetLog">
-      <materialref ref="Graphite" />
+      <materialref ref="Water" />
       <solidref ref="TargetSolid" />
     </volume>
 

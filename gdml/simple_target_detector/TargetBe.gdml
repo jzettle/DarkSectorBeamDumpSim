@@ -18,7 +18,7 @@
     <quantity name="target_y" value="270.0" unit="mm" />
     <quantity name="target_z" value="270.0" unit="mm" />
     <!-- Positions -->
-    <position name="targetPos" unit="m" x="-1.8" y="0.0" z="0.0" /> <!-- this is the position of the center of the box -->
+    <position name="targetPos" unit="m" x="-1.8" y="0.0" z="0.0" />
     <!-- <position name="targetPos" unit="m" x="-3.5975" y="0.0" z="0.0" /> -->
   </define>
 
@@ -37,6 +37,8 @@
     </element>
     <element name="Argon" formula="Ar" Z="18."> <atom value="39.95"/>
     </element>
+    <element name="Be" formula="Be" Z="4."> <atom value="9.012182"/>
+    </element>
     <material name="Air">
       <D value="1.290" unit="mg/cm3"/>
       <fraction n="0.7" ref="Nitrogen"/>
@@ -54,6 +56,7 @@
       <D value="1.4" unit="g/cm3"/>
       <composite n="1" ref="Argon"/>
     </material>
+    
     <material name="PTFE">
       <D value="2.2" unit="g/cm3"/>
       <composite n="2" ref="Carbon"/>
@@ -64,6 +67,11 @@
       <composite n="22" ref="Carbon"/>
       <composite n="28" ref="Hydrogen"/>
     </material>
+
+    <material name="Beryllium">
+      <D value="1.85" unit="g/cm3"/>
+      <composite n="1" ref="Be"/>
+    </material>
   </materials>
   
   <solids>
@@ -73,7 +81,7 @@
 
   <structure>
     <volume name="TargetLog">
-      <materialref ref="Graphite" />
+      <materialref ref="Beryllium" />
       <solidref ref="TargetSolid" />
     </volume>
 

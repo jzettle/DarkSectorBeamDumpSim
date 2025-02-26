@@ -1,0 +1,245 @@
+<subtraction name="TPBCapWithPMTHole1">
+  <first ref="TPBCapWithPMTHole0" />
+  <second ref="PMTHole" />
+  <positionref ref="PMTHole_pos0" />
+</subtraction>
+<subtraction name="TPBCapWithPMTHole2">
+  <first ref="TPBCapWithPMTHole1" />
+  <second ref="PMTHole" />
+  <positionref ref="PMTHole_pos1" />
+</subtraction>
+<subtraction name="TPBCapWithPMTHole3">
+  <first ref="TPBCapWithPMTHole2" />
+  <second ref="PMTHole" />
+  <positionref ref="PMTHole_pos2" />
+</subtraction>
+<subtraction name="TPBCapWithPMTHole4">
+  <first ref="TPBCapWithPMTHole3" />
+  <second ref="PMTHole" />
+  <positionref ref="PMTHole_pos3" />
+</subtraction>
+<subtraction name="TPBCapWithPMTHole5">
+  <first ref="TPBCapWithPMTHole4" />
+  <second ref="PMTHole" />
+  <positionref ref="PMTHole_pos4" />
+</subtraction>
+<subtraction name="TPBCapWithPMTHole6">
+  <first ref="TPBCapWithPMTHole5" />
+  <second ref="PMTHole" />
+  <positionref ref="PMTHole_pos5" />
+</subtraction>
+<subtraction name="TPBCapWithPMTHole7">
+  <first ref="TPBCapWithPMTHole6" />
+  <second ref="PMTHole" />
+  <positionref ref="PMTHole_pos6" />
+</subtraction>
+<subtraction name="TPBCapWithPMTHole8">
+  <first ref="TPBCapWithPMTHole7" />
+  <second ref="PMTHole" />
+  <positionref ref="PMTHole_pos7" />
+</subtraction>
+<subtraction name="TPBCapWithPMTHole9">
+  <first ref="TPBCapWithPMTHole8" />
+  <second ref="PMTHole" />
+  <positionref ref="PMTHole_pos8" />
+</subtraction>
+<subtraction name="TPBCapWithPMTHole10">
+  <first ref="TPBCapWithPMTHole9" />
+  <second ref="PMTHole" />
+  <positionref ref="PMTHole_pos9" />
+</subtraction>
+<subtraction name="TPBCapWithPMTHole11">
+  <first ref="TPBCapWithPMTHole10" />
+  <second ref="PMTHole" />
+  <positionref ref="PMTHole_pos10" />
+</subtraction>
+<subtraction name="TPBCapWithPMTHole12">
+  <first ref="TPBCapWithPMTHole11" />
+  <second ref="PMTHole" />
+  <positionref ref="PMTHole_pos11" />
+</subtraction>
+<subtraction name="TPBCapWithPMTHole13">
+  <first ref="TPBCapWithPMTHole12" />
+  <second ref="PMTHole" />
+  <positionref ref="PMTHole_pos12" />
+</subtraction>
+<subtraction name="TPBCapWithPMTHole14">
+  <first ref="TPBCapWithPMTHole13" />
+  <second ref="PMTHole" />
+  <positionref ref="PMTHole_pos13" />
+</subtraction>
+<subtraction name="TPBCapWithPMTHole15">
+  <first ref="TPBCapWithPMTHole14" />
+  <second ref="PMTHole" />
+  <positionref ref="PMTHole_pos14" />
+</subtraction>
+<subtraction name="TPBCapWithPMTHole16">
+  <first ref="TPBCapWithPMTHole15" />
+  <second ref="PMTHole" />
+  <positionref ref="PMTHole_pos15" />
+</subtraction>
+<subtraction name="TPBCapWithPMTHole17">
+  <first ref="TPBCapWithPMTHole16" />
+  <second ref="PMTHole" />
+  <positionref ref="PMTHole_pos16" />
+</subtraction>
+<subtraction name="TPBCapWithPMTHole18">
+  <first ref="TPBCapWithPMTHole17" />
+  <second ref="PMTHole" />
+  <positionref ref="PMTHole_pos17" />
+</subtraction>
+<subtraction name="TPBCapWithPMTHole19">
+  <first ref="TPBCapWithPMTHole18" />
+  <second ref="PMTHole" />
+  <positionref ref="PMTHole_pos18" />
+</subtraction>
+<subtraction name="TPBCapWithPMTHole20">
+  <first ref="TPBCapWithPMTHole19" />
+  <second ref="PMTHole" />
+  <positionref ref="PMTHole_pos19" />
+</subtraction>
+<subtraction name="TPBCapWithPMTHole21">
+  <first ref="TPBCapWithPMTHole20" />
+  <second ref="PMTHole" />
+  <positionref ref="PMTHole_pos20" />
+</subtraction>
+<subtraction name="TPBCapWithPMTHole22">
+  <first ref="TPBCapWithPMTHole21" />
+  <second ref="PMTHole" />
+  <positionref ref="PMTHole_pos21" />
+</subtraction>
+<subtraction name="TPBCapWithPMTHole23">
+  <first ref="TPBCapWithPMTHole22" />
+  <second ref="PMTHole" />
+  <positionref ref="PMTHole_pos22" />
+</subtraction>
+<subtraction name="TPBCapWithPMTHole24">
+  <first ref="TPBCapWithPMTHole23" />
+  <second ref="PMTHole" />
+  <positionref ref="PMTHole_pos23" />
+</subtraction>
+<subtraction name="TPBCapWithPMTHole25">
+  <first ref="TPBCapWithPMTHole24" />
+  <second ref="PMTHole" />
+  <positionref ref="PMTHole_pos24" />
+</subtraction>
+<subtraction name="TPBCapWithPMTHole26">
+  <first ref="TPBCapWithPMTHole25" />
+  <second ref="PMTHole" />
+  <positionref ref="PMTHole_pos25" />
+</subtraction>
+<subtraction name="TPBCapWithPMTHole27">
+  <first ref="TPBCapWithPMTHole26" />
+  <second ref="PMTHole" />
+  <positionref ref="PMTHole_pos26" />
+</subtraction>
+<subtraction name="TPBCapWithPMTHole28">
+  <first ref="TPBCapWithPMTHole27" />
+  <second ref="PMTHole" />
+  <positionref ref="PMTHole_pos27" />
+</subtraction>
+<subtraction name="TPBCapWithPMTHole29">
+  <first ref="TPBCapWithPMTHole28" />
+  <second ref="PMTHole" />
+  <positionref ref="PMTHole_pos28" />
+</subtraction>
+<subtraction name="TPBCapWithPMTHole30">
+  <first ref="TPBCapWithPMTHole29" />
+  <second ref="PMTHole" />
+  <positionref ref="PMTHole_pos29" />
+</subtraction>
+<subtraction name="TPBCapWithPMTHole31">
+  <first ref="TPBCapWithPMTHole30" />
+  <second ref="PMTHole" />
+  <positionref ref="PMTHole_pos30" />
+</subtraction>
+<subtraction name="TPBCapWithPMTHole32">
+  <first ref="TPBCapWithPMTHole31" />
+  <second ref="PMTHole" />
+  <positionref ref="PMTHole_pos31" />
+</subtraction>
+<subtraction name="TPBCapWithPMTHole33">
+  <first ref="TPBCapWithPMTHole32" />
+  <second ref="PMTHole" />
+  <positionref ref="PMTHole_pos32" />
+</subtraction>
+<subtraction name="TPBCapWithPMTHole34">
+  <first ref="TPBCapWithPMTHole33" />
+  <second ref="PMTHole" />
+  <positionref ref="PMTHole_pos33" />
+</subtraction>
+<subtraction name="TPBCapWithPMTHole35">
+  <first ref="TPBCapWithPMTHole34" />
+  <second ref="PMTHole" />
+  <positionref ref="PMTHole_pos34" />
+</subtraction>
+<subtraction name="TPBCapWithPMTHole36">
+  <first ref="TPBCapWithPMTHole35" />
+  <second ref="PMTHole" />
+  <positionref ref="PMTHole_pos35" />
+</subtraction>
+<subtraction name="TPBCapWithPMTHole37">
+  <first ref="TPBCapWithPMTHole36" />
+  <second ref="PMTHole" />
+  <positionref ref="PMTHole_pos36" />
+</subtraction>
+<subtraction name="TPBCapWithPMTHole38">
+  <first ref="TPBCapWithPMTHole37" />
+  <second ref="PMTHole" />
+  <positionref ref="PMTHole_pos37" />
+</subtraction>
+<subtraction name="TPBCapWithPMTHole39">
+  <first ref="TPBCapWithPMTHole38" />
+  <second ref="PMTHole" />
+  <positionref ref="PMTHole_pos38" />
+</subtraction>
+<subtraction name="TPBCapWithPMTHole40">
+  <first ref="TPBCapWithPMTHole39" />
+  <second ref="PMTHole" />
+  <positionref ref="PMTHole_pos39" />
+</subtraction>
+<subtraction name="TPBCapWithPMTHole41">
+  <first ref="TPBCapWithPMTHole40" />
+  <second ref="PMTHole" />
+  <positionref ref="PMTHole_pos40" />
+</subtraction>
+<subtraction name="TPBCapWithPMTHole42">
+  <first ref="TPBCapWithPMTHole41" />
+  <second ref="PMTHole" />
+  <positionref ref="PMTHole_pos41" />
+</subtraction>
+<subtraction name="TPBCapWithPMTHole43">
+  <first ref="TPBCapWithPMTHole42" />
+  <second ref="PMTHole" />
+  <positionref ref="PMTHole_pos42" />
+</subtraction>
+<subtraction name="TPBCapWithPMTHole44">
+  <first ref="TPBCapWithPMTHole43" />
+  <second ref="PMTHole" />
+  <positionref ref="PMTHole_pos43" />
+</subtraction>
+<subtraction name="TPBCapWithPMTHole45">
+  <first ref="TPBCapWithPMTHole44" />
+  <second ref="PMTHole" />
+  <positionref ref="PMTHole_pos44" />
+</subtraction>
+<subtraction name="TPBCapWithPMTHole46">
+  <first ref="TPBCapWithPMTHole45" />
+  <second ref="PMTHole" />
+  <positionref ref="PMTHole_pos45" />
+</subtraction>
+<subtraction name="TPBCapWithPMTHole47">
+  <first ref="TPBCapWithPMTHole46" />
+  <second ref="PMTHole" />
+  <positionref ref="PMTHole_pos46" />
+</subtraction>
+<subtraction name="TPBCapWithPMTHole48">
+  <first ref="TPBCapWithPMTHole47" />
+  <second ref="PMTHole" />
+  <positionref ref="PMTHole_pos47" />
+</subtraction>
+<subtraction name="TPBEndCap">
+  <first ref="TPBCapWithPMTHole48" />
+  <second ref="PMTHole" />
+  <positionref ref="PMTHole_pos48" />
+</subtraction>

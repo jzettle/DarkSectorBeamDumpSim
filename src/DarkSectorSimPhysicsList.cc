@@ -44,6 +44,10 @@
 #include "G4EmSaturation.hh"
 #include "G4ParticleDefinition.hh"
 #include "G4EmLivermorePhysics.hh"
+#include "G4HadronElasticPhysicsPHP.hh"
+#include "G4HadronPhysicsQGSP_BIC_AllHP.hh"
+#include "G4IonPhysicsPHP.hh"
+#include "G4IonElasticPhysics.hh"
 
 #include "DarkSectorSimPhysicsList.hh"
 //#include "DarkSectorSimPhysicsListMessenger.hh"
@@ -62,14 +66,18 @@ DarkSectorSimPhysicsList::DarkSectorSimPhysicsList(G4String name): G4VModularPhy
   construct->push_back("G4EmLivermorePhysics");
   G4EmProcessOptions EMOpt;
   EMOpt.SetFluo(true); //deexcitation and flourescence
+  EMOpt.SetAuger(true); //auger cascade
+  EMOpt.SetPIXE(true);
 
   construct->push_back("G4EmExtraPhysics"); //gamma-nuc and muon-nuc
   construct->push_back("G4DecayPhysics");  //decays (for cal source simulations)
-  construct->push_back("G4HadronElasticPhysicsHP"); //self-explanatory
+  construct->push_back("G4HadronElasticPhysicsPHP"); //self-explanatory
   construct->push_back("G4HadronPhysicsQGSP_BERT_HP"); //Bertini Cascade Model
-  //construct->push_back("G4HadronPhysicsQGSP_BIC_HP");
+  //construct->push_back("G4HadronPhysicsQGSP_BIC_HP"); //Trying to get excitation lines better from ions, trying this and below different physics models
+  //construct->push_back("G4HadronElasticPhysics");
   construct->push_back("G4StoppingPhysics");
-  construct->push_back("G4IonPhysics");
+  construct->push_back("G4IonPhysicsPHP"); //this and below trying to resolve excitation gammas better
+  construct->push_back("G4IonElasticPhysics");
   //construct->push_back("G4NeutronTrackingCut");
 
   physList = new G4GenericPhysicsList(construct);

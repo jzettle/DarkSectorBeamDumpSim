@@ -1,0 +1,392 @@
+<physvol name="topcapPMT0" copynumber="0">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos0"/>
+</physvol>
+<physvol name="bottomcapPMT49" copynumber="49">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos49"/>
+</physvol>
+<physvol name="topcapPMT1" copynumber="1">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos1"/>
+</physvol>
+<physvol name="bottomcapPMT50" copynumber="50">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos50"/>
+</physvol>
+<physvol name="topcapPMT2" copynumber="2">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos2"/>
+</physvol>
+<physvol name="bottomcapPMT51" copynumber="51">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos51"/>
+</physvol>
+<physvol name="topcapPMT3" copynumber="3">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos3"/>
+</physvol>
+<physvol name="bottomcapPMT52" copynumber="52">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos52"/>
+</physvol>
+<physvol name="topcapPMT4" copynumber="4">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos4"/>
+</physvol>
+<physvol name="bottomcapPMT53" copynumber="53">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos53"/>
+</physvol>
+<physvol name="topcapPMT5" copynumber="5">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos5"/>
+</physvol>
+<physvol name="bottomcapPMT54" copynumber="54">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos54"/>
+</physvol>
+<physvol name="topcapPMT6" copynumber="6">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos6"/>
+</physvol>
+<physvol name="bottomcapPMT55" copynumber="55">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos55"/>
+</physvol>
+<physvol name="topcapPMT7" copynumber="7">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos7"/>
+</physvol>
+<physvol name="bottomcapPMT56" copynumber="56">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos56"/>
+</physvol>
+<physvol name="topcapPMT8" copynumber="8">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos8"/>
+</physvol>
+<physvol name="bottomcapPMT57" copynumber="57">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos57"/>
+</physvol>
+<physvol name="topcapPMT9" copynumber="9">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos9"/>
+</physvol>
+<physvol name="bottomcapPMT58" copynumber="58">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos58"/>
+</physvol>
+<physvol name="topcapPMT10" copynumber="10">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos10"/>
+</physvol>
+<physvol name="bottomcapPMT59" copynumber="59">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos59"/>
+</physvol>
+<physvol name="topcapPMT11" copynumber="11">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos11"/>
+</physvol>
+<physvol name="bottomcapPMT60" copynumber="60">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos60"/>
+</physvol>
+<physvol name="topcapPMT12" copynumber="12">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos12"/>
+</physvol>
+<physvol name="bottomcapPMT61" copynumber="61">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos61"/>
+</physvol>
+<physvol name="topcapPMT13" copynumber="13">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos13"/>
+</physvol>
+<physvol name="bottomcapPMT62" copynumber="62">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos62"/>
+</physvol>
+<physvol name="topcapPMT14" copynumber="14">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos14"/>
+</physvol>
+<physvol name="bottomcapPMT63" copynumber="63">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos63"/>
+</physvol>
+<physvol name="topcapPMT15" copynumber="15">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos15"/>
+</physvol>
+<physvol name="bottomcapPMT64" copynumber="64">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos64"/>
+</physvol>
+<physvol name="topcapPMT16" copynumber="16">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos16"/>
+</physvol>
+<physvol name="bottomcapPMT65" copynumber="65">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos65"/>
+</physvol>
+<physvol name="topcapPMT17" copynumber="17">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos17"/>
+</physvol>
+<physvol name="bottomcapPMT66" copynumber="66">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos66"/>
+</physvol>
+<physvol name="topcapPMT18" copynumber="18">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos18"/>
+</physvol>
+<physvol name="bottomcapPMT67" copynumber="67">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos67"/>
+</physvol>
+<physvol name="topcapPMT19" copynumber="19">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos19"/>
+</physvol>
+<physvol name="bottomcapPMT68" copynumber="68">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos68"/>
+</physvol>
+<physvol name="topcapPMT20" copynumber="20">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos20"/>
+</physvol>
+<physvol name="bottomcapPMT69" copynumber="69">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos69"/>
+</physvol>
+<physvol name="topcapPMT21" copynumber="21">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos21"/>
+</physvol>
+<physvol name="bottomcapPMT70" copynumber="70">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos70"/>
+</physvol>
+<physvol name="topcapPMT22" copynumber="22">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos22"/>
+</physvol>
+<physvol name="bottomcapPMT71" copynumber="71">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos71"/>
+</physvol>
+<physvol name="topcapPMT23" copynumber="23">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos23"/>
+</physvol>
+<physvol name="bottomcapPMT72" copynumber="72">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos72"/>
+</physvol>
+<physvol name="topcapPMT24" copynumber="24">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos24"/>
+</physvol>
+<physvol name="bottomcapPMT73" copynumber="73">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos73"/>
+</physvol>
+<physvol name="topcapPMT25" copynumber="25">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos25"/>
+</physvol>
+<physvol name="bottomcapPMT74" copynumber="74">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos74"/>
+</physvol>
+<physvol name="topcapPMT26" copynumber="26">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos26"/>
+</physvol>
+<physvol name="bottomcapPMT75" copynumber="75">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos75"/>
+</physvol>
+<physvol name="topcapPMT27" copynumber="27">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos27"/>
+</physvol>
+<physvol name="bottomcapPMT76" copynumber="76">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos76"/>
+</physvol>
+<physvol name="topcapPMT28" copynumber="28">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos28"/>
+</physvol>
+<physvol name="bottomcapPMT77" copynumber="77">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos77"/>
+</physvol>
+<physvol name="topcapPMT29" copynumber="29">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos29"/>
+</physvol>
+<physvol name="bottomcapPMT78" copynumber="78">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos78"/>
+</physvol>
+<physvol name="topcapPMT30" copynumber="30">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos30"/>
+</physvol>
+<physvol name="bottomcapPMT79" copynumber="79">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos79"/>
+</physvol>
+<physvol name="topcapPMT31" copynumber="31">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos31"/>
+</physvol>
+<physvol name="bottomcapPMT80" copynumber="80">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos80"/>
+</physvol>
+<physvol name="topcapPMT32" copynumber="32">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos32"/>
+</physvol>
+<physvol name="bottomcapPMT81" copynumber="81">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos81"/>
+</physvol>
+<physvol name="topcapPMT33" copynumber="33">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos33"/>
+</physvol>
+<physvol name="bottomcapPMT82" copynumber="82">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos82"/>
+</physvol>
+<physvol name="topcapPMT34" copynumber="34">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos34"/>
+</physvol>
+<physvol name="bottomcapPMT83" copynumber="83">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos83"/>
+</physvol>
+<physvol name="topcapPMT35" copynumber="35">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos35"/>
+</physvol>
+<physvol name="bottomcapPMT84" copynumber="84">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos84"/>
+</physvol>
+<physvol name="topcapPMT36" copynumber="36">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos36"/>
+</physvol>
+<physvol name="bottomcapPMT85" copynumber="85">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos85"/>
+</physvol>
+<physvol name="topcapPMT37" copynumber="37">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos37"/>
+</physvol>
+<physvol name="bottomcapPMT86" copynumber="86">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos86"/>
+</physvol>
+<physvol name="topcapPMT38" copynumber="38">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos38"/>
+</physvol>
+<physvol name="bottomcapPMT87" copynumber="87">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos87"/>
+</physvol>
+<physvol name="topcapPMT39" copynumber="39">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos39"/>
+</physvol>
+<physvol name="bottomcapPMT88" copynumber="88">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos88"/>
+</physvol>
+<physvol name="topcapPMT40" copynumber="40">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos40"/>
+</physvol>
+<physvol name="bottomcapPMT89" copynumber="89">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos89"/>
+</physvol>
+<physvol name="topcapPMT41" copynumber="41">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos41"/>
+</physvol>
+<physvol name="bottomcapPMT90" copynumber="90">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos90"/>
+</physvol>
+<physvol name="topcapPMT42" copynumber="42">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos42"/>
+</physvol>
+<physvol name="bottomcapPMT91" copynumber="91">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos91"/>
+</physvol>
+<physvol name="topcapPMT43" copynumber="43">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos43"/>
+</physvol>
+<physvol name="bottomcapPMT92" copynumber="92">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos92"/>
+</physvol>
+<physvol name="topcapPMT44" copynumber="44">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos44"/>
+</physvol>
+<physvol name="bottomcapPMT93" copynumber="93">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos93"/>
+</physvol>
+<physvol name="topcapPMT45" copynumber="45">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos45"/>
+</physvol>
+<physvol name="bottomcapPMT94" copynumber="94">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos94"/>
+</physvol>
+<physvol name="topcapPMT46" copynumber="46">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos46"/>
+</physvol>
+<physvol name="bottomcapPMT95" copynumber="95">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos95"/>
+</physvol>
+<physvol name="topcapPMT47" copynumber="47">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos47"/>
+</physvol>
+<physvol name="bottomcapPMT96" copynumber="96">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos96"/>
+</physvol>
+<physvol name="topcapPMT48" copynumber="48">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos48"/>
+</physvol>
+<physvol name="bottomcapPMT97" copynumber="97">
+  <volumeref ref="PMTLog" />
+  <positionref ref="PMT_pos97"/>
+</physvol>

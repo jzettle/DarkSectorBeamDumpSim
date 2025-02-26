@@ -13,6 +13,7 @@
 #include "Randomize.hh"
 #include "DarkSectorSimTrackingAction.hh"
 #include "DarkSectorSimTrajectory.hh"
+#include "G4IonTable.hh"
 #include <string>
 #include <sstream>
 #include <stdlib.h>
@@ -25,6 +26,14 @@
 #include "ScintillationStore.hh"
 
 std::ofstream pioninfo_file;
+std::ofstream etainfo_file;
+std::ofstream ALP_el_infofile;
+std::ofstream ALP_gamma_infofile;
+std::ofstream piplusminusinfo_file;
+std::ofstream kaoninfo_file;
+std::ofstream beamtargetinfo_file;
+std::ofstream ex_gamma_file;
+
 
 DarkSectorSimAnalysisMessenger::DarkSectorSimAnalysisMessenger(DarkSectorSimAnalysis* analysis)
 {
@@ -56,9 +65,47 @@ DarkSectorSimAnalysisMessenger::DarkSectorSimAnalysisMessenger(DarkSectorSimAnal
   fSaveBeamPionCmd->SetDefaultValue(false);
   fSaveBeamPionCmd->AvailableForStates(G4State_PreInit, G4State_Idle);
 
-  fBeamPionFileCmd = new G4UIcmdWithAString("/analysis/setBeamPionFile",this);
-  fBeamPionFileCmd->SetGuidance("Set the output beam pion text file name");
-  fBeamPionFileCmd->AvailableForStates(G4State_PreInit, G4State_Idle);
+  fSaveALPProdCmd = new G4UIcmdWithABool("/analysis/saveALPProd", this);
+  fSaveALPProdCmd->SetGuidance("Save ALP Products (e+,e-, gammas) information?");
+  fSaveALPProdCmd->SetDefaultValue(false);
+  fSaveALPProdCmd->AvailableForStates(G4State_PreInit, G4State_Idle);
+
+  fBeamPiZeroFileCmd = new G4UIcmdWithAString("/analysis/setBeamPiZeroFile",this);
+  fBeamPiZeroFileCmd->SetGuidance("Set the output beam pi0 text file name");
+  fBeamPiZeroFileCmd->AvailableForStates(G4State_PreInit, G4State_Idle);
+
+  fBeamPiPlusMinusFileCmd = new G4UIcmdWithAString("/analysis/setBeamPiPlusMinusFile",this);
+  fBeamPiPlusMinusFileCmd->SetGuidance("Set the output beam pi+/- text file name");
+  fBeamPiPlusMinusFileCmd->AvailableForStates(G4State_PreInit, G4State_Idle);
+
+  fBeamEtaFileCmd = new G4UIcmdWithAString("/analysis/setBeamEtaFile",this);
+  fBeamEtaFileCmd->SetGuidance("Set the output beam eta text file name");
+  fBeamEtaFileCmd->AvailableForStates(G4State_PreInit, G4State_Idle);
+
+  fBeamKaonFileCmd = new G4UIcmdWithAString("/analysis/setBeamKaonFile", this);
+  fBeamKaonFileCmd->SetGuidance("Set the output beam charged kaon text file name");
+  fBeamKaonFileCmd->AvailableForStates(G4State_PreInit, G4State_Idle);
+
+  fALPProdElFileCmd = new G4UIcmdWithAString("/analysis/setALPProdElFile", this);
+  fALPProdElFileCmd->SetGuidance("Set the output ALP electron product text file name");
+  fALPProdElFileCmd->AvailableForStates(G4State_PreInit, G4State_Idle);
+
+  fALPProdGammaFileCmd = new G4UIcmdWithAString("/analysis/setALPProdGammaFile", this);
+  fALPProdGammaFileCmd->SetGuidance("Set the output ALP gamma product text file name");
+  fALPProdGammaFileCmd->AvailableForStates(G4State_PreInit, G4State_Idle);
+
+  fBeamTargetFileCmd = new G4UIcmdWithAString("/analysis/setBeamTargetFile", this);
+  fBeamTargetFileCmd->SetGuidance("Set the output beam target material product text file name");
+  fBeamTargetFileCmd->AvailableForStates(G4State_PreInit, G4State_Idle);
+
+  fSaveBeamTargetCmd = new G4UIcmdWithABool("/analysis/saveBeamTarget", this);
+  fSaveBeamTargetCmd->SetGuidance("Save products from beam target material information?");
+  fSaveBeamTargetCmd->SetDefaultValue(false);
+  fSaveBeamTargetCmd->AvailableForStates(G4State_PreInit, G4State_Idle);
+
+  fSaveStepGammaCmd = new G4UIcmdWithAString("/analysis/setExGammaFile", this);
+  fSaveStepGammaCmd->SetGuidance("Set the excited state gamma text file name");
+  fSaveStepGammaCmd->AvailableForStates(G4State_PreInit, G4State_Idle);
 
 }
 
@@ -70,7 +117,16 @@ DarkSectorSimAnalysisMessenger::~DarkSectorSimAnalysisMessenger()
   delete fUseVoxelCmd;
   delete fSaveFastOpTableCmd;
   delete fSaveBeamPionCmd;
-  delete fBeamPionFileCmd;
+  delete fBeamPiZeroFileCmd;
+  delete fBeamPiPlusMinusFileCmd;
+  delete fBeamKaonFileCmd;
+  delete fBeamEtaFileCmd;
+  delete fSaveALPProdCmd;
+  delete fALPProdElFileCmd;
+  delete fALPProdGammaFileCmd;
+  delete fSaveBeamTargetCmd;
+  delete fBeamTargetFileCmd;
+  delete fSaveStepGammaCmd;
 }
 void DarkSectorSimAnalysisMessenger::SetNewValue(G4UIcommand* cmd, G4String val)
 {
@@ -84,8 +140,26 @@ void DarkSectorSimAnalysisMessenger::SetNewValue(G4UIcommand* cmd, G4String val)
     fAnalysis->SetSaveFastOpTable(val);
   else if(cmd == fSaveBeamPionCmd)
     fAnalysis->SetSaveBeamPion(val);
-  else if(cmd == fBeamPionFileCmd)
-    fAnalysis->SetBeamPionFile(val);
+  else if(cmd == fBeamPiZeroFileCmd)
+    fAnalysis->SetBeamPiZeroFile(val);
+  else if(cmd == fBeamPiPlusMinusFileCmd)
+    fAnalysis->SetBeamPiPlusMinusFile(val);
+  else if(cmd == fBeamKaonFileCmd)
+    fAnalysis->SetBeamKaonFile(val);
+  else if(cmd == fBeamEtaFileCmd)
+    fAnalysis->SetBeamEtaFile(val);
+  else if(cmd == fSaveALPProdCmd)
+    fAnalysis->SetSaveALPProducts(val);
+  else if(cmd == fALPProdElFileCmd)
+    fAnalysis->SetALPProductElFile(val);
+  else if(cmd == fALPProdGammaFileCmd)
+    fAnalysis->SetALPProductGammaFile(val);
+  else if(cmd == fSaveBeamTargetCmd)
+    fAnalysis->SetSaveBeamTargetProducts(val);
+  else if(cmd == fBeamTargetFileCmd)
+    fAnalysis->SetBeamTargetProductFile(val);
+  else if(cmd == fSaveStepGammaCmd)
+    fAnalysis->SetStepGammaFile(val);
 }
 
 DarkSectorSimAnalysis* DarkSectorSimAnalysis::fInstance = 0;
@@ -101,7 +175,16 @@ DarkSectorSimAnalysis::DarkSectorSimAnalysis()
   fDetEvent = new DetectorEvent();
   fBeamEvent = new BeamEvent();
   fSaveBeamPion = false;
-  fBeamPionFile = "fermilab_piplus.txt";
+  fBeamPiZeroFile = "fermilab_pizero.txt";
+  fBeamPiPlusMinusFile = "fermilab_piplusminus.txt";
+  fBeamEtaFile = "fermilab_eta.txt";
+  fBeamKaonFile = "fermilab_kaon.txt";
+  fSaveBeamTarget = false;
+  fBeamTargetFile = "fermilab_beamtarget.txt";
+  fExGammaFile = "fermilab_gammaline.txt";
+  fSaveALP = false;
+  fALPElFile = "fermilab_elprod.txt";
+  fALPGammaFile = "fermilab_gammaprod.txt";
   //fStore = new ScintillationStore();
   ClearVariables();
 }
@@ -128,8 +211,24 @@ void DarkSectorSimAnalysis::PrepareNewRun(const G4Run* g4run)
   //fStore = new ScintillationStore();
   if(fSaveBeamPion)
   {
-    G4cout << fBeamPionFile << G4endl;
-    pioninfo_file.open(fBeamPionFile);
+    G4cout << "pi0 going to: " << fBeamPiZeroFile << " ,pi+/- going to: " << fBeamPiPlusMinusFile << " , and eta going to: " << fBeamEtaFile << G4endl;
+    pioninfo_file.open(fBeamPiZeroFile);
+    piplusminusinfo_file.open(fBeamPiPlusMinusFile);
+    etainfo_file.open(fBeamEtaFile);
+    kaoninfo_file.open(fBeamKaonFile);
+  }
+  if(fSaveALP)
+  {
+    G4cout << fALPElFile << " " << " " << fALPGammaFile << G4endl;
+    ALP_el_infofile.open(fALPElFile);
+    ALP_gamma_infofile.open(fALPGammaFile);
+  }
+  if(fSaveBeamTarget)
+  {
+    G4cout << fBeamTargetFile << G4endl;
+    beamtargetinfo_file.open(fBeamTargetFile);
+    G4cout << fExGammaFile << G4endl;
+    ex_gamma_file.open(fExGammaFile);
   }
   ClearVariables();
   SetBranches();
@@ -163,7 +262,7 @@ void DarkSectorSimAnalysis::EndofRun(const G4Run* g4run)
   G4String particleName = "pi+";
   const G4Element* el = G4NistManager::Instance()->FindOrBuildElement(elementName);
   const G4ParticleDefinition* particle = G4ParticleTable::GetParticleTable()->FindParticle(particleName);
-  if(!particle || ! el)
+  if(!particle || !el)
     G4cout << "Particle or element not found!" << G4endl;
   else
   {
@@ -275,6 +374,9 @@ void DarkSectorSimAnalysis::EndOfEvent(const G4Event* /* event */)
   fBeamEvent->SetProtonGenPosX(fGenXProton);
   fBeamEvent->SetProtonGenPosY(fGenYProton);
   fBeamEvent->SetProtonGenPosZ(fGenZProton);
+  fBeamEvent->SetProtonStopPosX(fStopXProton);
+  fBeamEvent->SetProtonStopPosY(fStopYProton);
+  fBeamEvent->SetProtonStopPosZ(fStopZProton);
   fBeamEvent->SetNumPiPlus(fGenPiPlus);
   fBeamEvent->SetPiPlusGenPosX(fGenXPiPlus);
   fBeamEvent->SetPiPlusGenPosY(fGenYPiPlus);
@@ -312,11 +414,45 @@ void DarkSectorSimAnalysis::EndOfEvent(const G4Event* /* event */)
   fBeamEvent->SetAntiNuMuDIFEnergy(fantinumu_difE);
 
   fRootTree->Fill();
+ 
   if(fSaveBeamPion && fGenPiZero > 0)
   {
-    pioninfo_file << fpi_xmom << " " << fpi_ymom << " " << fpi_zmom << " " << fpi_E << " " << fGenXPiZero << " " << fGenYPiZero << " " << fGenZPiZero << " " << fpi_time << "\n";
-    G4cout << fpi_xmom << " " << fpi_ymom << " " << fpi_zmom << " " << fpi_E << " " << fGenXPiPlus << " " << fGenYPiPlus << " " << fGenZPiPlus << " " << fpi_time << G4endl;
+    pioninfo_file << fpizero_xmom << " " << fpizero_ymom << " " << fpizero_zmom << " " << fpizero_E << " " << fGenXPiZero << " " << fGenYPiZero << " " << fGenZPiZero << " " << fpizero_time << "\n";
   }
+
+  if(fSaveBeamPion && fGenPiPlus > 0)
+  {
+    piplusminusinfo_file << fpiplus_name <<  " " <<  fpiplus_xmom << " " << fpiplus_ymom << " " << fpiplus_zmom << " " << fpiplus_E << " " << fGenXPiPlus << " " << fGenYPiPlus << " " << fGenZPiPlus << " " << fpiplus_time << G4endl;
+  }
+  
+  if(fSaveBeamPion && fGenPiMinus > 0)
+  {
+    piplusminusinfo_file << fpiminus_name << " " <<  fpiminus_xmom << " " << fpiminus_ymom << " " << fpiminus_zmom << " " << fpiminus_E << " " << fGenXPiMinus << " " << fGenYPiMinus << " " << fGenZPiMinus << " " << fpiminus_time << G4endl;
+  }
+
+  if(fSaveBeamPion && fGenKaon > 0)
+  {
+    kaoninfo_file << fkaon_name << " " <<  fkaon_xmom << " " << fkaon_ymom << " " << fkaon_zmom << " " << fkaon_E << " " << fGenXKaon << " " << fGenYKaon << " " << fGenZKaon << " " << fkaon_time << G4endl;
+  }
+ 
+  if(fSaveBeamPion && fGenEta > 0)
+  {
+    etainfo_file << feta_xmom << " " << feta_ymom << " " << feta_zmom << " " << feta_E << " " << fGenXEta << " " << fGenYEta << " " << fGenZEta << " " << feta_time << "\n";
+  }
+
+  if(fSaveALP && fGenElectron > 0)
+    for(unsigned int i = 0; i < fGenElEnergy.size(); ++i)
+      if(fGenElEnergy[i] > 0.1)
+	ALP_el_infofile << fGenElName[i] << " " << fGenElEnergy[i] << " " << fGenElPx[i] << " " << fGenElPy[i] << " " << fGenElPz[i] << "\n";
+  if(fSaveALP && fGenGamma > 0)
+    for(unsigned int i = 0; i < fGenGammaEnergy.size(); ++i)
+      if(fGenGammaEnergy[i] > 0.1)
+	ALP_gamma_infofile << fGenGammaEnergy[i] << " " << fGenGammaPx[i] << " " << fGenGammaPy[i] << " " << fGenGammaPz[i] << "\n";
+
+  if(fSaveBeamTarget && fGenGamma > 0)
+    for(unsigned int i = 0; i < fGenGammaEnergy.size(); ++i)
+      if(fGenGammaEnergy[i] > 0.02)
+	beamtargetinfo_file << fGenGammaEnergy[i] << " " << fGenGammaPx[i] << " " << fGenGammaPy[i] << " " << fGenGammaPz[i] << " " << fGenGammaCreatorProc[i] << " " << fbeamprod_parentname[i] << " " << fGenGammaParentofParent[i] << "\n";
 
 }
 
@@ -341,9 +477,28 @@ G4ClassificationOfNewTrack DarkSectorSimAnalysis::ClassifyNewTrack(const G4Track
   if(g4Track->GetParentID() == 1 && g4Track->GetDefinition()->GetParticleName() == "pi+")
   {
     ++fGenPiPlus;
-    fGenXPiPlus = g4Track->GetPosition().getX()/mm;
-    fGenYPiPlus = g4Track->GetPosition().getY()/mm;
-    fGenZPiPlus = g4Track->GetPosition().getZ()/mm;
+    fGenXPiPlus = g4Track->GetPosition().getX()/m;
+    fGenYPiPlus = g4Track->GetPosition().getY()/m;
+    fGenZPiPlus = g4Track->GetPosition().getZ()/m;
+    fpiplus_name = g4Track->GetDefinition()->GetParticleName();
+    fpiplus_E = g4Track->GetTotalEnergy()/GeV;
+    fpiplus_xmom = g4Track->GetMomentum().getX()/GeV;
+    fpiplus_ymom = g4Track->GetMomentum().getY()/GeV;
+    fpiplus_zmom = g4Track->GetMomentum().getZ()/GeV;
+    fpiplus_time = g4Track->GetGlobalTime()/s;
+  }
+  if(g4Track->GetParentID() == 1 && g4Track->GetDefinition()->GetParticleName() == "pi-")
+  {
+    ++fGenPiMinus;
+    fGenXPiMinus = g4Track->GetPosition().getX()/m;
+    fGenYPiMinus = g4Track->GetPosition().getY()/m;
+    fGenZPiMinus = g4Track->GetPosition().getZ()/m;
+    fpiminus_name = g4Track->GetDefinition()->GetParticleName();
+    fpiminus_E = g4Track->GetTotalEnergy()/GeV;
+    fpiminus_xmom = g4Track->GetMomentum().getX()/GeV;
+    fpiminus_ymom = g4Track->GetMomentum().getY()/GeV;
+    fpiminus_zmom = g4Track->GetMomentum().getZ()/GeV;
+    fpiminus_time = g4Track->GetGlobalTime()/s;
   }
   if(g4Track->GetParentID() == 1 && g4Track->GetDefinition()->GetParticleName() == "pi0")
   {
@@ -351,14 +506,65 @@ G4ClassificationOfNewTrack DarkSectorSimAnalysis::ClassifyNewTrack(const G4Track
     fGenXPiZero = g4Track->GetPosition().getX()/m;
     fGenYPiZero = g4Track->GetPosition().getY()/m;
     fGenZPiZero = g4Track->GetPosition().getZ()/m;
-    fpi_E = g4Track->GetTotalEnergy()/GeV;
-    fpi_xmom = g4Track->GetMomentum().getX()/GeV;
-    fpi_ymom = g4Track->GetMomentum().getY()/GeV;
-    fpi_zmom = g4Track->GetMomentum().getZ()/GeV;
-    fpi_time = g4Track->GetGlobalTime()/s;
+    fpizero_E = g4Track->GetTotalEnergy()/GeV;
+    fpizero_xmom = g4Track->GetMomentum().getX()/GeV;
+    fpizero_ymom = g4Track->GetMomentum().getY()/GeV;
+    fpizero_zmom = g4Track->GetMomentum().getZ()/GeV;
+    fpizero_time = g4Track->GetGlobalTime()/s;
+  }
+  if(g4Track->GetParentID() == 1 && (g4Track->GetDefinition()->GetParticleName() == "kaon+" || g4Track->GetDefinition()->GetParticleName() == "kaon-") )
+  {
+    ++fGenKaon;
+    fGenXKaon = g4Track->GetPosition().getX()/m;
+    fGenYKaon = g4Track->GetPosition().getY()/m;
+    fGenZKaon = g4Track->GetPosition().getZ()/m;
+    fkaon_name = g4Track->GetDefinition()->GetParticleName();
+    fkaon_E = g4Track->GetTotalEnergy()/GeV;
+    fkaon_xmom = g4Track->GetMomentum().getX()/GeV;
+    fkaon_ymom = g4Track->GetMomentum().getY()/GeV;
+    fkaon_zmom = g4Track->GetMomentum().getZ()/GeV;
+    fkaon_time = g4Track->GetGlobalTime()/s;
+  }
+
+  if(g4Track->GetParentID() == 1 && (g4Track->GetDefinition()->GetParticleName() == "eta" || g4Track->GetDefinition()->GetParticleName() == "eta_prime") )
+  {
+    ++fGenEta;
+    fGenXEta = g4Track->GetPosition().getX()/m;
+    fGenYEta = g4Track->GetPosition().getY()/m;
+    fGenZEta = g4Track->GetPosition().getZ()/m;
+    feta_E = g4Track->GetTotalEnergy()/GeV;
+    feta_xmom = g4Track->GetMomentum().getX()/GeV;
+    feta_ymom = g4Track->GetMomentum().getY()/GeV;
+    feta_zmom = g4Track->GetMomentum().getZ()/GeV;
+    feta_time = g4Track->GetGlobalTime()/s;
   }
   if(g4Track->GetParentID() == 1 && g4Track->GetDefinition()->GetParticleName() == "pi-")
     ++fGenPiMinus;
+
+  if(g4Track->GetDefinition()->GetParticleName() == "e-" || g4Track->GetDefinition()->GetParticleName() == "e+")
+  {
+    //G4cout << "Electron!" << G4endl;
+    ++fGenElectron;
+    fGenElEnergy.push_back(g4Track->GetKineticEnergy()/MeV);
+    fGenElPx.push_back(g4Track->GetMomentum().getX()/MeV);
+    fGenElPy.push_back(g4Track->GetMomentum().getY()/MeV);
+    fGenElPz.push_back(g4Track->GetMomentum().getZ()/MeV);
+    fGenElName.push_back(g4Track->GetDefinition()->GetParticleName());
+  }
+  if(g4Track->GetDefinition()->GetParticleName() == "gamma")
+  {
+    //G4cout << "Gamma!" << G4endl;
+    ++fGenGamma;
+    fGenGammaEnergy.push_back(g4Track->GetKineticEnergy()/MeV);
+    fGenGammaPx.push_back(g4Track->GetMomentum().getX()/MeV);
+    fGenGammaPy.push_back(g4Track->GetMomentum().getY()/MeV);
+    fGenGammaPz.push_back(g4Track->GetMomentum().getZ()/MeV);
+    if(g4Track->GetCreatorProcess())
+    {
+      fGenGammaCreatorProc.push_back(g4Track->GetCreatorProcess()->GetProcessName());
+    }
+  }
+ 
   
   if(g4Track->GetParentID() != 1 && g4Track->GetDefinition()->GetParticleName() == "pi+")
   {
@@ -438,6 +644,16 @@ void DarkSectorSimAnalysis::SteppingAction(const G4Step* step)
     if(postStepVolume->GetName() == "LArCylVol")
       if(partname == "nu_mu" || partname == "nu_e" || partname == "anti_nu_mu" || partname == "anti_nu_e")
 	++fNuInDetector;
+
+    //add in a fStopAndKill condition for protons here and then store that value to check where the protons themselves stop
+    //look only at the primary proton here
+    if(step->GetTrack()->GetParentID() == 0 && step->GetTrack()->GetTrackStatus() == fStopAndKill)
+    {
+      fStopXProton = postStepPoint->GetPosition().getX()/m; 
+      fStopYProton = postStepPoint->GetPosition().getY()/m; 
+      fStopZProton = postStepPoint->GetPosition().getZ()/m;
+    }
+
     if(stepTrack->GetDefinition() == G4OpticalPhoton::OpticalPhotonDefinition())
     {
       G4int numPMTendcap = 305;
@@ -603,6 +819,44 @@ void DarkSectorSimAnalysis::SteppingAction(const G4Step* step)
      
     }
   }
+  //alternative method to extract secondary gammas similar to method used for CCM explorations on excited state gammas coming from the target. We can compare to what I already have produced and plot the different gamma lines
+
+  bool ph = false;
+  const G4VProcess* process = step->GetPostStepPoint()->GetProcessDefinedStep();
+  G4String processName = "UserLimit";
+  if (process) processName = process->GetProcessName();
+  {
+    const std::vector<const G4Track*>* secondary = step->GetSecondaryInCurrentStep();
+    size_t nbtrk = (*secondary).size();
+    if(nbtrk)
+    {
+      for(size_t sec = 0; sec < (*secondary).size(); ++sec)
+      {
+	if(((*secondary)[sec]->GetDefinition()->GetParticleName() == "gamma"))
+	{
+	  ph = true;
+	  ex_gamma_file << (*secondary)[sec]->GetKineticEnergy() << " ";
+	  ex_gamma_file << step->GetTrack()->GetPosition().x() << " ";
+	  ex_gamma_file << step->GetTrack()->GetPosition().y() << " ";
+	  ex_gamma_file << step->GetTrack()->GetPosition().z() << " ";
+	  ex_gamma_file << process->GetProcessName() << " ";
+	  ex_gamma_file << step->GetTrack()->GetVolume()->GetName() << " ";
+	  ex_gamma_file << step->GetTrack()->GetDefinition()->GetParticleName() << " ";
+	  ex_gamma_file << step->GetTrack()->GetKineticEnergy() << " ";
+	
+	  if(!ph)
+	    ex_gamma_file << std::endl;
+	  if(ph)
+	  {
+	    ph = false;
+	    for(size_t seco = 0; seco < (*secondary).size(); ++seco)
+	      ex_gamma_file << " " << (*secondary)[seco]->GetDefinition()->GetParticleName();
+	    ex_gamma_file << std::endl;
+	  }
+	}
+      }
+    }
+  }						      
 }
 
 void DarkSectorSimAnalysis::PreUserTrackingAction(const G4Track* g4Track,G4TrackingManager* fpTrackingManager)
@@ -644,6 +898,38 @@ void DarkSectorSimAnalysis::PostUserTrackingAction(const G4Track* g4Track, G4Tra
       fTrackLengthWLS.push_back(totTrackLength);
     }
     
+    if(g4Track->GetDefinition()->GetParticleName() == "gamma")
+    {
+      if(g4Track->GetParentID() != 0)
+      {
+	G4String parentname = traj->GetParentTrajectory()->GetDefinition()->GetParticleName();
+	if(traj->GetParentTrajectory()->GetParentID() != 0)
+	{
+	  G4String parentofparent = traj->GetParentTrajectory()->GetParentTrajectory()->GetDefinition()->GetParticleName();
+	  fGenGammaParentofParent.push_back(parentofparent);
+	}
+	else
+	{
+	  G4String parentofparent = "primary_proton";
+	  fGenGammaParentofParent.push_back(parentofparent);
+	}
+	fbeamprod_parentname.push_back(parentname);                                      
+	/*
+	if(traj->GetParentTrajectory()->GetDefinition()->GetParticleType() == "nucleus")
+	{
+	  ++fGenGamma;
+	  fGenGammaEnergy.push_back(g4Track->GetKineticEnergy()/MeV);
+	  fGenGammaPx.push_back(g4Track->GetMomentum().getX()/MeV);
+	  fGenGammaPy.push_back(g4Track->GetMomentum().getY()/MeV);
+	  fGenGammaPz.push_back(g4Track->GetMomentum().getZ()/MeV);
+	  G4String parentname = traj->GetParentTrajectory()->GetDefinition()->GetParticleName();
+	  fbeamprod_parentname.push_back(parentname);
+	  G4cout << g4Track->GetDefinition()->GetParticleName() << " " << parentname << G4endl;
+	}
+	*/
+      }
+    }
+    /*
     if(g4Track->GetDefinition()->GetParticleName() == "nu_mu")
     {
       G4String parentname = traj->GetParentTrajectory()->GetDefinition()->GetParticleName();
@@ -663,7 +949,7 @@ void DarkSectorSimAnalysis::PostUserTrackingAction(const G4Track* g4Track, G4Tra
 	G4cout <<"Nu-mu-bar Parent: " << parentname << G4endl;
 	G4cout <<"Energy: " << g4Track->GetKineticEnergy()/MeV << G4endl;
       }
-    
+    */
 
 
 
@@ -677,7 +963,7 @@ void DarkSectorSimAnalysis::PostUserTrackingAction(const G4Track* g4Track, G4Tra
   {
     fNumReflections.push_back(fReflectTeflon);
   }    
-  if(name=="pi0" || name=="pi+" || name=="pi-" || name=="mu+" || name=="mu-") {
+  if((name=="pi+" || name=="pi-" || name=="mu+" || name=="mu-" || name=="kaon+" || name=="kaon-")) { //&& g4Track->GetParentID() == 1) {
   //if(name == "pi+" || name == "mu+") {
     G4TrackVector *children = fpTrackingManager->GimmeSecondaries();
     for(size_t i = 0; i<children->size(); i++) {
@@ -779,6 +1065,21 @@ void DarkSectorSimAnalysis::ClearVariables(void)
   fGenXPiZero = 0;
   fGenYPiZero = 0;
   fGenZPiZero = 0;
+  fStopXProton = 0;
+  fStopYProton = 0;
+  fStopZProton = 0;
+  fGenPiMinus = 0;
+  fGenXPiMinus = 0;
+  fGenYPiMinus = 0;
+  fGenZPiMinus = 0;
+  fGenKaon = 0;
+  fGenXKaon = 0;
+  fGenYKaon = 0;
+  fGenZKaon = 0;
+  fGenEta = 0;
+  fGenXEta = 0;
+  fGenYEta = 0;
+  fGenZEta = 0;
   fGenPiMinus = 0;
   fNuInDetector = 0;
   fPiDecayTime = 0;
@@ -843,12 +1144,55 @@ void DarkSectorSimAnalysis::ClearVariables(void)
   fPhotonHitTimes.clear();
   fPhotonStore.clear();
   //fPMTReflTimeMap.clear();
+  fpiplus_name = "";
+  fpiplus_xmom = 0;
+  fpiplus_ymom = 0;
+  fpiplus_zmom = 0;
+  fpiplus_E = 0;
+  fpiplus_time = 0;
 
-  fpi_xmom = 0;
-  fpi_ymom = 0;
-  fpi_zmom = 0;
-  fpi_E = 0;
-  fpi_time = 0;
+  fpizero_xmom = 0;
+  fpizero_ymom = 0;
+  fpizero_zmom = 0;
+  fpizero_E = 0;
+  fpizero_time = 0;
+  
+  fpiplus_name = "";
+  fpiminus_xmom = 0;
+  fpiminus_ymom = 0;
+  fpiminus_zmom = 0;
+  fpiminus_E = 0;
+  fpiminus_time = 0;
+
+  fkaon_name = "";
+  fkaon_xmom = 0;
+  fkaon_ymom = 0;
+  fkaon_zmom = 0;
+  fkaon_E = 0;
+  fkaon_time = 0;
+
+  feta_xmom = 0;
+  feta_ymom = 0;
+  feta_zmom = 0;
+  feta_E = 0;
+  feta_time = 0;
+  
+  fGenElectron = 0;
+  fGenElEnergy.clear();
+  fGenElPx.clear();
+  fGenElPy.clear();
+  fGenElPz.clear();
+  fGenElName.clear();
+
+  fbeamprod_parentname.clear();
+  
+  fGenGamma = 0;
+  fGenGammaEnergy.clear();
+  fGenGammaPx.clear();
+  fGenGammaPy.clear();
+  fGenGammaPz.clear();
+  fGenGammaCreatorProc.clear();
+  fGenGammaParentofParent.clear();
 }
 
 void DarkSectorSimAnalysis::SetBranches(void)

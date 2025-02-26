@@ -20,6 +20,9 @@ void BeamEvent::clear()
   fProtonGenPosX = 0.0;
   fProtonGenPosY = 0.0;
   fProtonGenPosZ = 0.0;
+  fProtonStopPosX = 0.0;
+  fProtonStopPosY = 0.0;
+  fProtonStopPosZ = 0.0;
   fGenPiPlus = 0;
   fPiPlusGenPosX = 0.0;
   fPiPlusGenPosY = 0.0;

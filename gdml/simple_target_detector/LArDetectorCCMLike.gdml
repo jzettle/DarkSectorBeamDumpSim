@@ -1,0 +1,254 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE gdml [
+<!ENTITY pmt_positions SYSTEM "pmt_endcap_positionsCCM.xml">
+<!ENTITY pmt_placements SYSTEM "pmt_placementCCM.xml">
+<!ENTITY sidewall_pmt_positions SYSTEM "pmt_sidewall_positionsCCM.xml">
+<!ENTITY sidewall_pmt_rotations SYSTEM "pmt_sidewall_rotationsCCM.xml">
+<!ENTITY sidewall_pmt_placements SYSTEM "pmt_sidewall_placementsCCM.xml">
+<!ENTITY sidewall_tpb_positions SYSTEM "tpb_sidewall_positionsCCM.xml">
+<!ENTITY sidewall_tpb_rotations SYSTEM "tpb_sidewall_rotationsCCM.xml">
+<!ENTITY sidewall_tpb_placements SYSTEM "tpb_sidewall_placementsCCM.xml">
+<!ENTITY endcap_holes SYSTEM "endcap_pmthole_positionsCCM.xml">
+<!ENTITY endcap_sub SYSTEM "endcap_subsolidCCM.xml">
+<!ENTITY tpb_positions SYSTEM "tpb_endcap_positionsCCM.xml">
+<!ENTITY tpb_placements SYSTEM "tpb_placementCCM.xml">
+<!ENTITY tpb_rotations SYSTEM "tpb_endcap_rotationsCCM.xml">
+<!ENTITY endcap_tpb_sub SYSTEM "endcap_tpb_subsolidCCM.xml">
+<!ENTITY sidewall_holes SYSTEM "pmthole_sidewall_positionsCCM.xml">
+<!ENTITY sidewall_holes_rot SYSTEM "pmthole_sidewall_rotationsCCM.xml">
+<!ENTITY sidewall_refl SYSTEM "refl_sidewall_subtractionsCCM.xml">
+<!ENTITY sidewall_tpb SYSTEM "tpb_sidewall_subtractionsCCM.xml">
+]>
+<gdml xmlns:gdml="http://cern.ch/2001/Schemas/GDML" 
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+      xsi:noNamespaceSchemaLocation="../schema/gdml.xsd" >
+
+  <define>
+    <!-- Constants --> 
+    <constant name="TWOPI" value="2.0*pi" />
+    <constant name="pmtrad" value="4.0*2.54" />
+    <constant name="PI" value="1.0*pi" />
+    <constant name="HALFPI" value="0.5*pi" />
+    <!-- Quantities -->
+    <!-- Positions -->
+    <position name="detPos" unit="m" x="0.0" y="0.0" z="0.0" />
+    <position name="LArCylPos" unit="cm" x="0.0" y="0.0" z="0.0" />
+    <position name="ReflectorPos" unit="cm" x="0.0" y="0.0" z="0.0" />
+    <position name="WLSPos" unit="cm" x="0.0" y="0.0" z="0.0" />
+    <position name="TopEndCapPos" unit="mm" x="0.0" y="0.0" z="713.5515" />
+    <position name="BotEndCapPos" unit="mm" x="0.0" y="0.0" z="-713.5515" />
+    <position name="TopEndCapTPBPos" unit="mm" x="0.0" y="0.0" z="711.962" />
+    <position name="BotEndCapTPBPos" unit="mm" x="0.0" y="0.0" z="-711.962" />
+    &pmt_positions;
+    &sidewall_pmt_positions;
+    &sidewall_pmt_rotations;
+    &sidewall_tpb_positions;
+    &sidewall_tpb_rotations;
+    &sidewall_holes;
+    &sidewall_holes_rot;
+    &endcap_holes;
+    &tpb_positions;
+    &tpb_rotations;
+  </define>
+
+  <materials>
+    <element name="Hydrogen" formula="H" Z="1."> <atom value="1.01"/>
+    </element>
+    <element name="Oxygen" formula="O" Z="8."> <atom value="16.0"/>
+    </element>
+    <element name="Nitrogen" formula="N" Z="7."> <atom value="14.01"/>
+    </element>
+    <element name="Carbon" formula="C" Z="6."> <atom value="12.01"/>
+    </element>
+    <element name="Fluorine" formula="F" Z="9"> <atom value="18.00"/>
+    </element>
+    <element name="W_tungsten" formula="W" Z="74"> <atom value="183.84"/>
+    </element>
+    <element name="Argon" formula="Ar" Z="18."> <atom value="39.95"/>
+    </element>
+    <material name="Air">
+      <D value="1.290" unit="mg/cm3"/>
+      <fraction n="0.7" ref="Nitrogen"/>
+      <fraction n="0.3" ref="Oxygen"/>
+    </material>
+    <material name="Graphite">
+      <D value="1.78" unit="g/cm3"/>
+      <composite n="1" ref="Carbon"/>
+    </material>
+    <material name="Tungsten">
+      <D value="19.3" unit="g/cm3"/>
+      <composite n="1" ref="W_tungsten"/>
+    </material>
+    <material name="liquidArgon" formula="LAr">
+      <D value="1.4" unit="g/cm3"/>
+      <composite n="1" ref="Argon"/>
+    </material>
+    <material name="PTFE">
+      <D value="2.2" unit="g/cm3"/>
+      <composite n="2" ref="Carbon"/>
+      <composite n="4" ref="Fluorine"/>
+    </material>
+    <material name="TPB">
+      <D value="1.08" unit="g/cm3"/>
+      <composite n="22" ref="Carbon"/>
+      <composite n="28" ref="Hydrogen"/>
+    </material>
+  </materials>
+  
+  <solids>
+    <box name="WorldSolid" lunit="mm" x="50000.0" y="50000.0" z="50000.0" />
+    <box name="FullDetectorSolid" lunit="mm" x="6000.0" y="6000.0" z="6000.0" />
+    <!-- <tube name="LArCylSolid" z="LArCyl_z" rmin="LArCyl_rmin" rmax="LArCyl_rmax" deltaphi="TWOPI" lunit="mm" /> -->
+    <tube name="LArCylSolid" lunit="mm" z="1650.0" rmin="0.0" rmax="1256.03" deltaphi="TWOPI"  />
+    <sphere name="PMTSolid" lunit="mm" rmin="0.0" rmax="101.6" deltaphi="TWOPI" deltatheta="PI" />
+    <sphere name="TPBTopSolid" lunit="mm" rmin="101.6" rmax="101.602" deltaphi="TWOPI" starttheta="HALFPI" deltatheta="HALFPI" />
+    <sphere name="TPBSideSolid" lunit="mm" rmin="101.6" rmax="101.602" deltaphi="TWOPI" deltatheta="PI" />
+    <sphere name="TPBBotSolid" lunit="mm" rmin="101.6" rmax="101.602" deltaphi="TWOPI" deltatheta="HALFPI" />
+    <!--<tube name="PMTHole" z="0.001" rmin="0.0" rmax="101.602" deltaphi="TWOPI" lunit="mm" /> -->
+    <sphere name="PMTHole" rmin="0.0" rmax="101.602" deltaphi="TWOPI" deltatheta="PI" />
+    <sphere name="SidePMTHole" rmin="0.0" rmax="101.602" deltaphi="TWOPI" deltatheta="PI" /> 
+    <tube name="ReflectorSolid" lunit="mm" z="1423.924" rmin="1049.655" rmax="1052.83" deltaphi="TWOPI" />
+    <tube name="WLSSolid" lunit="mm" z="1423.924" rmin="1049.653" rmax="1049.655" deltaphi="TWOPI" />
+    <tube name="CapWithPMTHole0" lunit="mm" z="3.175" rmin="0.0" rmax="1052.82" deltaphi="TWOPI" />
+    &endcap_sub;
+    <tube name="TPBCapWithPMTHole0" lunit="mm" z="0.002" rmin="0.0" rmax="1052.83" deltaphi="TWOPI" />
+    &endcap_tpb_sub;
+    <tube name="SideReflWithPMTHole0" lunit="mm" z="1423.924" rmin="1049.655" rmax="1052.83" deltaphi="TWOPI" />
+    &sidewall_refl;
+    <tube name="SideTPBWithPMTHole0" lunit="mm" z="1423.924" rmin="1049.653" rmax="1049.655" deltaphi="TWOPI" />
+    &sidewall_tpb; 
+  </solids>
+
+  <structure>
+    <volume name="PMTLog">
+      <materialref ref="Air" />
+      <solidref ref="PMTSolid" />
+    </volume>
+
+    <volume name="TPBTopLog">
+      <materialref ref="TPB" />
+      <solidref ref="TPBTopSolid" />
+    </volume>
+
+    <volume name="TPBBotLog">
+      <materialref ref="TPB" />
+      <solidref ref="TPBBotSolid" />
+    </volume>
+
+    <volume name="TPBSideLog">
+      <materialref ref="TPB" />
+      <solidref ref="TPBSideSolid" />
+    </volume>
+    
+    <volume name="ReflectorLog">
+      <materialref ref="PTFE" />
+      <solidref ref="ReflectorSolid" />
+    </volume>
+    
+    <volume name="WLSLog">
+      <materialref ref="TPB" />
+      <solidref ref="WLSSolid" />
+    </volume>
+
+    <volume name="SideReflLog">
+      <materialref ref="PTFE" />
+      <solidref ref="SideReflector" />
+    </volume>
+
+    <volume name="SideTPBLog">
+      <materialref ref="TPB" />
+      <solidref ref="SideTPB" />
+    </volume>
+    
+    <volume name="EndCapLog">
+      <materialref ref="PTFE" />
+      <solidref ref="EndCap" />
+    </volume>
+
+    <volume name="EndCapTPBLog">
+      <materialref ref="TPB" />
+      <solidref ref="TPBEndCap" />
+    </volume>
+    
+    <volume name="LArCylLog">
+      <materialref ref="liquidArgon" />
+      <solidref ref="LArCylSolid" />
+
+      &pmt_placements;
+      &sidewall_pmt_placements;
+      &sidewall_tpb_placements;
+      &tpb_placements;
+     <!--
+      <physvol name="ReflectorVol">
+	<volumeref ref="ReflectorLog" />
+	<positionref ref="ReflectorPos" />
+      </physvol>
+      
+      <physvol name="WLSVol">
+	<volumeref ref="WLSLog" />
+	<positionref ref="WLSPos" />
+      </physvol>
+      -->
+      
+      <physvol name="SideReflectorVol">
+	<volumeref ref="SideReflLog" />
+	<positionref ref="ReflectorPos" />
+      </physvol>
+
+      <physvol name="SideTPBVol">
+	<volumeref ref="SideTPBLog" />
+	<positionref ref="WLSPos" />
+      </physvol>
+    
+
+      <physvol name="TopEndCapVol">
+	<volumeref ref="EndCapLog" />
+	<positionref ref="TopEndCapPos" />
+      </physvol>
+
+      <physvol name="TopTPBEndCapVol">
+	<volumeref ref="EndCapTPBLog" />
+	<positionref ref="TopEndCapTPBPos" />
+      </physvol>
+
+      <physvol name="BotEndCapVol">
+	<volumeref ref="EndCapLog" />
+	<positionref ref="BotEndCapPos" />
+      </physvol>
+
+      <physvol name="BotTPBEndCapVol">
+	<volumeref ref="EndCapTPBLog" />
+	<positionref ref="BotEndCapTPBPos" />
+      </physvol>
+     
+    </volume>
+
+    <volume name="FullDetectorLog">
+      <materialref ref="liquidArgon" />
+      <solidref ref="FullDetectorSolid" />
+      
+      <physvol name="LArCylVol">
+        <volumeref ref="LArCylLog" />
+	<positionref ref="LArCylPos" /> 
+      </physvol>
+
+    </volume>
+
+    <volume name="World" >
+      <materialref ref="Air" />
+      <solidref ref="WorldSolid" />
+      
+      <physvol name="FullDetectorVol">
+        <volumeref ref="FullDetectorLog" />
+	<positionref ref="detPos" />
+      </physvol>
+
+    </volume>
+  </structure>
+
+  <setup name="LArDetectorCCM" version="1.0">
+    <world ref="World"/>
+  </setup>
+</gdml>
+   
+		          

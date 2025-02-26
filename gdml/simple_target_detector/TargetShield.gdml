@@ -18,7 +18,14 @@
     <quantity name="target_y" value="270.0" unit="mm" />
     <quantity name="target_z" value="270.0" unit="mm" />
     <!-- Positions -->
-    <position name="targetPos" unit="m" x="-1.8" y="0.0" z="0.0" /> <!-- this is the position of the center of the box -->
+    <position name="cavityPos" unit="m" x="0.25" y="0.0" z="0.0" /> 
+    <position name="targetPos" unit="m" x="0.75" y="0.0" z="0.0" /> 
+    <position name="shieldPos" unit="m" x="1.25" y="0.0" z="0.0" /> 
+    <position name="steelPos" unit="m" x="1.75" y="0.0" z="0.0" />
+    <position name="cavSub" unit="m" x="-0.50" y="0.0" z="0.0" />
+    <position name="cuSub" unit="m" x="-0.50" y="0.0" z="0.0" />
+    <position name="steelSub" unit="m" x="-0.50" y="0.0" z="0.0" />
+    <!-- old x pos -1.8 -1.55 -1.05 -0.55, shift by 2.05 m so edge is at 0-->
     <!-- <position name="targetPos" unit="m" x="-3.5975" y="0.0" z="0.0" /> -->
   </define>
 
@@ -36,6 +43,10 @@
     <element name="W_tungsten" formula="W" Z="74"> <atom value="183.84"/>
     </element>
     <element name="Argon" formula="Ar" Z="18."> <atom value="39.95"/>
+    </element>
+    <element name="Iron" formula="Fe" Z="26"> <atom value="55.845"/>
+    </element>
+    <element name="Copper" formula="Cu" Z="29"> <atom value="63.546"/>
     </element>
     <material name="Air">
       <D value="1.290" unit="mg/cm3"/>
@@ -64,17 +75,57 @@
       <composite n="22" ref="Carbon"/>
       <composite n="28" ref="Hydrogen"/>
     </material>
+    <material name="SS">
+      <D value="7.5" unit="g/cm3"/>
+      <composite n="1" ref="Iron"/>
+    </material>
+    <material name="Copper">
+      <D value="8.96" unit="g/cm3"/>
+      <composite n="1" ref="Copper"/>
+    </material>
   </materials>
   
   <solids>
     <box name="WorldSolid" lunit="mm" x="500000.0" y="500000.0" z="500000.0" />
-    <box name="TargetSolid" lunit="mm" x="3600.0" y="270.0" z="270.0" />
-  </solids>
+    <box name="CavitySolid" lunit="mm" x="500.0" y="100.0" z="100.0" />
+    <box name="TargetSolid" lunit="mm" x="1500.0" y="200.0" z="200.0" />
+    <box name="CopperShieldSolid" lunit="mm" x="2500.0" y="300.0" z="300.0" />
+    <box name="ShieldSolid" lunit="mm" x="3500.0" y="2300.0" z="2300.0" />
 
+    <subtraction name="CarbonCavity">
+      <first ref="TargetSolid"/>
+      <second ref="CavitySolid"/>
+      <positionref ref="cavSub" />
+    </subtraction>
+
+    <subtraction name="ShieldedTargetCopper">
+      <first ref="CopperShieldSolid" />
+      <second ref="TargetSolid" />
+      <positionref ref="cuSub" />
+    </subtraction>
+
+    <subtraction name="FullShieldedSolid" >
+      <first ref="ShieldSolid" />
+      <second ref="CopperShieldSolid" />
+      <positionref ref="steelSub" />
+    </subtraction>
+
+  </solids>
   <structure>
+   
     <volume name="TargetLog">
       <materialref ref="Graphite" />
-      <solidref ref="TargetSolid" />
+      <solidref ref="CarbonCavity" />
+    </volume>
+ 
+    <volume name="CopperShieldLog">
+      <materialref ref="Copper" />
+      <solidref ref="ShieldedTargetCopper" />
+    </volume>
+    
+    <volume name="FullShieldLog">
+      <materialref ref="SS" />
+      <solidref ref="FullShieldedSolid" />
     </volume>
 
     <volume name="World" >
@@ -85,7 +136,17 @@
         <volumeref ref="TargetLog" />
 	<positionref ref="targetPos" />
       </physvol>
-
+      
+      <physvol name="ShieldVol" >
+	<volumeref ref="CopperShieldLog" />
+	<positionref ref="shieldPos" />
+      </physvol>
+      
+      <physvol name="FullShieldVol" >
+	<volumeref ref="FullShieldLog" />
+	<positionref ref="steelPos" />
+      </physvol>
+     
     </volume>
   </structure>
 

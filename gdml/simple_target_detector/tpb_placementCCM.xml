@@ -1,0 +1,490 @@
+<physvol name="topcapTPB0" copynumber="0">
+  <volumeref ref="TPBTopLog" />
+  <positionref ref="TPB_pos0"/>
+  <rotationref ref="TPB_rot0"/>
+</physvol>
+<physvol name="bottomcapTPB49" copynumber="49">
+  <volumeref ref="TPBBotLog" />
+  <positionref ref="TPB_pos49"/>
+  <rotationref ref="TPB_rot49"/>
+</physvol>
+<physvol name="topcapTPB1" copynumber="1">
+  <volumeref ref="TPBTopLog" />
+  <positionref ref="TPB_pos1"/>
+  <rotationref ref="TPB_rot1"/>
+</physvol>
+<physvol name="bottomcapTPB50" copynumber="50">
+  <volumeref ref="TPBBotLog" />
+  <positionref ref="TPB_pos50"/>
+  <rotationref ref="TPB_rot50"/>
+</physvol>
+<physvol name="topcapTPB2" copynumber="2">
+  <volumeref ref="TPBTopLog" />
+  <positionref ref="TPB_pos2"/>
+  <rotationref ref="TPB_rot2"/>
+</physvol>
+<physvol name="bottomcapTPB51" copynumber="51">
+  <volumeref ref="TPBBotLog" />
+  <positionref ref="TPB_pos51"/>
+  <rotationref ref="TPB_rot51"/>
+</physvol>
+<physvol name="topcapTPB3" copynumber="3">
+  <volumeref ref="TPBTopLog" />
+  <positionref ref="TPB_pos3"/>
+  <rotationref ref="TPB_rot3"/>
+</physvol>
+<physvol name="bottomcapTPB52" copynumber="52">
+  <volumeref ref="TPBBotLog" />
+  <positionref ref="TPB_pos52"/>
+  <rotationref ref="TPB_rot52"/>
+</physvol>
+<physvol name="topcapTPB4" copynumber="4">
+  <volumeref ref="TPBTopLog" />
+  <positionref ref="TPB_pos4"/>
+  <rotationref ref="TPB_rot4"/>
+</physvol>
+<physvol name="bottomcapTPB53" copynumber="53">
+  <volumeref ref="TPBBotLog" />
+  <positionref ref="TPB_pos53"/>
+  <rotationref ref="TPB_rot53"/>
+</physvol>
+<physvol name="topcapTPB5" copynumber="5">
+  <volumeref ref="TPBTopLog" />
+  <positionref ref="TPB_pos5"/>
+  <rotationref ref="TPB_rot5"/>
+</physvol>
+<physvol name="bottomcapTPB54" copynumber="54">
+  <volumeref ref="TPBBotLog" />
+  <positionref ref="TPB_pos54"/>
+  <rotationref ref="TPB_rot54"/>
+</physvol>
+<physvol name="topcapTPB6" copynumber="6">
+  <volumeref ref="TPBTopLog" />
+  <positionref ref="TPB_pos6"/>
+  <rotationref ref="TPB_rot6"/>
+</physvol>
+<physvol name="bottomcapTPB55" copynumber="55">
+  <volumeref ref="TPBBotLog" />
+  <positionref ref="TPB_pos55"/>
+  <rotationref ref="TPB_rot55"/>
+</physvol>
+<physvol name="topcapTPB7" copynumber="7">
+  <volumeref ref="TPBTopLog" />
+  <positionref ref="TPB_pos7"/>
+  <rotationref ref="TPB_rot7"/>
+</physvol>
+<physvol name="bottomcapTPB56" copynumber="56">
+  <volumeref ref="TPBBotLog" />
+  <positionref ref="TPB_pos56"/>
+  <rotationref ref="TPB_rot56"/>
+</physvol>
+<physvol name="topcapTPB8" copynumber="8">
+  <volumeref ref="TPBTopLog" />
+  <positionref ref="TPB_pos8"/>
+  <rotationref ref="TPB_rot8"/>
+</physvol>
+<physvol name="bottomcapTPB57" copynumber="57">
+  <volumeref ref="TPBBotLog" />
+  <positionref ref="TPB_pos57"/>
+  <rotationref ref="TPB_rot57"/>
+</physvol>
+<physvol name="topcapTPB9" copynumber="9">
+  <volumeref ref="TPBTopLog" />
+  <positionref ref="TPB_pos9"/>
+  <rotationref ref="TPB_rot9"/>
+</physvol>
+<physvol name="bottomcapTPB58" copynumber="58">
+  <volumeref ref="TPBBotLog" />
+  <positionref ref="TPB_pos58"/>
+  <rotationref ref="TPB_rot58"/>
+</physvol>
+<physvol name="topcapTPB10" copynumber="10">
+  <volumeref ref="TPBTopLog" />
+  <positionref ref="TPB_pos10"/>
+  <rotationref ref="TPB_rot10"/>
+</physvol>
+<physvol name="bottomcapTPB59" copynumber="59">
+  <volumeref ref="TPBBotLog" />
+  <positionref ref="TPB_pos59"/>
+  <rotationref ref="TPB_rot59"/>
+</physvol>
+<physvol name="topcapTPB11" copynumber="11">
+  <volumeref ref="TPBTopLog" />
+  <positionref ref="TPB_pos11"/>
+  <rotationref ref="TPB_rot11"/>
+</physvol>
+<physvol name="bottomcapTPB60" copynumber="60">
+  <volumeref ref="TPBBotLog" />
+  <positionref ref="TPB_pos60"/>
+  <rotationref ref="TPB_rot60"/>
+</physvol>
+<physvol name="topcapTPB12" copynumber="12">
+  <volumeref ref="TPBTopLog" />
+  <positionref ref="TPB_pos12"/>
+  <rotationref ref="TPB_rot12"/>
+</physvol>
+<physvol name="bottomcapTPB61" copynumber="61">
+  <volumeref ref="TPBBotLog" />
+  <positionref ref="TPB_pos61"/>
+  <rotationref ref="TPB_rot61"/>
+</physvol>
+<physvol name="topcapTPB13" copynumber="13">
+  <volumeref ref="TPBTopLog" />
+  <positionref ref="TPB_pos13"/>
+  <rotationref ref="TPB_rot13"/>
+</physvol>
+<physvol name="bottomcapTPB62" copynumber="62">
+  <volumeref ref="TPBBotLog" />
+  <positionref ref="TPB_pos62"/>
+  <rotationref ref="TPB_rot62"/>
+</physvol>
+<physvol name="topcapTPB14" copynumber="14">
+  <volumeref ref="TPBTopLog" />
+  <positionref ref="TPB_pos14"/>
+  <rotationref ref="TPB_rot14"/>
+</physvol>
+<physvol name="bottomcapTPB63" copynumber="63">
+  <volumeref ref="TPBBotLog" />
+  <positionref ref="TPB_pos63"/>
+  <rotationref ref="TPB_rot63"/>
+</physvol>
+<physvol name="topcapTPB15" copynumber="15">
+  <volumeref ref="TPBTopLog" />
+  <positionref ref="TPB_pos15"/>
+  <rotationref ref="TPB_rot15"/>
+</physvol>
+<physvol name="bottomcapTPB64" copynumber="64">
+  <volumeref ref="TPBBotLog" />
+  <positionref ref="TPB_pos64"/>
+  <rotationref ref="TPB_rot64"/>
+</physvol>
+<physvol name="topcapTPB16" copynumber="16">
+  <volumeref ref="TPBTopLog" />
+  <positionref ref="TPB_pos16"/>
+  <rotationref ref="TPB_rot16"/>
+</physvol>
+<physvol name="bottomcapTPB65" copynumber="65">
+  <volumeref ref="TPBBotLog" />
+  <positionref ref="TPB_pos65"/>
+  <rotationref ref="TPB_rot65"/>
+</physvol>
+<physvol name="topcapTPB17" copynumber="17">
+  <volumeref ref="TPBTopLog" />
+  <positionref ref="TPB_pos17"/>
+  <rotationref ref="TPB_rot17"/>
+</physvol>
+<physvol name="bottomcapTPB66" copynumber="66">
+  <volumeref ref="TPBBotLog" />
+  <positionref ref="TPB_pos66"/>
+  <rotationref ref="TPB_rot66"/>
+</physvol>
+<physvol name="topcapTPB18" copynumber="18">
+  <volumeref ref="TPBTopLog" />
+  <positionref ref="TPB_pos18"/>
+  <rotationref ref="TPB_rot18"/>
+</physvol>
+<physvol name="bottomcapTPB67" copynumber="67">
+  <volumeref ref="TPBBotLog" />
+  <positionref ref="TPB_pos67"/>
+  <rotationref ref="TPB_rot67"/>
+</physvol>
+<physvol name="topcapTPB19" copynumber="19">
+  <volumeref ref="TPBTopLog" />
+  <positionref ref="TPB_pos19"/>
+  <rotationref ref="TPB_rot19"/>
+</physvol>
+<physvol name="bottomcapTPB68" copynumber="68">
+  <volumeref ref="TPBBotLog" />
+  <positionref ref="TPB_pos68"/>
+  <rotationref ref="TPB_rot68"/>
+</physvol>
+<physvol name="topcapTPB20" copynumber="20">
+  <volumeref ref="TPBTopLog" />
+  <positionref ref="TPB_pos20"/>
+  <rotationref ref="TPB_rot20"/>
+</physvol>
+<physvol name="bottomcapTPB69" copynumber="69">
+  <volumeref ref="TPBBotLog" />
+  <positionref ref="TPB_pos69"/>
+  <rotationref ref="TPB_rot69"/>
+</physvol>
+<physvol name="topcapTPB21" copynumber="21">
+  <volumeref ref="TPBTopLog" />
+  <positionref ref="TPB_pos21"/>
+  <rotationref ref="TPB_rot21"/>
+</physvol>
+<physvol name="bottomcapTPB70" copynumber="70">
+  <volumeref ref="TPBBotLog" />
+  <positionref ref="TPB_pos70"/>
+  <rotationref ref="TPB_rot70"/>
+</physvol>
+<physvol name="topcapTPB22" copynumber="22">
+  <volumeref ref="TPBTopLog" />
+  <positionref ref="TPB_pos22"/>
+  <rotationref ref="TPB_rot22"/>
+</physvol>
+<physvol name="bottomcapTPB71" copynumber="71">
+  <volumeref ref="TPBBotLog" />
+  <positionref ref="TPB_pos71"/>
+  <rotationref ref="TPB_rot71"/>
+</physvol>
+<physvol name="topcapTPB23" copynumber="23">
+  <volumeref ref="TPBTopLog" />
+  <positionref ref="TPB_pos23"/>
+  <rotationref ref="TPB_rot23"/>
+</physvol>
+<physvol name="bottomcapTPB72" copynumber="72">
+  <volumeref ref="TPBBotLog" />
+  <positionref ref="TPB_pos72"/>
+  <rotationref ref="TPB_rot72"/>
+</physvol>
+<physvol name="topcapTPB24" copynumber="24">
+  <volumeref ref="TPBTopLog" />
+  <positionref ref="TPB_pos24"/>
+  <rotationref ref="TPB_rot24"/>
+</physvol>
+<physvol name="bottomcapTPB73" copynumber="73">
+  <volumeref ref="TPBBotLog" />
+  <positionref ref="TPB_pos73"/>
+  <rotationref ref="TPB_rot73"/>
+</physvol>
+<physvol name="topcapTPB25" copynumber="25">
+  <volumeref ref="TPBTopLog" />
+  <positionref ref="TPB_pos25"/>
+  <rotationref ref="TPB_rot25"/>
+</physvol>
+<physvol name="bottomcapTPB74" copynumber="74">
+  <volumeref ref="TPBBotLog" />
+  <positionref ref="TPB_pos74"/>
+  <rotationref ref="TPB_rot74"/>
+</physvol>
+<physvol name="topcapTPB26" copynumber="26">
+  <volumeref ref="TPBTopLog" />
+  <positionref ref="TPB_pos26"/>
+  <rotationref ref="TPB_rot26"/>
+</physvol>
+<physvol name="bottomcapTPB75" copynumber="75">
+  <volumeref ref="TPBBotLog" />
+  <positionref ref="TPB_pos75"/>
+  <rotationref ref="TPB_rot75"/>
+</physvol>
+<physvol name="topcapTPB27" copynumber="27">
+  <volumeref ref="TPBTopLog" />
+  <positionref ref="TPB_pos27"/>
+  <rotationref ref="TPB_rot27"/>
+</physvol>
+<physvol name="bottomcapTPB76" copynumber="76">
+  <volumeref ref="TPBBotLog" />
+  <positionref ref="TPB_pos76"/>
+  <rotationref ref="TPB_rot76"/>
+</physvol>
+<physvol name="topcapTPB28" copynumber="28">
+  <volumeref ref="TPBTopLog" />
+  <positionref ref="TPB_pos28"/>
+  <rotationref ref="TPB_rot28"/>
+</physvol>
+<physvol name="bottomcapTPB77" copynumber="77">
+  <volumeref ref="TPBBotLog" />
+  <positionref ref="TPB_pos77"/>
+  <rotationref ref="TPB_rot77"/>
+</physvol>
+<physvol name="topcapTPB29" copynumber="29">
+  <volumeref ref="TPBTopLog" />
+  <positionref ref="TPB_pos29"/>
+  <rotationref ref="TPB_rot29"/>
+</physvol>
+<physvol name="bottomcapTPB78" copynumber="78">
+  <volumeref ref="TPBBotLog" />
+  <positionref ref="TPB_pos78"/>
+  <rotationref ref="TPB_rot78"/>
+</physvol>
+<physvol name="topcapTPB30" copynumber="30">
+  <volumeref ref="TPBTopLog" />
+  <positionref ref="TPB_pos30"/>
+  <rotationref ref="TPB_rot30"/>
+</physvol>
+<physvol name="bottomcapTPB79" copynumber="79">
+  <volumeref ref="TPBBotLog" />
+  <positionref ref="TPB_pos79"/>
+  <rotationref ref="TPB_rot79"/>
+</physvol>
+<physvol name="topcapTPB31" copynumber="31">
+  <volumeref ref="TPBTopLog" />
+  <positionref ref="TPB_pos31"/>
+  <rotationref ref="TPB_rot31"/>
+</physvol>
+<physvol name="bottomcapTPB80" copynumber="80">
+  <volumeref ref="TPBBotLog" />
+  <positionref ref="TPB_pos80"/>
+  <rotationref ref="TPB_rot80"/>
+</physvol>
+<physvol name="topcapTPB32" copynumber="32">
+  <volumeref ref="TPBTopLog" />
+  <positionref ref="TPB_pos32"/>
+  <rotationref ref="TPB_rot32"/>
+</physvol>
+<physvol name="bottomcapTPB81" copynumber="81">
+  <volumeref ref="TPBBotLog" />
+  <positionref ref="TPB_pos81"/>
+  <rotationref ref="TPB_rot81"/>
+</physvol>
+<physvol name="topcapTPB33" copynumber="33">
+  <volumeref ref="TPBTopLog" />
+  <positionref ref="TPB_pos33"/>
+  <rotationref ref="TPB_rot33"/>
+</physvol>
+<physvol name="bottomcapTPB82" copynumber="82">
+  <volumeref ref="TPBBotLog" />
+  <positionref ref="TPB_pos82"/>
+  <rotationref ref="TPB_rot82"/>
+</physvol>
+<physvol name="topcapTPB34" copynumber="34">
+  <volumeref ref="TPBTopLog" />
+  <positionref ref="TPB_pos34"/>
+  <rotationref ref="TPB_rot34"/>
+</physvol>
+<physvol name="bottomcapTPB83" copynumber="83">
+  <volumeref ref="TPBBotLog" />
+  <positionref ref="TPB_pos83"/>
+  <rotationref ref="TPB_rot83"/>
+</physvol>
+<physvol name="topcapTPB35" copynumber="35">
+  <volumeref ref="TPBTopLog" />
+  <positionref ref="TPB_pos35"/>
+  <rotationref ref="TPB_rot35"/>
+</physvol>
+<physvol name="bottomcapTPB84" copynumber="84">
+  <volumeref ref="TPBBotLog" />
+  <positionref ref="TPB_pos84"/>
+  <rotationref ref="TPB_rot84"/>
+</physvol>
+<physvol name="topcapTPB36" copynumber="36">
+  <volumeref ref="TPBTopLog" />
+  <positionref ref="TPB_pos36"/>
+  <rotationref ref="TPB_rot36"/>
+</physvol>
+<physvol name="bottomcapTPB85" copynumber="85">
+  <volumeref ref="TPBBotLog" />
+  <positionref ref="TPB_pos85"/>
+  <rotationref ref="TPB_rot85"/>
+</physvol>
+<physvol name="topcapTPB37" copynumber="37">
+  <volumeref ref="TPBTopLog" />
+  <positionref ref="TPB_pos37"/>
+  <rotationref ref="TPB_rot37"/>
+</physvol>
+<physvol name="bottomcapTPB86" copynumber="86">
+  <volumeref ref="TPBBotLog" />
+  <positionref ref="TPB_pos86"/>
+  <rotationref ref="TPB_rot86"/>
+</physvol>
+<physvol name="topcapTPB38" copynumber="38">
+  <volumeref ref="TPBTopLog" />
+  <positionref ref="TPB_pos38"/>
+  <rotationref ref="TPB_rot38"/>
+</physvol>
+<physvol name="bottomcapTPB87" copynumber="87">
+  <volumeref ref="TPBBotLog" />
+  <positionref ref="TPB_pos87"/>
+  <rotationref ref="TPB_rot87"/>
+</physvol>
+<physvol name="topcapTPB39" copynumber="39">
+  <volumeref ref="TPBTopLog" />
+  <positionref ref="TPB_pos39"/>
+  <rotationref ref="TPB_rot39"/>
+</physvol>
+<physvol name="bottomcapTPB88" copynumber="88">
+  <volumeref ref="TPBBotLog" />
+  <positionref ref="TPB_pos88"/>
+  <rotationref ref="TPB_rot88"/>
+</physvol>
+<physvol name="topcapTPB40" copynumber="40">
+  <volumeref ref="TPBTopLog" />
+  <positionref ref="TPB_pos40"/>
+  <rotationref ref="TPB_rot40"/>
+</physvol>
+<physvol name="bottomcapTPB89" copynumber="89">
+  <volumeref ref="TPBBotLog" />
+  <positionref ref="TPB_pos89"/>
+  <rotationref ref="TPB_rot89"/>
+</physvol>
+<physvol name="topcapTPB41" copynumber="41">
+  <volumeref ref="TPBTopLog" />
+  <positionref ref="TPB_pos41"/>
+  <rotationref ref="TPB_rot41"/>
+</physvol>
+<physvol name="bottomcapTPB90" copynumber="90">
+  <volumeref ref="TPBBotLog" />
+  <positionref ref="TPB_pos90"/>
+  <rotationref ref="TPB_rot90"/>
+</physvol>
+<physvol name="topcapTPB42" copynumber="42">
+  <volumeref ref="TPBTopLog" />
+  <positionref ref="TPB_pos42"/>
+  <rotationref ref="TPB_rot42"/>
+</physvol>
+<physvol name="bottomcapTPB91" copynumber="91">
+  <volumeref ref="TPBBotLog" />
+  <positionref ref="TPB_pos91"/>
+  <rotationref ref="TPB_rot91"/>
+</physvol>
+<physvol name="topcapTPB43" copynumber="43">
+  <volumeref ref="TPBTopLog" />
+  <positionref ref="TPB_pos43"/>
+  <rotationref ref="TPB_rot43"/>
+</physvol>
+<physvol name="bottomcapTPB92" copynumber="92">
+  <volumeref ref="TPBBotLog" />
+  <positionref ref="TPB_pos92"/>
+  <rotationref ref="TPB_rot92"/>
+</physvol>
+<physvol name="topcapTPB44" copynumber="44">
+  <volumeref ref="TPBTopLog" />
+  <positionref ref="TPB_pos44"/>
+  <rotationref ref="TPB_rot44"/>
+</physvol>
+<physvol name="bottomcapTPB93" copynumber="93">
+  <volumeref ref="TPBBotLog" />
+  <positionref ref="TPB_pos93"/>
+  <rotationref ref="TPB_rot93"/>
+</physvol>
+<physvol name="topcapTPB45" copynumber="45">
+  <volumeref ref="TPBTopLog" />
+  <positionref ref="TPB_pos45"/>
+  <rotationref ref="TPB_rot45"/>
+</physvol>
+<physvol name="bottomcapTPB94" copynumber="94">
+  <volumeref ref="TPBBotLog" />
+  <positionref ref="TPB_pos94"/>
+  <rotationref ref="TPB_rot94"/>
+</physvol>
+<physvol name="topcapTPB46" copynumber="46">
+  <volumeref ref="TPBTopLog" />
+  <positionref ref="TPB_pos46"/>
+  <rotationref ref="TPB_rot46"/>
+</physvol>
+<physvol name="bottomcapTPB95" copynumber="95">
+  <volumeref ref="TPBBotLog" />
+  <positionref ref="TPB_pos95"/>
+  <rotationref ref="TPB_rot95"/>
+</physvol>
+<physvol name="topcapTPB47" copynumber="47">
+  <volumeref ref="TPBTopLog" />
+  <positionref ref="TPB_pos47"/>
+  <rotationref ref="TPB_rot47"/>
+</physvol>
+<physvol name="bottomcapTPB96" copynumber="96">
+  <volumeref ref="TPBBotLog" />
+  <positionref ref="TPB_pos96"/>
+  <rotationref ref="TPB_rot96"/>
+</physvol>
+<physvol name="topcapTPB48" copynumber="48">
+  <volumeref ref="TPBTopLog" />
+  <positionref ref="TPB_pos48"/>
+  <rotationref ref="TPB_rot48"/>
+</physvol>
+<physvol name="bottomcapTPB97" copynumber="97">
+  <volumeref ref="TPBBotLog" />
+  <positionref ref="TPB_pos97"/>
+  <rotationref ref="TPB_rot97"/>
+</physvol>

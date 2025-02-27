@@ -1,0 +1,21 @@
+/run/verbose 1
+/inputmodel/inputGDML ../gdml/simple_target_detector/TargetShield.gdml
+/analysis/setOutputFileName ../${OUTPUT_FILE}
+/analysis/useVoxel false
+/analysis/saveBeamPion false
+/analysis/saveALPProd false
+/analysis/saveBeamTarget true
+/run/initialize
+/generator/setGenerator gps
+/gps/particle proton
+/gps/ene/type Mono
+/gps/ene/mono 800 MeV 
+/gps/pos/type Beam
+/gps/pos/centre -0.001 0. 0. m
+/gps/pos/halfx 1.0 cm
+/gps/pos/halfy 1.0 cm
+/gps/pos/sigma_x 5.0 cm
+/gps/pos/sigma_y 5.0 cm
+/gps/pos/rot1 0. 0. 1.
+/gps/direction 1. 0. 0.
+/run/beamOn 10

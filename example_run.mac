@@ -1,10 +1,10 @@
 /run/verbose 1
-/inputmodel/inputGDML ../gdml/simple_target_detector/TargetShield.gdml
-/analysis/setOutputFileName ../${OUTPUT_FILE}
+/inputmodel/inputGDML gdml/simple_target_detector/TargetShield.gdml
+/analysis/setOutputFileName SimResult.root
 /analysis/useVoxel false
 /analysis/saveBeamPion false
 /analysis/saveALPProd false
-/analysis/saveBeamTarget true
+/analysis/saveBeamTarget false
 /run/initialize
 /generator/setGenerator gps
 /gps/particle proton
